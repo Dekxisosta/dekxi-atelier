@@ -430,7 +430,7 @@ html {
   height: 110px;
   border-radius: 5px 5px 0 0;
   border: 3px groove var(--accent);
-  background: url('https://images.steamusercontent.com/ugc/12738354063547015858/9CF228115D8A2B9ACC51D47BEE8C3FAFF8FB63DE/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false') center 30% / cover no-repeat;
+  background: url("/assets/images/banner.jpg") center 30% / cover no-repeat;
   z-index: 20;
 }
 
