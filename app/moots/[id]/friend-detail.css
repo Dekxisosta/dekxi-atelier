@@ -1,0 +1,35 @@
+.friend-detail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 0 20px 28px;
+}
+
+.friend-detail-tags {
+  margin-top: 4px;
+}
+
+.friend-detail-links {
+  margin-top: 2px;
+}
+
+.friend-detail-back {
+  display: inline-block;
+  width: fit-content;
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  margin-top: 8px;
+  transition: color 0.15s ease, border-color 0.15s ease, letter-spacing 0.15s ease;
+}
+
+.friend-detail-back:hover {
+  color: var(--accent-light);
+  border-color: currentColor;
+  letter-spacing: 0.09em;
+}

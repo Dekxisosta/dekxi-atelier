@@ -1,0 +1,11 @@
+.friend-header-link,
+.friend-name-link {
+  display: contents;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.friend-name-link:hover .friend-name {
+  color: var(--accent-light);
+}
