@@ -121,7 +121,7 @@ export default function AdminDashboardClient() {
 
   async function handleLogout() {
     await supabase.auth.signOut();
-    router.push("/admin/login");
+    router.push("/?tab=admin");
     router.refresh();
   }
 
