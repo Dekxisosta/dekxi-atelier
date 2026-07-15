@@ -1,0 +1,58 @@
+.chibi-dock {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: sticky;
+  top: 20px;
+}
+
+.chibi-item {
+  width: 75px;
+  height: 75px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--accent-dim);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.chibi-item:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.chibi-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.chibi-tooltip {
+  position: fixed;
+  z-index: 999;
+  pointer-events: none;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+@media (max-width: 728px) {
+  .main-left-dock {
+    width: 100%;
+  }
+  .chibi-dock {
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: static;
+    top: auto;
+  }
+}

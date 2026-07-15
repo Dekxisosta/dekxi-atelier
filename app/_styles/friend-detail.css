@@ -1,0 +1,277 @@
+/* ── BACK LINK ── */
+.friend-detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin: 14px 0 0 20px;
+  padding: 6px 12px 6px 8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease,
+    transform 0.18s ease;
+}
+
+.friend-detail-back ion-icon {
+  font-size: 14px;
+  transition: transform 0.18s ease;
+}
+
+.friend-detail-back:hover {
+  color: var(--accent-light);
+  border-color: var(--border);
+  background: var(--card);
+  transform: translateX(-2px);
+}
+
+.friend-detail-back:hover ion-icon {
+  transform: translateX(-3px);
+}
+
+/* ── LAYOUT ── */
+.friend-detail-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 14px 20px 32px;
+}
+
+/* ── LEFT PANEL ── */
+.friend-detail-panel {
+  flex: 0 0 33vw;
+  max-width: 33vw;
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+/* ── HERO ── */
+.friend-detail-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-bottom: 24px;
+}
+
+.friend-detail-cover {
+  width: 100%;
+  height: 160px;
+  background-color: var(--bg-dark);
+  background-size: cover;
+  background-position: center;
+  border-bottom: 3px double var(--border-hover);
+  position: relative;
+}
+
+.friend-detail-cover-empty {
+  background-image: linear-gradient(
+    135deg,
+    var(--accent-dim) 0%,
+    var(--bg-dark) 55%,
+    var(--accent-dim) 100%
+  );
+}
+
+.friend-detail-cover-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, var(--card) 100%);
+  pointer-events: none;
+}
+
+.friend-detail-avatar-wrap {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  margin-top: -56px;
+  z-index: 2;
+}
+
+.friend-detail-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px ridge var(--accent);
+  background: var(--bg-dark);
+  display: block;
+  animation: avatarPulse 3s ease-in-out infinite;
+}
+
+.friend-detail-avatar-frame {
+  position: absolute;
+  top: -14%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 130%;
+  height: 130%;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.friend-detail-name {
+  margin-top: 12px;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-align: center;
+  background: linear-gradient(135deg, var(--accent-light), var(--accent) 60%, var(--border-hover));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0;
+  margin-top: 30px;
+  transform: translateY(10px);
+  animation: fadeUp 0.5s ease 0.1s forwards;
+}
+
+.friend-detail-bio {
+  margin-top: 8px;
+  max-width: 340px;
+  padding: 0 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.7;
+  text-align: center;
+  color: var(--text-primary);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.5s ease 0.2s forwards;
+}
+
+/* ── BODY (tags / links) ── */
+.friend-detail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 18px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.friend-detail-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.friend-detail-section-label {
+  font-family: 'Roboto', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.friend-detail-tags {
+  justify-content: center;
+}
+
+.friend-detail-links {
+  justify-content: center;
+}
+
+/* ── RIGHT: ALBUM ── */
+.friend-detail-album {
+  flex: 1;
+  min-width: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 18px 22px 24px;
+}
+
+.friend-detail-album-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 2px double var(--border-hover);
+}
+
+.friend-detail-album-title {
+  font-family: 'ClarityCity-Black', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--accent-light);
+  text-transform: uppercase;
+}
+
+.friend-detail-album-count {
+  font-family: 'Roboto', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  opacity: 0.65;
+}
+
+.friend-detail-album-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.friend-detail-album-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.friend-detail-album-slot {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-dark);
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  opacity: 0.35;
+}
+
+.friend-detail-album-slot ion-icon {
+  font-size: 1.6rem;
+}
+
+.friend-detail-album-empty-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+/* ── MOBILE: STACK ── */
+@media (max-width: 900px) {
+  .friend-detail-layout {
+    flex-direction: column;
+  }
+  .friend-detail-panel {
+    flex: 1 1 auto;
+    max-width: 100%;
+    width: 100%;
+  }
+  .friend-detail-album {
+    width: 100%;
+  }
+}

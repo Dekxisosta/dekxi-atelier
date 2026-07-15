@@ -10,4 +10,3 @@ export function extractStoragePath(url: string, bucket: string): string | null {
   if (idx === -1) return null;
   return url.slice(idx + marker.length);
 }
- 

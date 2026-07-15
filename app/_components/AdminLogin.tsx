@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import "../admin/admin.css";
 
 const VISUAL_GIF_URL = "https://media.tenor.com/RRvDd69pL94AAAAM/reverse-1999-vertin.gif";
 const ROUND_2_IMAGE_URL =

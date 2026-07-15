@@ -1,0 +1,100 @@
+.particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.page-header-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 10px;
+  position: relative;
+  z-index: 2;
+  background: var(--black);
+}
+
+.page-header-line {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 16px;
+  border-top: 3px double var(--border);
+  border-bottom: 3px double var(--border);
+}
+
+.page-header-label {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: var(--black);
+  padding: 0 12px;
+}
+
+.cog-decor {
+  position: absolute;
+  top: 76%;
+  left: 10.5%;
+  width: 360px;
+  height: 360px;
+  transform: translate(-50%, -50%);
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+  animation: cogSpin 20s linear infinite;
+}
+
+.wing-decor {
+  position: absolute;
+  top: 24%;
+  left: 86%;
+  width: 480px;
+  height: 480px;
+  transform: translate(-50%, -50%);
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+  animation: cogSpinReverse 28s linear infinite;
+}
+
+.cog-decor-small {
+  position: absolute;
+  top: 90%;
+  left: 90%;
+  width: 220px;
+  height: 220px;
+  transform: translate(-50%, -50%);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+  animation: cogSpin 14s linear infinite;
+}
+
+.cog-decor-tiny {
+  position: absolute;
+  top: 8%;
+  left: 6%;
+  width: 160px;
+  height: 160px;
+  transform: translate(-50%, -50%);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+  animation: cogSpinReverse 18s linear infinite;
+}
+
+@keyframes cogSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes cogSpinReverse {
+  from { transform: translate(-50%, -50%) rotate(360deg); }
+  to   { transform: translate(-50%, -50%) rotate(0deg); }
+}

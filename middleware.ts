@@ -37,20 +37,19 @@ export async function middleware(request: NextRequest) {
     data: { user }
   } = await supabase.auth.getUser();
 
-  console.log("MIDDLEWARE CHECK:", {
-    path: request.nextUrl.pathname,
-    userId: user?.id,
-    adminIds: ADMIN_USER_IDS
-  });
-
+  const isAdmin = !!user && ADMIN_USER_IDS.includes(user.id);
   const isDashboard = request.nextUrl.pathname.startsWith("/admin/dashboard");
-  const isLogin = request.nextUrl.pathname.startsWith("/admin/login");
+  const isLoginTab =
+    request.nextUrl.pathname === "/" &&
+    request.nextUrl.searchParams.get("tab") === "admin";
 
-  if (isDashboard && (!user || !ADMIN_USER_IDS.includes(user.id))) {
-    return NextResponse.redirect(new URL("/admin/login", request.url));
+  if (isDashboard && !isAdmin) {
+    const loginUrl = new URL("/", request.url);
+    loginUrl.searchParams.set("tab", "admin");
+    return NextResponse.redirect(loginUrl);
   }
 
-  if (isLogin && user && ADMIN_USER_IDS.includes(user.id)) {
+  if (isLoginTab && isAdmin) {
     return NextResponse.redirect(new URL("/admin/dashboard", request.url));
   }
 
@@ -58,5 +57,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"]
+  matcher: ["/", "/admin/:path*"]
 };

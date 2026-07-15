@@ -1,12 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import ImageUploader from "@/components/ImageUploader";
+import MarkdownEditor from "@/components/MarkdownEditor";
 import FriendPreview from "@/components/FriendPreview";
 import { extractStoragePath } from "@/lib/supabase/storage-utils";
-
 const IMAGE_BUCKET = "site-images";
 const FRAME_BUCKET = "profile-frames";
 
@@ -23,6 +23,8 @@ type Friend = {
   friend_links: FriendLink[] | null;
 };
 
+type Attachment = { name: string; url: string; path: string };
+
 type BlogPost = {
   id: string;
   slug: string;
@@ -31,6 +33,7 @@ type BlogPost = {
   content: string | null;
   tag: string;
   cover_image_url: string | null;
+  attachments: Attachment[] | null;
 };
 
 const emptyFriendForm = {
@@ -51,7 +54,8 @@ const emptyBlogForm = {
   excerpt: "",
   content: "",
   tag: "",
-  cover_image_url: ""
+  cover_image_url: "",
+  attachments: [] as Attachment[]
 };
 
 function parseLinks(text: string): FriendLink[] {
@@ -82,6 +86,12 @@ export default function AdminDashboardClient() {
 
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [blogForm, setBlogForm] = useState(emptyBlogForm);
+
+  const contentTextareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // ── Attachment drag-and-drop state ──
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
   const friendPreviewTags = useMemo(
     () =>
@@ -215,7 +225,8 @@ export default function AdminDashboardClient() {
       excerpt: blogForm.excerpt.trim(),
       content: blogForm.content.trim(),
       tag: blogForm.tag.trim(),
-      cover_image_url: blogForm.cover_image_url.trim()
+      cover_image_url: blogForm.cover_image_url.trim(),
+      attachments: blogForm.attachments
     };
 
     const { error } = blogForm.id
@@ -238,7 +249,8 @@ export default function AdminDashboardClient() {
       excerpt: p.excerpt || "",
       content: p.content || "",
       tag: p.tag || "",
-      cover_image_url: p.cover_image_url || ""
+      cover_image_url: p.cover_image_url || "",
+      attachments: p.attachments || []
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -259,12 +271,111 @@ export default function AdminDashboardClient() {
       }
     }
 
+    const attachmentPaths = (p.attachments || []).map((a) => a.path).filter(Boolean);
+    if (attachmentPaths.length) {
+      const { error: removeAttachmentsError } = await supabase.storage
+        .from(IMAGE_BUCKET)
+        .remove(attachmentPaths);
+      if (removeAttachmentsError) {
+        console.error("Failed to remove post attachments:", removeAttachmentsError.message);
+        // non-fatal — still proceed with deleting the row
+      }
+    }
+
     const { error } = await supabase.from("blog_posts").delete().eq("id", p.id);
     if (error) {
       alert("Delete failed: " + error.message);
       return;
     }
     loadPosts();
+  }
+
+  // ── Attachments bucket ──
+  async function handleAttachmentUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = e.target.files;
+    if (!files || !files.length) return;
+
+    const uploaded: Attachment[] = [];
+    for (const file of Array.from(files)) {
+      const path = `blog-attachments/${crypto.randomUUID()}-${file.name}`;
+      const { error } = await supabase.storage.from(IMAGE_BUCKET).upload(path, file);
+      if (error) {
+        alert(`Upload failed for ${file.name}: ${error.message}`);
+        continue;
+      }
+      const { data } = supabase.storage.from(IMAGE_BUCKET).getPublicUrl(path);
+      uploaded.push({ name: file.name, url: data.publicUrl, path });
+    }
+
+    setBlogForm((prev) => ({ ...prev, attachments: [...prev.attachments, ...uploaded] }));
+    e.target.value = "";
+  }
+
+  async function removeAttachment(att: Attachment) {
+    if (!confirm(`Remove ${att.name}? This deletes the file from storage.`)) return;
+
+    const { error } = await supabase.storage.from(IMAGE_BUCKET).remove([att.path]);
+    if (error) {
+      alert("Remove failed: " + error.message);
+      return;
+    }
+
+    setBlogForm((prev) => ({
+      ...prev,
+      attachments: prev.attachments.filter((a) => a.path !== att.path)
+    }));
+  }
+
+  function insertAttachmentMarkdown(att: Attachment) {
+    const snippet = `![${att.name}](${att.url})`;
+    const textarea = contentTextareaRef.current;
+
+    if (!textarea) {
+      setBlogForm((prev) => ({ ...prev, content: prev.content + "\n" + snippet }));
+      return;
+    }
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const next = blogForm.content.slice(0, start) + snippet + blogForm.content.slice(end);
+    setBlogForm((prev) => ({ ...prev, content: next }));
+
+    requestAnimationFrame(() => {
+      textarea.focus();
+      textarea.selectionStart = textarea.selectionEnd = start + snippet.length;
+    });
+  }
+
+  // ── Attachment drag-and-drop reordering ──
+  function handleDragStart(index: number) {
+    setDraggedIndex(index);
+  }
+
+  function handleDragOver(e: React.DragEvent, index: number) {
+    e.preventDefault(); // required to allow drop
+    if (index !== dragOverIndex) setDragOverIndex(index);
+  }
+
+  function handleDragEnd() {
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+  }
+
+  function handleDrop(e: React.DragEvent, dropIndex: number) {
+    e.preventDefault();
+    if (draggedIndex === null || draggedIndex === dropIndex) {
+      handleDragEnd();
+      return;
+    }
+
+    setBlogForm((prev) => {
+      const next = [...prev.attachments];
+      const [moved] = next.splice(draggedIndex, 1);
+      next.splice(dropIndex, 0, moved);
+      return { ...prev, attachments: next };
+    });
+
+    handleDragEnd();
   }
 
   return (
@@ -434,10 +545,11 @@ export default function AdminDashboardClient() {
 
       {tab === "blog" && (
         <section className="admin-tab-panel">
-          <div className="admin-columns">
-            <div className="admin-column">
-              <h2 className="admin-section-title">Add / Edit Blog Post</h2>
-              <form className="admin-form" onSubmit={submitBlog}>
+          <h2 className="admin-section-title">Add / Edit Blog Post</h2>
+          <form className="admin-form" onSubmit={submitBlog}>
+            {/* ── TOP LEVEL: post details ── */}
+            <div className="admin-blog-toplevel">
+              <div>
                 <label className="admin-label">Slug (unique, e.g. my-post-title)</label>
                 <input
                   className="admin-input"
@@ -445,7 +557,9 @@ export default function AdminDashboardClient() {
                   value={blogForm.slug}
                   onChange={(e) => setBlogForm({ ...blogForm, slug: e.target.value })}
                 />
+              </div>
 
+              <div>
                 <label className="admin-label">Title</label>
                 <input
                   className="admin-input"
@@ -453,7 +567,9 @@ export default function AdminDashboardClient() {
                   value={blogForm.title}
                   onChange={(e) => setBlogForm({ ...blogForm, title: e.target.value })}
                 />
+              </div>
 
+              <div className="admin-blog-toplevel-full">
                 <label className="admin-label">Excerpt</label>
                 <textarea
                   className="admin-input"
@@ -462,7 +578,9 @@ export default function AdminDashboardClient() {
                   value={blogForm.excerpt}
                   onChange={(e) => setBlogForm({ ...blogForm, excerpt: e.target.value })}
                 />
+              </div>
 
+              <div className="admin-blog-toplevel-full">
                 <ImageUploader
                   bucket={IMAGE_BUCKET}
                   folder="blog-covers"
@@ -470,15 +588,9 @@ export default function AdminDashboardClient() {
                   value={blogForm.cover_image_url}
                   onChange={(url) => setBlogForm({ ...blogForm, cover_image_url: url })}
                 />
+              </div>
 
-                <label className="admin-label">Content (full post body)</label>
-                <textarea
-                  className="admin-input"
-                  rows={6}
-                  value={blogForm.content}
-                  onChange={(e) => setBlogForm({ ...blogForm, content: e.target.value })}
-                />
-
+              <div>
                 <label className="admin-label">Tag</label>
                 <input
                   className="admin-input"
@@ -486,56 +598,117 @@ export default function AdminDashboardClient() {
                   value={blogForm.tag}
                   onChange={(e) => setBlogForm({ ...blogForm, tag: e.target.value })}
                 />
-
-                <div className="admin-form-actions">
-                  <button type="submit" className="admin-btn">
-                    {blogForm.id ? "Save Changes" : "Add Post"}
-                  </button>
-                  {blogForm.id && (
-                    <button
-                      type="button"
-                      className="admin-btn admin-btn-ghost"
-                      onClick={() => setBlogForm(emptyBlogForm)}
-                    >
-                      Cancel Edit
-                    </button>
-                  )}
-                </div>
-              </form>
+              </div>
             </div>
 
-            <div className="admin-column">
-              <h2 className="admin-section-title">Existing Posts</h2>
-              <div className="admin-list">
-                {posts.length === 0 && <p>No posts yet.</p>}
-                {posts.map((p) => (
-                  <div className="admin-row" key={p.id}>
-                    {p.cover_image_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img className="admin-row-thumb" src={p.cover_image_url} alt="" />
-                    ) : (
-                      <div className="admin-row-thumb admin-row-thumb-empty" />
-                    )}
-                    <div className="admin-row-info">
-                      <strong>{p.title}</strong>
-                      <span>
-                        {p.slug} · {p.tag}
+            {/* ── MID LEVEL: content editor + attachments ── */}
+            <div className="admin-blog-content">
+              <label className="admin-label">Content (Markdown)</label>
+              <MarkdownEditor
+                value={blogForm.content}
+                onChange={(v) => setBlogForm({ ...blogForm, content: v })}
+                textareaRef={contentTextareaRef}
+              />
+
+              <label className="admin-label">Attachments</label>
+              <div className="attachments-bucket">
+                <input type="file" multiple onChange={handleAttachmentUpload} />
+                <div className="attachments-list">
+                  {blogForm.attachments.length === 0 && (
+                    <p style={{ fontSize: "11.5px", opacity: 0.6, fontStyle: "italic" }}>
+                      No attachments yet.
+                    </p>
+                  )}
+                  {blogForm.attachments.map((att, index) => (
+                    <div
+                      className={
+                        "attachment-row" +
+                        (draggedIndex === index ? " attachment-row-dragging" : "") +
+                        (dragOverIndex === index && draggedIndex !== index
+                          ? " attachment-row-dragover"
+                          : "")
+                      }
+                      key={att.path}
+                      draggable
+                      onDragStart={() => handleDragStart(index)}
+                      onDragOver={(e) => handleDragOver(e, index)}
+                      onDrop={(e) => handleDrop(e, index)}
+                      onDragEnd={handleDragEnd}
+                    >
+                      <span className="attachment-row-handle" aria-hidden="true">
+                        ⠿
                       </span>
+                      <span className="attachment-row-name">{att.name}</span>
+                      <div className="attachment-row-actions">
+                        <button
+                          type="button"
+                          className="admin-btn admin-btn-small"
+                          onClick={() => insertAttachmentMarkdown(att)}
+                        >
+                          Insert
+                        </button>
+                        <button
+                          type="button"
+                          className="admin-btn admin-btn-small admin-btn-danger"
+                          onClick={() => removeAttachment(att)}
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </div>
-                    <div className="admin-row-actions">
-                      <button className="admin-btn admin-btn-small" onClick={() => editPost(p)}>
-                        Edit
-                      </button>
-                      <button
-                        className="admin-btn admin-btn-small admin-btn-danger"
-                        onClick={() => deletePost(p)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
+            </div>
+
+            <div className="admin-form-actions">
+              <button type="submit" className="admin-btn">
+                {blogForm.id ? "Save Changes" : "Add Post"}
+              </button>
+              {blogForm.id && (
+                <button
+                  type="button"
+                  className="admin-btn admin-btn-ghost"
+                  onClick={() => setBlogForm(emptyBlogForm)}
+                >
+                  Cancel Edit
+                </button>
+              )}
+            </div>
+          </form>
+
+          {/* ── BOTTOM LEVEL: existing posts, full width ── */}
+          <div className="admin-blog-posts">
+            <h2 className="admin-section-title">Existing Posts</h2>
+            <div className="admin-list">
+              {posts.length === 0 && <p>No posts yet.</p>}
+              {posts.map((p) => (
+                <div className="admin-row" key={p.id}>
+                  {p.cover_image_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img className="admin-row-thumb" src={p.cover_image_url} alt="" />
+                  ) : (
+                    <div className="admin-row-thumb admin-row-thumb-empty" />
+                  )}
+                  <div className="admin-row-info">
+                    <strong>{p.title}</strong>
+                    <span>
+                      {p.slug} · {p.tag}
+                    </span>
+                  </div>
+                  <div className="admin-row-actions">
+                    <button className="admin-btn admin-btn-small" onClick={() => editPost(p)}>
+                      Edit
+                    </button>
+                    <button
+                      className="admin-btn admin-btn-small admin-btn-danger"
+                      onClick={() => deletePost(p)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>

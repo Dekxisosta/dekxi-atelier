@@ -1,0 +1,33 @@
+.admin-login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px;
+  background: var(--bg);
+  border: 3px solid transparent;
+  border-image: linear-gradient(135deg, var(--accent-light), var(--accent), var(--border-hover), var(--accent), var(--accent-light)) 1;
+  border-radius: var(--radius-card);
+}
+
+.admin-login-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.admin-login-error {
+  color: #e0605a;
+  font-size: 12.5px;
+}

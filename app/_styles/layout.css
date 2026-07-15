@@ -1,0 +1,237 @@
+.container-page {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  gap: 24px;
+}
+
+.container-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.04) 0px,
+    rgba(0, 0, 0, 0.04) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+}
+
+.container-main-decor-fur {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+}
+
+.container-main-decor {
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.bg-decor {
+  display: none;
+}
+
+/*
+  ── LAYOUT BREAKPOINTS ──
+  Desktop  (> 1000px): 3 columns side by side  → main-left | main-center | main-right
+  Tablet   (729–1000px): main-left full width on top, main-center + main-right share a row below
+  Mobile   (≤ 728px): everything stacked, 1 column
+*/
+.container-main {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  position: relative;
+  gap: 0;
+  border-radius: 0;
+  background-color: var(--bg);
+}
+
+.main-left {
+  flex: 8;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  padding: 20px;
+  min-width: 0;
+  position: relative;
+}
+
+.main-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  animation: scanlines 0.5s steps(1) infinite;
+}
+
+.main-left::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    transparent 0%,
+    rgba(212, 237, 63, 0.03) 50%,
+    transparent 100%
+  );
+  background-size: 100% 8px;
+  animation: scanSweep 3s linear infinite;
+}
+
+.main-left > * {
+  position: relative;
+  z-index: 1;
+}
+
+.main-left:hover::before {
+  animation: scanlines 0.1s steps(1) infinite, glitch 2s steps(1) infinite;
+}
+
+.main-left-dock {
+  flex-shrink: 0;
+  width: 75px;
+}
+
+.main-left-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.main-center {
+  flex: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 20px 14px;
+  border-left: 1px solid var(--border);
+  background: var(--bg);
+  min-width: 0;
+}
+
+.main-right {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 14px;
+  border-left: 1px solid var(--border);
+  background: var(--bg);
+  max-width: 300px;
+  min-width: 0;
+}
+
+/* Layout-specific keyframes */
+@keyframes scanlines {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 3px; }
+}
+
+@keyframes scanSweep {
+  0%   { background-position: 0 -100%; }
+  100% { background-position: 0 200%; }
+}
+
+@keyframes glitch {
+  0%   { clip-path: inset(0 0 98% 0); transform: translateX(-4px); opacity: 1; }
+  5%   { clip-path: inset(30% 0 60% 0); transform: translateX(4px);  opacity: 0.8; }
+  10%  { clip-path: inset(70% 0 10% 0); transform: translateX(-2px); opacity: 1; }
+  15%  { clip-path: inset(0 0 0 0);     transform: translateX(0);    opacity: 1; }
+  100% { clip-path: inset(0 0 0 0);     transform: translateX(0);    opacity: 1; }
+}
+
+/* Layout breakpoints */
+@media (min-width: 728px) {
+  .container-main-decor-fur { padding: 3px; }
+  .container-main-decor     { padding: 3px; }
+
+  .bg-decor {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.25) 100%);
+    pointer-events: none;
+  }
+}
+
+/* Tablet: main-left on top, center+right split below */
+@media (max-width: 1000px) and (min-width: 729px) {
+  .container-main {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .main-left {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .main-center {
+    flex: 1 1 50%;
+    width: 50%;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .main-right {
+    flex: 1 1 50%;
+    width: 50%;
+    max-width: none;
+    border-left: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+  }
+}
+
+/* Mobile: full single-column stack */
+@media (max-width: 728px) {
+  .container-main {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .main-left,
+  .main-center,
+  .main-right {
+    width: 100%;
+    max-width: none;
+    flex: 1 1 auto;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding: 16px 20px;
+  }
+  .main-left {
+    border-top: none;
+    flex-direction: column;
+  }
+}

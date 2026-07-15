@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap');
+
+@font-face {
+  font-family: 'Mikodacs';
+  src: url('/assets/fonts/Mikodacs.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/assets/fonts/Roboto.ttf') format('truetype');
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Backgrounds */
+  --bg:             #181412;
+  --bg-dark:        #0f0c0a;
+  --sidebar:        #221b18;
+
+  /* Cards */
+  --card:           rgba(36, 29, 24, 0.92);
+  --card-hover:     rgba(58, 46, 34, 0.95);
+
+  /* Borders */
+  --border:         #6b5332;
+  --border-hover:   #c69b4d;
+
+  /* Typography */
+  --text-primary:   #f0e6d2;
+  --text-secondary: #d5ae62;
+  --font-heading:   'Mikodacs', 'Bebas Neue', sans-serif;
+
+  /* Accents */
+  --accent:         #d2a14a;
+  --accent-light:   #f2cb79;
+  --accent-dim:     rgba(210, 161, 74, 0.22);
+
+  /* Neutral */
+  --white:          #f6eddc;
+
+  /* Extra */
+  --black:          #090807;
+  --shadow:         rgba(0, 0, 0, 0.55);
+
+  /* Radius */
+  --radius-card:    5px;
+  --radius-avatar:  50%;
+  --radius-pill:    4px;
+  --radius-banner:  4px;
+}
+
+body {
+  margin: 0;
+  background-color: var(--black);
+  background-image:
+    linear-gradient(rgba(24, 20, 18, 0.945), rgba(24, 20, 18, 0.945)),
+    url('https://images2.alphacoders.com/132/1329303.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+strong {
+  font-weight: 900;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.15;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Global page scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+  border: 2px solid var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--bg-dark);
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--bg-dark);
+  overflow-x: hidden;
+}
+
+/* Shared keyframe — used by hero text (profile-header.css),
+   link cards (links.css), and friend cards (friends.css) */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
