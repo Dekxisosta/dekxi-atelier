@@ -1,7 +1,7 @@
 .chibi-dock {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   position: sticky;
   top: 20px;
 }
@@ -11,9 +11,6 @@
   height: 75px;
   flex-shrink: 0;
   overflow: hidden;
-  background: var(--accent-dim);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-card);
   cursor: pointer;
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
