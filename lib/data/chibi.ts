@@ -1,8 +1,8 @@
 export const CHIBI_IMAGES = [
-  { id: "chibi-don-quixote", src: "https://limbuscompany.wiki.gg/wiki/Category:Sinner_Icons#/media/File:Don_Quixote_Icon.png", label: "Don Quixote" },
-  { id: "chibi-outis", src: "https://limbuscompany.wiki.gg/wiki/Category:Sinner_Icons#/media/File:Outis_Icon.png", label: "Outis" },
-  { id: "chibi-rodion", src: "https://limbuscompany.wiki.gg/wiki/Category:Sinner_Icons#/media/File:Rodion_Icon.png", label: "Rodion" },
-  { id: "chibi-ishmael", src: "https://limbuscompany.wiki.gg/wiki/Category:Sinner_Icons#/media/File:Ishmael_Icon.png", label: "Ishmael" },
-  { id: "chibi-gregor", src: "https://limbuscompany.wiki.gg/wiki/Category:Sinner_Icons#/media/File:Gregor_Icon.png", label: "Gregor" },
-  { id: "chibi-faust", src: "https://limbuscompany.wiki.gg/wiki/Category:Sinner_Icons#/media/File:Faust_Icon.png", label: "Faust" }
+  { id: "chibi-don-quixote", src: "/assets/images/Don_Quixote_Icon.webp", label: "Don Quixote" },
+  { id: "chibi-outis", src: "/assets/images/Outis_Icon.webp", label: "Outis" },
+  { id: "chibi-rodion", src: "/assets/images/Rodion_Icon.webp", label: "Rodion" },
+  { id: "chibi-ishmael", src: "/assets/images/Ishmael_Icon.webp", label: "Ishmael" },
+  { id: "chibi-gregor", src: "/assets/images/Gregor_Icon.webp", label: "Gregor" },
+  { id: "chibi-faust", src: "/assets/images/Faust_Icon.webp", label: "Faust" }
 ] as const;
