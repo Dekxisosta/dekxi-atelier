@@ -7,20 +7,20 @@ export default function Sidebar() {
   return (
     <div className="main-right">
       <h1>LIMBUS COMPANY</h1>
-      <div className="widget-panel">
-        <h3 className="about-subheading">steam</h3>
+      <div className="widget-panel widget-panel--steam">
+        <h3 className="widget-subheading">steam</h3>
         <SteamWidget />
       </div>
-      <div className="widget-panel">
-        <h3 className="about-subheading">spotify</h3>
+      <div className="widget-panel widget-panel--spotify">
+        <h3 className="widget-subheading">spotify</h3>
         <SpotifyWidget />
       </div>
-      <div className="widget-panel">
-        <h3 className="about-subheading">codewars</h3>
+      <div className="widget-panel widget-panel--codewars">
+        <h3 className="widget-subheading">codewars</h3>
         <CodewarsWidget />
       </div>
-      <div className="widget-panel">
-        <h3 className="about-subheading">latest posts</h3>
+      <div className="widget-panel widget-panel--blog">
+        <h3 className="widget-subheading">latest posts</h3>
         <BlogList />
       </div>
       <div className="about-collab">
