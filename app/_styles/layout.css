@@ -194,7 +194,7 @@
 }
 
 /* Tablet: main-left on top, center+right split below */
-@media (max-width: 1000px) and (min-width: 729px) {
+@media (max-width: 1048px) and (min-width: 729px) {
   .container-main {
     flex-direction: row;
     flex-wrap: wrap;

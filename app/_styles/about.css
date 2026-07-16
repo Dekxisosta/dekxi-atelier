@@ -20,6 +20,59 @@
     inset 0 0 0 2px var(--accent-dim);
 }
 
+.about-section > div {
+  padding: 8px 14px;
+  position: relative;
+  z-index: 1; 
+  border: 2.5px dashed var(--bg);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.5),      
+    0 1px 0 rgba(255, 255, 255, 0.06), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.motto {
+  position: relative;
+  letter-spacing: 0.26em;
+  color: var(--accent)
+}
+
+.motto::before,
+.motto::after {
+  content: attr(data-text); /* requires data-text="same content" on the element, see note below */
+  position: absolute;
+  inset: 0;
+  letter-spacing: 0.26em;
+  background: inherit;
+  overflow: hidden;
+}
+
+.motto::before {
+  left: 2px;
+  color: #642911; /* red channel offset */
+  clip-path: inset(0 0 0 0);
+  animation: glitch-top 3.5s infinite linear alternate-reverse;
+}
+
+.motto::after {
+  left: -2px;
+  color: #0c4d29; /* cyan channel offset */
+  clip-path: inset(0 0 0 0);
+  animation: glitch-bottom 3.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-top {
+  0%, 92%, 100% { clip-path: inset(0 0 100% 0); opacity: 0; }
+  93% { clip-path: inset(10% 0 60% 0); opacity: 1; transform: translateX(-2px); }
+  94% { clip-path: inset(40% 0 20% 0); opacity: 1; transform: translateX(2px); }
+  95% { clip-path: inset(0 0 100% 0); opacity: 0; }
+}
+
+@keyframes glitch-bottom {
+  0%, 90%, 100% { clip-path: inset(100% 0 0 0); opacity: 0; }
+  91% { clip-path: inset(60% 0 5% 0); opacity: 1; transform: translateX(2px); }
+  92% { clip-path: inset(20% 0 45% 0); opacity: 1; transform: translateX(-2px); }
+  96% { clip-path: inset(100% 0 0 0); opacity: 0; }
+}
 
 .about-subheading {
   display: inline-block;
@@ -191,7 +244,7 @@
 
 .gold-tube {
   position: absolute;
-  inset: -7px; /* let it peek out slightly past the section edges */
+  inset: -4px; /* let it peek out slightly past the section edges */
   z-index: -1;
   border-radius: 24px;
   overflow: hidden;

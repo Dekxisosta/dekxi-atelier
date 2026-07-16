@@ -19,12 +19,12 @@
 
 .content-grid {
   display: grid !important;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 12px !important;
 }
 
 .content-grid::before {
-  grid-column: span 7;
+  grid-column: span 5;
 }
 
 .link-card {
