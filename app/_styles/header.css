@@ -41,7 +41,7 @@
   gap: 14px;
   padding: 8px 12px;
   background: var(--bg-dark);
-  position: sticky; /* unchanged — still sticks to top: 0 */
+  position: sticky;
   top: 0;
   z-index: 50;
   font-family: 'Roboto', monospace;
@@ -67,7 +67,7 @@
   background: var(--accent);
 }
 
-.ide-header-bar ion-icon{
+.ide-header-bar ion-icon {
   color: white;
 }
 
@@ -89,10 +89,11 @@
 .ide-dot-yellow { background: #e0b95a; }
 .ide-dot-green  { background: #7bbf6a; }
 
+/* ── TABS ── */
 .ide-header-tabs {
   display: flex;
   align-items: stretch;
-  gap: 4px;
+  gap: 2px;
   flex-shrink: 0;
 }
 
@@ -101,57 +102,103 @@
   align-items: center;
   min-width: 150px;
   height: 100%;
-  gap: 6px;
-  padding: 0 12px;
+  gap: 7px;
+  padding: 0 14px;
   background: transparent;
-  border: 1px solid transparent;
-  border-bottom: 2px solid transparent;
-  border-radius: 5px;
-  opacity: 0.5;
-  transition: opacity 0.15s ease, background 0.15s ease;
+  border: none;
+  position: relative;
+  opacity: 0.55;
   cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.ide-header-tab::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: translateX(-50%);
+  transition: width 0.2s ease;
 }
 
 .ide-header-tab:hover {
-  opacity: 0.8;
-  background: var(--card);
+  opacity: 0.85;
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+
+.ide-header-tab:hover::before {
+  width: calc(100% - 20px);
 }
 
 .ide-header-tab-active {
-  background: var(--card);
-  border-color: var(--border);
-  border-bottom: 2px solid var(--accent);
   opacity: 1;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.ide-header-tab-active::before {
+  width: calc(100% - 20px);
+  background: var(--accent);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.ide-header-tab-active::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
 }
 
 .ide-header-tab-icon {
   font-size: 13px;
   color: var(--accent-light);
   flex-shrink: 0;
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+
+.ide-header-tab-active .ide-header-tab-icon,
+.ide-header-tab:hover .ide-header-tab-icon {
+  opacity: 1;
 }
 
 .ide-header-tab-label {
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   color: var(--text-primary);
   white-space: nowrap;
 }
 
 .ide-header-tab-route {
+  font-family: 'Roboto', monospace;
   font-size: 9px;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--text-secondary);
-  opacity: 0.6;
+  opacity: 0.5;
   margin-left: 2px;
   white-space: nowrap;
 }
 
-.ide-header-tab-active .ide-header-tab-route {
-  color: var(--accent-light);
-  opacity: 0.9;
+.ide-header-tab-route::before {
+  content: '// ';
+  opacity: 0.7;
 }
 
+.ide-header-tab-active .ide-header-tab-route {
+  color: var(--accent-light);
+  opacity: 0.85;
+}
+
+/* ── RIGHT SIDE (path + window controls) ── */
 .ide-header-right {
   display: flex;
   align-items: center;
@@ -171,6 +218,7 @@
   text-overflow: ellipsis;
 }
 
+/* ── HAMBURGER (mobile) ── */
 .ide-header-hamburger {
   display: none;
   flex-direction: column;
@@ -213,17 +261,12 @@
     display: flex;
   }
 
-  /* Hide the desktop inline tab row entirely on mobile —
-     the dropdown below takes over */
   .ide-header-tabs {
     display: none;
   }
 }
 
-/* Mobile dropdown — position: absolute, floats over page content
-   instead of pushing it down. Anchored to .ide-header-wrapper
-   (position: relative above), top: 100% clears the title row +
-   bar together regardless of their heights. */
+/* Mobile dropdown */
 .ide-header-mobile-menu {
   display: none;
 }

@@ -19,7 +19,7 @@
 
 .content-grid {
   display: grid !important;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr)); /* tablet default */
   gap: 12px !important;
 }
 
@@ -76,6 +76,17 @@
   z-index: 2;
 }
 
+/* Desktop: 7 columns */
+@media (min-width: 1049px) {
+  .content-grid {
+    grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  }
+  .content-grid::before {
+    grid-column: span 7;
+  }
+}
+
+/* Mobile: 3 columns */
 @media (max-width: 480px) {
   .content-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
