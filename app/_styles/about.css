@@ -1,3 +1,6 @@
+/* ============================================= */
+/* About Section — main card                     */
+/* ============================================= */
 .about-section {
   display: flex;
   flex-direction: column;
@@ -5,6 +8,9 @@
   padding: 18px 18px 20px;
   margin-bottom: 12px;
   height: 100%;
+  position: relative;
+  z-index: 1;
+
   background-color: var(--bg);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
@@ -14,64 +20,24 @@
   border-radius: 16px;
   corner-shape: notch;
 
-  position: relative;
-
-  box-shadow:
-    inset 0 0 0 2px var(--accent-dim);
+  box-shadow: inset 0 0 0 2px var(--accent-dim);
 }
 
 .about-section > div {
   padding: 8px 14px;
   position: relative;
-  z-index: 1; 
+  z-index: 1;
   border: 2.5px dashed var(--bg);
   box-shadow:
-    0 3px 6px rgba(0, 0, 0, 0.5),      
-    0 1px 0 rgba(255, 255, 255, 0.06), 
+    0 3px 6px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
-.motto {
-  position: relative;
-  letter-spacing: 0.26em;
-  color: var(--accent)
-}
 
-.motto::before,
-.motto::after {
-  content: attr(data-text); /* requires data-text="same content" on the element, see note below */
-  position: absolute;
-  inset: 0;
-  letter-spacing: 0.26em;
-  background: inherit;
-  overflow: hidden;
-}
-
-.motto::before {
-  left: 2px;
-  color: #642911; /* red channel offset */
-  clip-path: inset(0 0 0 0);
-  animation: glitch-top 3.5s infinite linear alternate-reverse;
-}
-
-.motto::after {
-  left: -2px;
-  color: #0c4d29; /* cyan channel offset */
-  clip-path: inset(0 0 0 0);
-  animation: glitch-bottom 3.5s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-top {
-  0%, 92%, 100% { clip-path: inset(0 0 100% 0); opacity: 0; }
-  93% { clip-path: inset(10% 0 60% 0); opacity: 1; transform: translateX(-2px); }
-  94% { clip-path: inset(40% 0 20% 0); opacity: 1; transform: translateX(2px); }
-  95% { clip-path: inset(0 0 100% 0); opacity: 0; }
-}
-
-@keyframes glitch-bottom {
-  0%, 90%, 100% { clip-path: inset(100% 0 0 0); opacity: 0; }
-  91% { clip-path: inset(60% 0 5% 0); opacity: 1; transform: translateX(2px); }
-  92% { clip-path: inset(20% 0 45% 0); opacity: 1; transform: translateX(-2px); }
-  96% { clip-path: inset(100% 0 0 0); opacity: 0; }
+.about-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 .about-subheading {
@@ -85,15 +51,15 @@
   background-color: var(--accent);
   padding: 4px 14px 4px 8px;
   clip-path: polygon(
-  0 0,
-  85% 0,
-  92% 20%,
-  100% 50%,
-  92% 80%,
-  85% 100%,
-  0 100%,
-  6% 50%
-);
+    0 0,
+    85% 0,
+    92% 20%,
+    100% 50%,
+    92% 80%,
+    85% 100%,
+    0 100%,
+    6% 50%
+  );
 }
 
 .about-text {
@@ -122,12 +88,6 @@
   gap: 4px;
 }
 
-.about-two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
 .about-img-full {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -140,16 +100,163 @@
   border-image: linear-gradient(135deg, var(--accent-light), var(--accent), var(--accent-light)) 1;
 }
 
+/* ============================================= */
+/* Motto — glitch text effect                     */
+/* ============================================= */
+.motto {
+  position: relative;
+  letter-spacing: 0.26em;
+  color: var(--accent);
+}
+
+.motto::before,
+.motto::after {
+  content: attr(data-text); /* requires data-text="same content" on the element */
+  position: absolute;
+  inset: 0;
+  letter-spacing: 0.26em;
+  background: inherit;
+  overflow: hidden;
+}
+
+.motto::before {
+  left: 2px;
+  color: #642911;
+  clip-path: inset(0 0 0 0);
+  animation: glitch-top 3.5s infinite linear alternate-reverse;
+}
+
+.motto::after {
+  left: -2px;
+  color: #0c4d29;
+  clip-path: inset(0 0 0 0);
+  animation: glitch-bottom 3.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-top {
+  0%, 92%, 100% { clip-path: inset(0 0 100% 0); opacity: 0; }
+  93% { clip-path: inset(10% 0 60% 0); opacity: 1; transform: translateX(-2px); }
+  94% { clip-path: inset(40% 0 20% 0); opacity: 1; transform: translateX(2px); }
+  95% { clip-path: inset(0 0 100% 0); opacity: 0; }
+}
+
+@keyframes glitch-bottom {
+  0%, 90%, 100% { clip-path: inset(100% 0 0 0); opacity: 0; }
+  91% { clip-path: inset(60% 0 5% 0); opacity: 1; transform: translateX(2px); }
+  92% { clip-path: inset(20% 0 45% 0); opacity: 1; transform: translateX(-2px); }
+  96% { clip-path: inset(100% 0 0 0); opacity: 0; }
+}
+
+/* ============================================= */
+/* Gold tube / rod — decorative frame behind cards */
+/* ============================================= */
+.about-section-wrap {
+  position: relative;
+}
+
+.gold-tube {
+  position: absolute;
+  inset: -4px;
+  z-index: -1;
+  border-radius: 24px;
+  corner-shape: bevel;
+  overflow: hidden;
+
+  background-image: linear-gradient(
+    180deg,
+    #7a5a1e 0%,
+    #d4af37 15%,
+    #fff6d5 30%,
+    #d4af37 45%,
+    #a9791f 60%,
+    #f6e2a0 75%,
+    #b8860b 90%,
+    #7a5a1e 100%
+  );
+  background-size: 100% 200%;
+
+  box-shadow:
+    inset 0 0 12px rgba(0, 0, 0, 0.6),
+    0 4px 10px rgba(0, 0, 0, 0.35);
+}
+
+.gold-tube-texture {
+  position: absolute;
+  inset: 0;
+  background-image: url("/textures/gold-texture.png");
+  background-size: cover;
+  mix-blend-mode: overlay;
+  opacity: 0.9;
+}
+
+.gold-tube-shine {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: blur(2px);
+}
+
+.gold-rod {
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  right: -20px;
+  transform: translateY(-50%);
+  height: 22px;
+  z-index: -5;
+  border-radius: 999px;
+  overflow: hidden;
+
+  background-image: linear-gradient(
+    90deg,
+    #7a5a1e 0%,
+    #d4af37 12%,
+    #fff6d5 25%,
+    #d4af37 38%,
+    #a9791f 50%,
+    #f6e2a0 62%,
+    #d4af37 75%,
+    #b8860b 88%,
+    #7a5a1e 100%
+  );
+
+  box-shadow:
+    inset 0 0 6px rgba(0, 0, 0, 0.7),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.gold-rod-shine {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: rgba(255, 255, 255, 0.6);
+  filter: blur(1.5px);
+}
+
+/* ============================================= */
+/* Collab / contact card                          */
+/* ============================================= */
 .about-collab {
   display: flex;
   flex-direction: column;
   gap: 12px;
   padding: 16px;
+  margin-top: 12px;
+  position: relative;
+
   border: 1px solid var(--border-hover);
   border-radius: var(--radius-card);
   background: var(--card);
-  margin-top: 12px;
-  position: relative;
 }
 
 .about-collab::before,
@@ -216,14 +323,50 @@
   align-items: center;
   gap: 8px;
   padding: 8px 10px;
+  width: 100%;
+
   background: var(--accent-dim);
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
+  color: var(--text-primary);
   font-size: 12px;
   font-weight: 500;
-  color: var(--text-primary);
   text-decoration: none;
-  width: 100%;
+
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.about-collab-link:hover {
+  background: var(--card-hover);
+  border-color: var(--border-hover);
+  transform: translateX(3px);
+}
+
+.about-collab-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.about-collab-contact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.about-collab-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  min-width: 0; /* allows flex/grid child to shrink below content size */
+
+  background: var(--accent-dim);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+
   transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 
@@ -238,98 +381,9 @@
   flex-shrink: 0;
 }
 
-.about-section-wrap {
-  position: relative;
-}
-
-.gold-tube {
-  position: absolute;
-  inset: -4px; /* let it peek out slightly past the section edges */
-  z-index: -1;
-  border-radius: 24px;
+.about-collab-link-text {
+  min-width: 0;
   overflow: hidden;
-  background-image: linear-gradient(
-    180deg,
-    #7a5a1e 0%,
-    #d4af37 15%,
-    #fff6d5 30%,
-    #d4af37 45%,
-    #a9791f 60%,
-    #f6e2a0 75%,
-    #b8860b 90%,
-    #7a5a1e 100%
-  );
-  background-size: 100% 200%;
-  corner-shape: bevel;
-  box-shadow:
-    inset 0 0 12px rgba(0, 0, 0, 0.6),
-    0 4px 10px rgba(0, 0, 0, 0.35);
-}
-
-.gold-tube-texture {
-  position: absolute;
-  inset: 0;
-  background-image: url("/textures/gold-texture.png"); /* <- drop your texture here */
-  background-size: cover;
-  mix-blend-mode: overlay;
-  opacity: 0.9;
-}
-
-.gold-tube-shine {
-  position: absolute;
-  top: 15%;
-  left: 0;
-  width: 100%;
-  height: 25%;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.7) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  filter: blur(2px);
-}
-
-.gold-rod {
-  position: absolute;
-  top: 50%;
-  left: -20px;
-  right: -20px;
-  transform: translateY(-50%);
-  height: 22px;
-  z-index: -5;
-  border-radius: 999px;
-  overflow: hidden;
-  background-image: linear-gradient(
-    90deg,
-    #7a5a1e 0%,
-    #d4af37 12%,
-    #fff6d5 25%,
-    #d4af37 38%,
-    #a9791f 50%,
-    #f6e2a0 62%,
-    #d4af37 75%,
-    #b8860b 88%,
-    #7a5a1e 100%
-  );
-  box-shadow:
-    inset 0 0 6px rgba(0, 0, 0, 0.7),
-    0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-.gold-rod-shine {
-  position: absolute;
-  top: 20%;
-  left: 0;
-  width: 100%;
-  height: 30%;
-  background: rgba(255, 255, 255, 0.6);
-  filter: blur(1.5px);
-}
-
-/* about-section itself needs position: relative so ITS content sits
-   above both gold-tube and gold-rod, which are now its siblings */
-.about-section {
-  position: relative;
-  z-index: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

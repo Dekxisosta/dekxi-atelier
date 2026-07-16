@@ -236,3 +236,56 @@
   corner-shape: bevel;
   border-radius: 4px; /* fallback for browsers without corner-shape support */
 }
+
+/* ── PORTRAIT — gold notch frame with elbow tube corners ── */
+.sidebar-portrait-wrap {
+  position: relative;
+}
+
+.sidebar-portrait {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 32/9;
+  background-color: var(--bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  border: 3px solid var(--accent);
+  border-radius: 16px;
+  corner-shape: notch;
+
+  box-shadow: inset 0 0 0 2px var(--accent-dim);
+}
+
+/* gold elbow tubes at opposite corners — same gradient language as .gold-tube */
+.sidebar-portrait::before,
+.sidebar-portrait::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  z-index: 2;
+  pointer-events: none;
+  background-image: linear-gradient(
+    135deg,
+    #7a5a1e 0%,
+    #d4af37 25%,
+    #fff6d5 50%,
+    #d4af37 75%,
+    #7a5a1e 100%
+  );
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
+}
+
+.sidebar-portrait::before {
+  top: -5px;
+  left: -5px;
+  clip-path: polygon(0 0, 100% 0, 100% 32%, 32% 32%, 32% 100%, 0 100%);
+}
+
+.sidebar-portrait::after {
+  bottom: -5px;
+  right: -5px;
+  clip-path: polygon(100% 100%, 0 100%, 0 68%, 68% 68%, 68% 0, 100% 0);
+}
