@@ -14,6 +14,7 @@ export default function Main() {
         </div>
 
         <div className="main-left-content">
+          <h1 className="">Prideful Infinity</h1>
           <ProfileHeader />
           <InterestsSection />
           <ContentGrid />

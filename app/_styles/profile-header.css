@@ -12,10 +12,11 @@
   left: 0;
   right: 0;
   height: 110px;
-  border-radius: 5px 5px 0 0;
+  border-radius: 25px 25px 0 0;
   border: 3px groove var(--accent);
   background: url("/assets/images/banner.jpg") center 30% / cover no-repeat;
   z-index: 20;
+  corner-shape: scoop;
 }
 
 .clockwise-tracker {

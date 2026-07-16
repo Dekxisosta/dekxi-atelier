@@ -1,8 +1,7 @@
 .chibi-dock {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  position: sticky;
+  gap: 2.5rem;
   top: 20px;
 }
 
@@ -17,7 +16,8 @@
 
 .chibi-item:hover {
   border-color: var(--border-hover);
-  transform: translateY(-2px);
+  transform: translateY(-4px) scale(1.04);
+  animation: hoverShake 0.35s ease;
 }
 
 .chibi-item img {
@@ -27,6 +27,26 @@
   display: block;
 }
 
+@keyframes hoverShake {
+  0% {
+    transform: translateY(-4px) scale(1.04) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-4px) scale(1.04) rotate(-1.5deg);
+  }
+  40% {
+    transform: translateY(-4px) scale(1.04) rotate(1.5deg);
+  }
+  60% {
+    transform: translateY(-4px) scale(1.04) rotate(-1deg);
+  }
+  80% {
+    transform: translateY(-4px) scale(1.04) rotate(0.75deg);
+  }
+  100% {
+    transform: translateY(-4px) scale(1.04) rotate(0deg);
+  }
+}
 .chibi-tooltip {
   position: fixed;
   z-index: 999;

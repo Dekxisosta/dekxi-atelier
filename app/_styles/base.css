@@ -59,7 +59,7 @@ body {
   margin: 0;
   background-color: var(--black);
   background-image:
-    linear-gradient(rgba(24, 20, 18, 0.945), rgba(24, 20, 18, 0.945)),
+    linear-gradient(rgba(24, 20, 18, 0.945), rgba(24, 20, 18, 0.7)),
     url('https://images2.alphacoders.com/132/1329303.jpeg');
   background-size: cover;
   background-position: center;
