@@ -18,6 +18,15 @@ function GoldRod() {
 export default function AboutMe() {
   return (
     <div className="main-center">
+      <div className="affiliations-banner">
+        <div className="affiliations-badges">
+          <span className="affiliation-badge">Roblox Studio</span>
+          <span className="affiliation-badge">Digital Artist</span>
+          <span className="affiliation-badge">Limbus Company</span>
+          <span className="affiliation-badge">Miku fan!</span>
+        </div>
+      </div>
+
       <div className="about-section-wrap">
         <GoldTube />
         <GoldRod />

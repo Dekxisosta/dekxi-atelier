@@ -14,7 +14,7 @@ export default function Main() {
         </div>
 
         <div className="main-left-content">
-          <h1 className="motto" data-text="BLIND OBSESSION">BLIND OBSESSION</h1>
+          <h1 className="motto" data-text="BLIND OBSESSION">BLIND OBSESSION - ISHMAEL</h1>
           <ProfileHeader />
           <InterestsSection />
           <ContentGrid />

@@ -5,6 +5,32 @@
   top: 20px;
 }
 
+@media (max-width: 728px) {
+  .chibi-dock {
+    flex-direction: row;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-dim) transparent;
+    padding-bottom: 6px; /* room for scrollbar so it doesn't clip content */
+  }
+
+  .chibi-dock::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .chibi-dock::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .chibi-dock::-webkit-scrollbar-thumb {
+    background: var(--accent-dim);
+    border-radius: 2px;
+  }
+}
+
 .chibi-item {
   width: 75px;
   height: 75px;

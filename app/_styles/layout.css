@@ -191,6 +191,7 @@
     background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.25) 100%);
     pointer-events: none;
   }
+  
 }
 
 /* Tablet: main-left on top, center+right split below */
@@ -240,5 +241,11 @@
   .main-left {
     border-top: none;
     flex-direction: column;
+  }
+  .main-left-dock {
+    padding-bottom: 30px;
+    max-height: 100vw;
+    overflow-y: hidden;
+    overflow-x: auto;
   }
 }
