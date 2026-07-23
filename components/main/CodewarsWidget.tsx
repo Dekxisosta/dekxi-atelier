@@ -41,14 +41,8 @@ export default function CodewarsWidget() {
 
   return (
     <div className="codewars-stats">
-      <div className="codewars-stat-row">
-        <span className="codewars-stat-label">Rank</span>
-        <span className="codewars-stat-value">{stats.rank}</span>
-      </div>
-      <div className="codewars-stat-row">
-        <span className="codewars-stat-label">Honor</span>
-        <span className="codewars-stat-value">{stats.honor.toLocaleString()}</span>
-      </div>
+      <img src="https://www.codewars.com/users/Dekxisosta/badges/micro" alt="" />
+      <img src="https://leetcode.com/u/Dekxi/svg/?theme=dark" alt="" />
       {stats.leaderboardPosition ? (
         <div className="codewars-stat-row">
           <span className="codewars-stat-label">Leaderboard</span>
