@@ -433,6 +433,25 @@
   border-radius: var(--radius-pill);
   padding: 6px 14px;
   white-space: nowrap;
-
   box-shadow: 0 5px 2px 0px rgba(110, 110, 110, 0.25);
+  text-align: center;
+  display: flex;
+  align-self: center;
+}
+.fan-title-frame {
+  position: relative;
+  display: inline-block;
+}
+
+.fan-title-frame img {
+  display: block;
+  width: 180px;
+}
+
+.fan-title-confetti {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;
+  pointer-events: none;
 }

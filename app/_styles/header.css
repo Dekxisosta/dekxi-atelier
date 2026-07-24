@@ -306,7 +306,9 @@
     gap: 12px;   
     
   }
-
+  .ide-header-tab ion-icon{
+    color: white;
+  }
   .ide-header-mobile-menu .ide-header-tab-icon {
     font-size: 20px;      /* was 13px */
   }

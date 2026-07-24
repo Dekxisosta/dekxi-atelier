@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 import type { Tab } from "@/lib/tabs";
 
 const TABS: { href: string; tabId: Tab; label: string; icon: string; path: string }[] = [
-  { href: "/", tabId: "main", label: "Atelier Entrance", icon: "person", path: "ATELIER DEKXI / ARCHIVES / FILE_NO_000" },
+  { href: "/", tabId: "main", label: "Profile", icon: "person", path: "ATELIER DEKXI / ARCHIVES / FILE_NO_000" },
+  { href: "/?tab=gallery", tabId: "gallery", label: "Art Gallery", icon: "images", path: "ATELIER DEKXI / ARCHIVES / GALLERY_ENTRIES" },
   { href: "/?tab=moots", tabId: "moots", label: "Companions", icon: "people", path: "ATELIER DEKXI / ARCHIVES / MOOTS_LOG" },
   { href: "/?tab=blog", tabId: "blog", label: "Blogs", icon: "reader", path: "ATELIER DEKXI / ARCHIVES / BLOG_ENTRIES" },
   { href: "/?tab=admin", tabId: "admin", label: "Admin", icon: "lock-closed", path: "ATELIER DEKXI / ARCHIVES / RESTRICTED" }
