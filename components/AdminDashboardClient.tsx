@@ -10,14 +10,9 @@ import GalleryTab from "./admin-gallery/GalleryTab";
 
 type DashboardSubTab = "friends" | "blog" | "gallery";
 
-type DashboardProps = {
-  /** Switches HomeClient's activeTab — used for "Back to Site" and after logout.
-   * Kept generic (any Tab) rather than a single onRequireLogin callback so this
-   * component can also send the user back to "main" on demand. */
-  onNavigateTab: (tab: Tab) => void;
-};
+type DashboardProps = {onNavigateTab: (tab: Tab) => void; isActive: boolean;};
 
-export default function Dashboard({ onNavigateTab }: DashboardProps) {
+export default function Dashboard({ onNavigateTab, isActive }: DashboardProps) {
   const [user, setUser] = useState<User | null | undefined>(undefined); // undefined = still checking
   const [subTab, setSubTab] = useState<DashboardSubTab>("friends");
 
@@ -28,20 +23,22 @@ export default function Dashboard({ onNavigateTab }: DashboardProps) {
     supabase.auth.getUser().then(({ data }) => {
       if (cancelled) return;
       setUser(data.user);
-      if (!data.user) onNavigateTab("admin");
+      // Only steal the active tab if Dashboard is actually the visible tab
+      // right now — see isActive doc comment above.
+      if (!data.user && isActive) onNavigateTab("admin");
     });
 
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       if (cancelled) return;
       setUser(session?.user ?? null);
-      if (!session?.user) onNavigateTab("admin");
+      if (!session?.user && isActive) onNavigateTab("admin");
     });
 
     return () => {
       cancelled = true;
       listener.subscription.unsubscribe();
     };
-  }, [onNavigateTab]);
+  }, [onNavigateTab, isActive]);
 
   async function handleLogout() {
     const supabase = createClient();
@@ -54,8 +51,9 @@ export default function Dashboard({ onNavigateTab }: DashboardProps) {
     return <div className="admin-wrap admin-loading">Checking session…</div>;
   }
 
-  // Logged out — onNavigateTab("admin") above already redirected the tab;
-  // render nothing here as a safety net in case the parent hasn't re-rendered yet.
+  // Logged out — onNavigateTab("admin") above already redirected the tab
+  // (when isActive), or this instance simply isn't visible right now;
+  // render nothing here as a safety net either way.
   if (!user) {
     return null;
   }
@@ -64,6 +62,9 @@ export default function Dashboard({ onNavigateTab }: DashboardProps) {
     <div className="admin-wrap">
       <div className="admin-topbar">
         <span className="admin-topbar-title">L-CORP // ADMIN DASHBOARD</span>
+        <button className="admin-topbar-logout" onClick={handleLogout}>
+          Log out
+        </button>
       </div>
 
       <div className="admin-tabs">

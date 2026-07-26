@@ -56,7 +56,7 @@ export default function HomeClient({ friends, posts, initialTab, commissionInfo 
             <AdminLogin />
           </div>
           <div style={{ display: activeTab === "dashboard" ? "block" : "none" }}>
-            <Dashboard onNavigateTab={selectTab} />
+            <Dashboard onNavigateTab={selectTab} isActive={activeTab === "dashboard"} />
           </div>
         </div>
       </div>
