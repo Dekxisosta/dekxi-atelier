@@ -8,6 +8,8 @@ import Blog from "./Blog";
 import Moots from "./Moots";
 import AdminLogin from "./AdminLogin";
 import Dashboard from "./Dashboard";
+import CommissionSheet from "@/components/commissions/CommissionSheet";
+import type { CommissionInfo } from "@/lib/types/commission";
 import type { Friend, BlogPost } from "../page";
 import type { Tab } from "@/lib/tabs";
 
@@ -15,9 +17,10 @@ type HomeClientProps = {
   friends: Friend[];
   posts: BlogPost[];
   initialTab: Tab;
+  commissionInfo: CommissionInfo;
 };
 
-export default function HomeClient({ friends, posts, initialTab }: HomeClientProps) {
+export default function HomeClient({ friends, posts, initialTab, commissionInfo }: HomeClientProps) {
   const [activeTab, setActiveTab] = useState<Tab>(initialTab);
 
   const selectTab = useCallback((tab: Tab) => {
@@ -36,6 +39,9 @@ export default function HomeClient({ friends, posts, initialTab }: HomeClientPro
 
           <div style={{ display: activeTab === "main" ? "block" : "none" }}>
             <Main />
+          </div>
+          <div style={{ display: activeTab === "commissions" ? "block" : "none" }}>
+            <CommissionSheet info={commissionInfo} />
           </div>
           <div style={{ display: activeTab === "gallery" ? "block" : "none" }}>
             <Gallery />

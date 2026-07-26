@@ -1,0 +1,458 @@
+.commission-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  max-width: none;
+  margin-top: 20px;
+  padding: 28px 32px;
+  border-radius: 12px;
+  background: var(--card);
+  animation: fadeUp 0.4s ease forwards;
+  opacity: 0;
+  transform: translateY(8px);
+  border: 2px solid var(--accent);
+}
+
+/* ── Header ── */
+.commission-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.commission-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.commission-title-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.commission-title-stamp {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  flex-shrink: 0;
+  /* stamps like this usually come with baked-in drop shadows already,
+     filter kept subtle so it doesn't fight the source image */
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+
+.commission-title {
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+.commission-tagline {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ── Status badge — simple dot + label, no border box ── */
+.commission-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--card-hover);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.commission-status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.commission-status-open .commission-status-dot    { background: #7bbf6a; box-shadow: 0 0 6px #7bbf6a66; }
+.commission-status-closed .commission-status-dot  { background: #e0605a; box-shadow: 0 0 6px #e0605a66; }
+.commission-status-waitlist .commission-status-dot{ background: #e0b95a; box-shadow: 0 0 6px #e0b95a66; }
+
+/* ── Three-column split — 1/2 + 1/4 + 1/4 ── */
+.commission-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.commission-col-half {
+  flex: 2;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.commission-col-quarter {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 20px;
+}
+
+/* Collapse to full-width stack — matches the breakpoint container-main.css
+   already uses to drop its own side-by-side layout at tablet width. */
+@media (max-width: 1048px) {
+  .commission-layout {
+    flex-direction: column;
+  }
+
+  .commission-col-half,
+  .commission-col-quarter {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .commission-col-quarter {
+    position: static;
+  }
+}
+
+/* ── Section wrapper — plain, no corner brackets ── */
+.commission-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.commission-block-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-family: 'Roboto', sans-serif;
+}
+
+.commission-block-warning {
+  padding: 16px 18px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.commission-note {
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+/* ── Pricing table — replaces the old flat tier cards.
+   A real matrix: row = art type, column = completion stage. Sits in the
+   1/4-width sidebar, so the table scrolls horizontally on its own rather
+   than squeezing 5 columns into a narrow track. */
+.commission-price-table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  background: var(--card-hover);
+  scrollbar-width: thin;
+}
+
+.commission-price-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.commission-price-table th,
+.commission-price-table td {
+  padding: 9px 10px;
+  text-align: center;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+.commission-price-table thead th {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  font-family: 'Roboto', sans-serif;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-hover);
+}
+
+.commission-price-th-type,
+.commission-price-td-type {
+  text-align: left;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.commission-price-table tbody td {
+  color: var(--text-secondary);
+}
+
+.commission-price-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.commission-price-table tbody tr:hover td {
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  color: var(--text-primary);
+}
+
+.commission-price-footnote {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 10px;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Dos & Don'ts — simple two-column list, no card frame ── */
+.commission-dos-donts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.commission-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.commission-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.commission-list-do ion-icon {
+  color: #7bbf6a;
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-size: 15px;
+}
+
+.commission-list-dont ion-icon {
+  color: #e0605a;
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-size: 15px;
+}
+
+/* ── Payment methods — quiet pill row ──
+   Bumped to var(--card-hover) for the same contrast reason as tiers. */
+.commission-payment-methods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.commission-payment-chip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--card-hover);
+  font-size: 0.82rem;
+  color: var(--text-primary);
+}
+
+.commission-payment-chip ion-icon {
+  color: var(--accent);
+  font-size: 15px;
+}
+
+.commission-payment-chip small {
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+}
+
+/* ── Terms of service — numbered, tight leading ── */
+.commission-terms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 18px;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.commission-terms-list li::marker {
+  color: var(--accent);
+  font-size: 0.8em;
+}
+
+/* ── FAQ — accordion, collapsed by default ── */
+.commission-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.commission-faq-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.commission-faq-item:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.commission-faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 2px;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  list-style: none;
+}
+
+.commission-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.commission-faq-item summary::after {
+  content: '+';
+  font-size: 1.1rem;
+  color: var(--accent);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.commission-faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.commission-faq-a {
+  padding: 0 2px 14px;
+  color: var(--text-secondary);
+  font-size: 0.83rem;
+  line-height: 1.55;
+}
+
+/* ── Contact CTA — flat button-like bar ──
+   Bumped to var(--card-hover) for the same contrast reason as tiers. */
+.commission-contact {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: var(--card-hover);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+}
+
+.commission-contact ion-icon {
+  color: var(--accent);
+  font-size: 17px;
+  flex-shrink: 0;
+}
+
+/* ── Links section — Find Me chips, real brand icons where a CDN
+   source exists (kofi/instagram/bluesky/x), text badge otherwise (vgen). ── */
+.commission-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.commission-link-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: var(--card-hover);
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.commission-link-chip:hover {
+  background: var(--bg);
+  transform: translateX(2px);
+}
+
+.commission-link-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.commission-link-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--bg-dark);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* ── Agreement note — sits below the contact bar in the sidebar ── */
+.commission-agreement {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px dashed var(--border);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.commission-agreement ion-icon {
+  color: var(--accent);
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 728px) {
+  .commission-sheet {
+    padding: 22px 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .commission-dos-donts {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .commission-header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}

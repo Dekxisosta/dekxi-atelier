@@ -21,10 +21,10 @@ type NavTab = {
 
 const TABS: NavTab[] = [
   { href: "/", tabId: "main", label: "Profile", icon: "person", path: "ATELIER DEKXI / ARCHIVES / FILE_NO_000" },
+    { href: "/?tab=commissions", tabId: "commissions", label: "Commissions", icon: "brush", path: "ATELIER DEKXI / ARCHIVES / COMMISSION_SHEET" },
   { href: "/?tab=gallery", tabId: "gallery", label: "Art Gallery", icon: "images", path: "ATELIER DEKXI / ARCHIVES / GALLERY_ENTRIES" },
   { href: "/?tab=moots", tabId: "moots", label: "Companions", icon: "people", path: "ATELIER DEKXI / ARCHIVES / MOOTS_LOG" },
-  { href: "/?tab=blog", tabId: "blog", label: "Blogs", icon: "reader", path: "ATELIER DEKXI / ARCHIVES / BLOG_ENTRIES" }
-
+  { href: "/?tab=blog", tabId: "blog", label: "Blogs", icon: "reader", path: "ATELIER DEKXI / ARCHIVES / BLOG_ENTRIES" },
 ];
 
 // Only shown in the tab row when a user is logged in — now a normal
@@ -61,24 +61,24 @@ export default function IdeHeader({ activeTab, onTabChange }: IdeHeaderProps) {
   // horizontally, since the bar itself has no vertical content to scroll.
   // Attached as a native (non-passive) listener so preventDefault works —
   // React's onWheel is passive by default and can't stop page scroll.
-  useEffect(() => {
-    const el = barRef.current;
-    if (!el) return;
+ useEffect(() => {
+  const el = barRef.current;
+  if (!el) return;
 
-    function handleWheel(e: WheelEvent) {
-      // Only take over when there's actually horizontal overflow to scroll,
-      // and let real horizontal gestures (shift+scroll, trackpad swipe)
-      // pass through untouched.
-      if (el.scrollWidth <= el.clientWidth) return;
-      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+  const handleWheel = (e: WheelEvent) => {
+    if (el.scrollWidth <= el.clientWidth) return;
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
 
-      e.preventDefault();
-      el.scrollLeft += e.deltaY;
-    }
+    e.preventDefault();
+    el.scrollLeft += e.deltaY;
+  };
 
-    el.addEventListener("wheel", handleWheel, { passive: false });
-    return () => el.removeEventListener("wheel", handleWheel);
-  }, []);
+  el.addEventListener("wheel", handleWheel, { passive: false });
+
+  return () => {
+    el.removeEventListener("wheel", handleWheel);
+  };
+}, []);
 
 
   // Only decides what to render (avatar chip vs. nothing) — actual route

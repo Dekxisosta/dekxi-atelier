@@ -2,6 +2,7 @@ import HomeClient from "./_components/HomeClient";
 import { DEFAULT_TAB, isTab } from "@/lib/tabs";
 import { getFriends } from "@/lib/queries/friends";
 import { getPosts } from "@/lib/queries/posts";
+import { COMMISSION_INFO } from "@/lib/data/commissions";
 
 export const dynamic = "force-dynamic";
 
@@ -27,5 +28,5 @@ export default async function Page({ searchParams }: PageProps) {
 
   const initialTab = isTab(params.tab) ? params.tab : DEFAULT_TAB;
 
-  return <HomeClient friends={friends} posts={posts} initialTab={initialTab} />;
+  return <HomeClient friends={friends} posts={posts} initialTab={initialTab} commissionInfo={COMMISSION_INFO} />;
 }
