@@ -3,9 +3,11 @@
 import { useCallback, useState } from "react";
 import IdeHeader from "@/components/IdeHeader";
 import Main from "./Main";
+import Gallery from "./Gallery";
 import Blog from "./Blog";
 import Moots from "./Moots";
 import AdminLogin from "./AdminLogin";
+import Dashboard from "./Dashboard";
 import type { Friend, BlogPost } from "../page";
 import type { Tab } from "@/lib/tabs";
 
@@ -35,6 +37,9 @@ export default function HomeClient({ friends, posts, initialTab }: HomeClientPro
           <div style={{ display: activeTab === "main" ? "block" : "none" }}>
             <Main />
           </div>
+          <div style={{ display: activeTab === "gallery" ? "block" : "none" }}>
+            <Gallery />
+          </div>
           <div style={{ display: activeTab === "blog" ? "block" : "none" }}>
             <Blog posts={posts} />
           </div>
@@ -43,6 +48,9 @@ export default function HomeClient({ friends, posts, initialTab }: HomeClientPro
           </div>
           <div style={{ display: activeTab === "admin" ? "block" : "none" }}>
             <AdminLogin />
+          </div>
+          <div style={{ display: activeTab === "dashboard" ? "block" : "none" }}>
+            <Dashboard onNavigateTab={selectTab} />
           </div>
         </div>
       </div>

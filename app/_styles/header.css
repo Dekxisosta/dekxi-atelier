@@ -29,46 +29,45 @@
 /* ── WRAPPER — positioning anchor for the mobile dropdown ── */
 .ide-header-wrapper {
   position: relative;
-  border: var(--accent) solid 2px;
+  border: 2px solid var(--accent);
   border-bottom: 3px solid var(--border);
 }
 
-/* ── IDE TAB BAR ── */
+/* ── BAR — plain flex shell now, no overflow/clipping here anymore ── */
 .ide-header-bar {
-  display: flex;
-  align-items: stretch;
-  height: 44px;
-  gap: 14px;
-  padding: 8px 12px;
-  background: var(--bg-dark);
   position: sticky;
   top: 0;
-  z-index: 50;
-  font-family: 'Roboto', monospace;
-  overflow-x: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent-dim) transparent;
-}
+  z-index: 10;
 
-.ide-header-bar::-webkit-scrollbar {
-  height: 4px;
-}
+  display: flex;
+  align-items: stretch;
+  height: fit-content;
+  padding: 8px 12px;
 
-.ide-header-bar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.ide-header-bar::-webkit-scrollbar-thumb {
-  background: var(--accent-dim);
-  border-radius: 2px;
-}
-
-.ide-header-bar::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
+  background: var(--bg-dark);
 }
 
 .ide-header-bar ion-icon {
   color: white;
+}
+
+/* ── SCROLL REGION — hamburger + tabs live here; this is the thing that
+   actually scrolls horizontally and clips vertically now, not the bar ── */
+.ide-header-scroll {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  min-width: 0;   /* lets this shrink instead of pushing accountChip out */
+  flex: 1;        /* takes remaining space; accountChip stays pinned right */
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;   /* Firefox */
+  -ms-overflow-style: none; /* old Edge/IE */
+}
+
+.ide-header-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .ide-header-controls {
@@ -231,6 +230,7 @@
   border: none;
   cursor: pointer;
   flex-shrink: 0;
+  align-self: center;
 }
 
 .ide-header-hamburger span {
@@ -302,9 +302,9 @@
     min-width: 0;
     height: auto;
     justify-content: flex-start;
-    padding: 14px 16px; 
-    gap: 12px;   
-    
+    padding: 14px 16px;
+    gap: 12px;
+
   }
   .ide-header-tab ion-icon{
     color: white;
@@ -319,6 +319,104 @@
   }
 
   .ide-header-mobile-menu .ide-header-tab-route {
-    font-size: 11px; 
+    font-size: 11px;
   }
+}
+
+/* ── ACCOUNT CHIP — sibling of .ide-header-scroll inside .ide-header-bar,
+   so it (and its dropdown) are never subject to the scroll region's
+   overflow clipping. ── */
+.ide-header-account {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 12px 20px 12px 12px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(126, 91, 91, 0.514);
+  cursor: pointer;
+  color: white;
+  font-size: 13px;
+}
+.ide-header-account:hover {
+  background: rgba(165, 121, 121, 0.514);
+}
+.ide-header-account-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.ide-header-account-name {
+  font-weight: 500;
+  white-space: nowrap;
+}
+.ide-header-account-mobile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ide-header-account-guest {
+  text-decoration: none;
+  opacity: 0.75;
+}
+.ide-header-account-guest:hover {
+  opacity: 1;
+}
+
+/* ── ACCOUNT DROPDOWN (desktop) ── */
+.ide-header-account-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.ide-header-account-caret {
+  font-size: 12px;
+  opacity: 0.7;
+  transition: transform 0.15s ease;
+}
+
+.ide-header-account-caret.is-open {
+  transform: rotate(180deg);
+}
+
+.ide-header-account-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  gap: 2px;
+  background: var(--bg-dark);
+  border: 1px solid var(--accent);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 99999;
+}
+
+.ide-header-account-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ide-header-account-menu button:hover {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent-light);
+}
+
+.ide-header-account-menu ion-icon {
+  font-size: 16px;
+  flex-shrink: 0;
 }

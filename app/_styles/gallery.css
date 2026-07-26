@@ -1,0 +1,163 @@
+/* ── GALLERY GRID ── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 4px;
+  width: 100%;
+}
+
+.gallery-grid-item {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--bg-dark);
+}
+
+.gallery-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.gallery-grid-item:hover img {
+  transform: scale(1.05);
+  opacity: 0.85;
+}
+
+.gallery-loading,
+.gallery-empty {
+  color: var(--text-secondary);
+  padding: 40px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* ── MODAL BACKDROP ── */
+.gallery-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(9, 8, 7, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* ── MODAL CARD ── */
+.gallery-modal {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+
+.gallery-modal-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-dark);
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.gallery-modal-media img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.gallery-modal-caption {
+  padding: 14px 18px;
+  border-top: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+/* ── MODAL CONTROLS ── */
+.gallery-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.gallery-modal-close:hover {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.gallery-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.gallery-modal-nav:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.gallery-modal-nav-prev {
+  left: 12px;
+}
+
+.gallery-modal-nav-next {
+  right: 12px;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .gallery-modal-backdrop {
+    padding: 0;
+  }
+
+  .gallery-modal {
+    max-height: 100vh;
+    height: 100%;
+    border: none;
+  }
+
+  .gallery-modal-media {
+    max-height: 70vh;
+  }
+
+  .gallery-modal-media img {
+    max-height: 70vh;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 2px;
+  }
+}
+

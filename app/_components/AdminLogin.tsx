@@ -217,7 +217,6 @@ export default function AdminLogin() {
     router.push("/admin/dashboard");
     router.refresh();
   }
-
   return (
     <div className="auth-page">
       <div className="auth-shell">
@@ -240,20 +239,9 @@ export default function AdminLogin() {
         </div>
 
         <div className={`auth-form-panel${shake ? " auth-gate-shake" : ""}`}>
-          <div className="auth-eyebrow">
-            <span className="auth-eyebrow-label">L-CORP // Admin Access</span>
-            <div className="auth-eyebrow-line" />
-          </div>
-
-          <h1 className="auth-title">Secure terminal</h1>
 
           {!gatePassed ? (
             <div className="auth-gate">
-              <p className="auth-status-line">handshake required</p>
-              <p className="auth-gate-instructions">
-                Tap the tiles in order, 1 through {GATE_SIZE}.
-              </p>
-
               <div className="auth-gate-timer-track">
                 <div
                   className="auth-gate-timer-fill"
@@ -284,12 +272,7 @@ export default function AdminLogin() {
             </div>
           ) : (
             <div className="auth-form-fade">
-              <p className="auth-status-line">
-                {submitting ? "verifying credentials" : hasInput ? "reading input" : "awaiting credentials"}
-              </p>
-
               {error && <p className="auth-error">{error}</p>}
-
               <form onSubmit={handleSubmit}>
                 <div className="auth-field">
                   <label className="auth-field-label" htmlFor="email">
@@ -327,17 +310,6 @@ export default function AdminLogin() {
                   {submitting ? "Authenticating..." : "Sign in"}
                 </button>
               </form>
-
-              <div className="auth-footer">
-                <span className="auth-footer-chip">
-                  <span className="auth-footer-dot" style={{ background: "#7bbf6a" }} />
-                  Connection secure
-                </span>
-                <span className="auth-footer-chip">
-                  <span className="auth-footer-dot" style={{ background: "#e0b95a" }} />
-                  Session encrypted
-                </span>
-              </div>
             </div>
           )}
         </div>

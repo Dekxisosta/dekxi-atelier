@@ -6,6 +6,7 @@
 @import "./_styles/links.css";
 @import "./_styles/about.css";
 @import "./_styles/widgets.css";
+@import "./_styles/gallery.css";
 @import "./_styles/friends.css";
 @import "./_styles/friend-detail.css";
 @import "./_styles/decor.css";
@@ -17,6 +18,7 @@
 @import "./_styles/admin-shared.css";
 @import "./_styles/admin-login.css";
 @import "./_styles/admin-preview.css";
+@import "./_styles/admin-gallery.css";
 @import "./_styles/admin-blog.css";
 @import "./_styles/image-uploader.css";
 @import "./_styles/auth-terminal.css";
