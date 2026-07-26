@@ -7,25 +7,25 @@ type Props = {
   onOpen: (img: GalleryImage) => void;
 };
 
-export default function GalleryGrid({ images, onOpen }: Props) {
+export default function AdminGalleryGrid({ images, onOpen }: Props) {
   if (images.length === 0) {
     return <p>No pieces posted yet.</p>;
   }
 
   return (
-    <div className="gallery-grid">
+    <div className="admin-gallery-grid">
       {images.map((img) => (
         <button
           key={img.id}
           type="button"
-          className="gallery-grid-cell"
+          className="admin-gallery-cell"
           onClick={() => onOpen(img)}
           aria-label={img.caption || "Gallery image"}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={img.image_url} alt={img.caption || ""} className="gallery-grid-img" />
+          <img src={img.image_url} alt={img.caption || ""} className="admin-gallery-img" />
           {img.caption && (
-            <div className="gallery-grid-overlay">
+            <div className="admin-gallery-overlay">
               <span>{img.caption}</span>
             </div>
           )}

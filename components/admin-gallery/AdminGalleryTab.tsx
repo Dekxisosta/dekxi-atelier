@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { extractStoragePath } from "@/lib/supabase/storage-utils";
-import GalleryUploadForm from "./GalleryUploadForm";
-import GalleryGrid from "./GalleryGrid";
-import GalleryLightbox from "./GalleryLightbox";
+import AdminGalleryUploadForm from "./AdminGalleryUploadForm";
+import AdminGalleryGrid from "./AdminGalleryGrid";
+import AdminGalleryLightbox from "./AdminGalleryLightbox";
 import { GalleryImage } from "@/lib/supabase/admin-types";
 
 // Reuses the existing site-images bucket under its own folder so no new
@@ -13,7 +13,7 @@ import { GalleryImage } from "@/lib/supabase/admin-types";
 const GALLERY_BUCKET = "site-images";
 const GALLERY_FOLDER = "gallery";
 
-export default function GalleryTab() {
+export default function AdminGalleryTab() {
   const supabase = createClient();
   const [images, setImages] = useState<GalleryImage[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -32,7 +32,10 @@ export default function GalleryTab() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function handleUpload(file: File, caption: string) {
+  async function handleUpload(
+    file: File,
+    fields: { caption: string; description: string; location: string; tags: string[] }
+  ) {
     setUploading(true);
     const path = `${GALLERY_FOLDER}/${crypto.randomUUID()}-${file.name}`;
 
@@ -48,7 +51,10 @@ export default function GalleryTab() {
     const { error: insertError } = await supabase.from("gallery_images").insert({
       image_url: data.publicUrl,
       storage_path: path,
-      caption: caption || null
+      caption: fields.caption || null,
+      description: fields.description || null,
+      location: fields.location || null,
+      tags: fields.tags,
     });
 
     if (insertError) {
@@ -86,16 +92,16 @@ export default function GalleryTab() {
       <div className="admin-columns">
         <div className="admin-column">
           <h2 className="admin-section-title">Add to Art Gallery</h2>
-          <GalleryUploadForm uploading={uploading} onUpload={handleUpload} />
+          <AdminGalleryUploadForm uploading={uploading} onUpload={handleUpload} />
         </div>
 
         <div className="admin-column">
           <h2 className="admin-section-title">Gallery</h2>
-          <GalleryGrid images={images} onOpen={setOpenImage} />
+          <AdminGalleryGrid images={images} onOpen={setOpenImage} />
         </div>
       </div>
 
-      <GalleryLightbox image={openImage} onClose={() => setOpenImage(null)} onDelete={handleDelete} />
+      <AdminGalleryLightbox image={openImage} onClose={() => setOpenImage(null)} onDelete={handleDelete} />
     </section>
   );
 }

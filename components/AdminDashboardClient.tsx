@@ -6,7 +6,7 @@ import type { User } from "@supabase/supabase-js";
 import type { Tab } from "@/lib/tabs";
 import FriendsTab from "./admin-moots/FriendsTab";
 import BlogTab from "./admin-blog/BlogTab";
-import GalleryTab from "./admin-gallery/GalleryTab";
+import GalleryTab from "./admin-gallery/AdminGalleryTab";
 
 type DashboardSubTab = "friends" | "blog" | "gallery";
 

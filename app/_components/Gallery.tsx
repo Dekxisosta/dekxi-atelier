@@ -2,7 +2,10 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { fetchGalleryItems, type GalleryItem } from "@/lib/supabase/gallery";
+import { galleryTestData } from "@/lib/data/gallery-test-data";
 import GalleryModal from "@/components/gallery/GalleryModal";
+
+const USE_TEST_DATA = process.env.NEXT_PUBLIC_USE_GALLERY_TEST_DATA === "true";
 
 export default function Gallery() {
   const [items, setItems] = useState<GalleryItem[]>([]);
@@ -10,6 +13,12 @@ export default function Gallery() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect(() => {
+    if (USE_TEST_DATA) {
+      setItems(galleryTestData);
+      setLoading(false);
+      return;
+    }
+
     let cancelled = false;
     fetchGalleryItems().then((data) => {
       if (!cancelled) {
@@ -53,7 +62,11 @@ export default function Gallery() {
             aria-label={item.caption ?? "View image"}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={item.image_url} alt={item.caption ?? ""} loading="lazy" />
+            <img
+              src={item.image_url}
+              alt={item.caption ?? ""}
+              loading="lazy"
+            />
           </button>
         ))}
       </div>

@@ -5,6 +5,9 @@ export type GalleryItem = {
   image_url: string;
   storage_path: string;
   caption: string | null;
+  description: string | null;
+  location: string | null;
+  tags: string[];
   created_at: string;
 };
 
@@ -12,7 +15,7 @@ export async function fetchGalleryItems(): Promise<GalleryItem[]> {
   const supabase = createClient();
   const { data, error } = await supabase
     .from("gallery_images")
-    .select("id, image_url, storage_path, caption, created_at")
+    .select("id, image_url, storage_path, caption, description, location, tags, created_at")
     .order("created_at", { ascending: false });
 
   if (error) {

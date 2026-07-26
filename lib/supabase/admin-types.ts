@@ -29,6 +29,9 @@ export type GalleryImage = {
   image_url: string;
   storage_path: string;
   caption: string | null;
+  description: string | null;
+  location: string | null;
+  tags: string[];
   created_at: string;
 };
 
