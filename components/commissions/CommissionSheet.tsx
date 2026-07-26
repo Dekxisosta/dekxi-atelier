@@ -11,25 +11,26 @@ import LinksSection from "./LinksSection";
 export default function CommissionSheet({ info }: { info: CommissionInfo }) {
   return (
     <section className="commission-sheet">
-      <header className="commission-header">
-        <div className="commission-header-top">
-          <div className="commission-title-group">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://img1.picmix.com/output/stamp/normal/1/6/4/3/2763461_c4a5d.png"
-              alt=""
-              className="commission-title-stamp"
-            />
-            <h1 className="commission-title">Commission Sheet</h1>
-          </div>
-          <StatusBadge status={info.status} />
-        </div>
-        <p className="commission-tagline">{info.tagline}</p>
-      </header>
+      
 
       <div className="commission-layout">
         {/* 1/2 width — pricing + how to pay/contact */}
         <div className="commission-col-half">
+          <header className="commission-header">
+            <div className="commission-header-top">
+              <div className="commission-title-group">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://img1.picmix.com/output/stamp/normal/1/6/4/3/2763461_c4a5d.png"
+                  alt=""
+                  className="commission-title-stamp"
+                />
+                <h1 className="commission-title">Commission Sheet</h1>
+              </div>
+              <StatusBadge status={info.status} />
+            </div>
+            <p className="commission-tagline">{info.tagline}</p>
+          </header>
           <PricingTable table={info.pricingTable} />
           <PaymentMethods methods={info.paymentMethods} />
 
