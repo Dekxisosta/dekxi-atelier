@@ -4,6 +4,9 @@ import InterestsSection from "@/components/main/InterestsSection";
 import ContentGrid from "@/components/main/ContentGrid";
 import AboutMe from "@/components/main/AboutMe";
 import Sidebar from "@/components/main/Sidebar";
+import GithubContributionGraph from "@/components/main/GithubContributionGraph";
+import ClockWidget from "@/components/main/ClockWidget";
+import DiscordWidget from "@/components/main/DiscordWidget";
 
 export default function Main() {
   return (
@@ -18,6 +21,19 @@ export default function Main() {
           <ProfileHeader />
           <InterestsSection />
           <ContentGrid />
+
+          <div className="github-graph-section">
+            <p className="widget-subheading">Contribution Activity</p>
+            <GithubContributionGraph />
+          </div>
+
+          <div className="clock-section">
+            <p className="widget-subheading">World Clock</p>
+            <ClockWidget />
+          </div>
+          <div className="discord-widget-section"> 
+            <DiscordWidget />
+          </div>
           <div className="footer"></div>
         </div>
       </div>

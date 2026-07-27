@@ -335,7 +335,97 @@
   color: var(--white);
   transform: translateY(-1px);
 }
+/* Github Section*/
+.github-graph-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  margin-top: var(--space-14);
+}
+.github-graph-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
 
+.github-graph-total {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+.github-graph {
+  display: flex;
+  gap: 3px;
+  overflow-x: auto;
+  padding-bottom: var(--space-4);
+}
+
+.github-graph-week {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.github-graph-day {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background-color: var(--github-level-0);
+}
+
+.github-graph-level-0 { background-color: var(--github-level-0); }
+.github-graph-level-1 { background-color: var(--github-level-1); }
+.github-graph-level-2 { background-color: var(--github-level-2); }
+.github-graph-level-3 { background-color: var(--github-level-3); }
+.github-graph-level-4 { background-color: var(--github-level-4); }
+
+.clock-widget-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+.clock-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  margin-top: var(--space-10);
+}
+.clock-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-10);
+  background: var(--scrim-18);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+  min-width: 64px;
+}
+
+.clock-tile-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  opacity: 0.9;
+}
+
+.clock-tile-time {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.clock-tile-offset {
+  font-size: 9px;
+  font-weight: 300;
+  color: var(--accent);
+  opacity: 0.7;
+}
 /* Profile-header-specific keyframes */
 @keyframes avatarPulse {
   0%   { box-shadow: 0 0 0px 0px color-mix(in srgb, var(--terminal-glow) 0%, transparent), 0 0 0px 0px color-mix(in srgb, var(--terminal-glow) 0%, transparent); }

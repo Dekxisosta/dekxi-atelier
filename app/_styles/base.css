@@ -219,7 +219,13 @@
   --space-64:  64px;
   --space-120: 120px;
 }
-
+:root {
+  --github-level-0: #2d2419; 
+  --github-level-1: #4a3a1f;
+  --github-level-2: #7a5a25;
+  --github-level-3: #a97e2f;
+  --github-level-4: var(--gold); 
+}
 body {
   margin: 0;
   background-color: var(--black);
