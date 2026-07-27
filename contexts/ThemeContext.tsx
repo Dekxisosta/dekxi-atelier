@@ -1,14 +1,14 @@
 'use client';
 import { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'amber' | 'moonlight' | 'rosewood' | 'verdant';
-const ThemeContext = createContext<{ theme: Theme; setTheme: (t: Theme) => void } | null>(null);
+export type ThemeKey = 'amber' | 'moonlight' | 'rosewood' | 'verdant';
+const ThemeContext = createContext<{ theme: ThemeKey; setTheme: (t: ThemeKey) => void } | null>(null);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('amber');
+  const [theme, setThemeState] = useState<ThemeKey>('amber');
 
   useEffect(() => {
-    const stored = localStorage.getItem('theme') as Theme | null;
+    const stored = localStorage.getItem('theme') as ThemeKey | null;
     if (stored) setThemeState(stored);
   }, []);
 
@@ -17,7 +17,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const setTheme = (t: Theme) => setThemeState(t);
+  const setTheme = (t: ThemeKey) => setThemeState(t);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
