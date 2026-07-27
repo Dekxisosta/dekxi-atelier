@@ -39,19 +39,45 @@ export default function DiscordWidget() {
   return (
     <div className="discord-status">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="discord-avatar" src={data.avatar} alt="" />
+      <img
+        className="discord-avatar"
+        src="https://media1.tenor.com/m/cJ78dgzulvIAAAAd/project-moon-limbus-company.gif"
+        alt="Limbus Company"
+      />
       <div className="discord-status-text">
         <p className="discord-status-name">
           {data.username}
           <span className={`discord-dot discord-dot-${data.status}`} />
+          {data.guildTag && data.guildBadgeUrl ? (
+            <span className="discord-guild-tag">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="discord-guild-badge" src={data.guildBadgeUrl} alt="" />
+              {data.guildTag}
+            </span>
+          ) : null}
         </p>
         {data.customStatus ? (
           <p className="discord-status-line">{data.customStatus}</p>
         ) : null}
-        {data.activity ? (
-          <p className="discord-activity-line">
-            {data.activity.details ?? data.activity.name}
-          </p>
+        {data.activities.length > 0 ? (
+          <ul className="discord-activity-list">
+            {data.activities.map((activity) => (
+              <li key={activity.name} className="discord-activity-item">
+                {activity.smallImageUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    className="discord-activity-icon"
+                    src={activity.smallImageUrl}
+                    alt=""
+                    title={activity.smallText}
+                  />
+                ) : null}
+                <span className="discord-activity-line">
+                  {activity.details ?? activity.name}
+                </span>
+              </li>
+            ))}
+          </ul>
         ) : null}
       </div>
     </div>

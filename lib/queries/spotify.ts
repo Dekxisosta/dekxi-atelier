@@ -12,6 +12,9 @@ export interface SpotifyTrackData {
   recentlyPlayed: SpotifyTrack[];
 }
 
+// Module-level cache — persists across warm invocations, resets on cold start
+let cachedRecentlyPlayed: SpotifyTrack[] = [];
+
 async function getAccessToken(): Promise<string> {
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
@@ -40,7 +43,7 @@ async function getAccessToken(): Promise<string> {
     const errorBody = await res.text();
     console.error("Spotify token refresh failed:", res.status, errorBody);
     throw new Error("Failed to refresh Spotify access token");
-    }
+  }
 
   const json = await res.json();
   return json.access_token;
@@ -81,12 +84,23 @@ export async function getSpotifyData(): Promise<SpotifyTrackData> {
   }
 
   let recentlyPlayed: SpotifyTrack[] = [];
+
   if (recentRes.ok) {
     const recentJson = await recentRes.json();
-    recentlyPlayed = (recentJson?.items ?? []).map((entry: any) => ({
+    const items = (recentJson?.items ?? []).map((entry: any) => ({
       ...mapTrackItem(entry.track),
       playedAt: entry.played_at,
     }));
+
+    if (items.length > 0) {
+      recentlyPlayed = items;
+      cachedRecentlyPlayed = items; // update cache only on a genuine non-empty result
+    } else {
+      recentlyPlayed = cachedRecentlyPlayed; // fall back to last known good
+    }
+  } else {
+    console.error("Spotify recently-played fetch failed:", recentRes.status);
+    recentlyPlayed = cachedRecentlyPlayed; // fall back on error too
   }
 
   return { isPlaying, nowPlaying, recentlyPlayed };

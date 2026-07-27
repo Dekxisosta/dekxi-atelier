@@ -450,65 +450,135 @@
 }
 .discord-widget-section {
   margin-bottom: var(--space-10);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1 1 220px; /* was flex: 2 — matching basis with badges so both wrap predictably together */
+  min-width: 0;
+  height: 100%;
 }
 
 .discord-status {
   display: flex;
   align-items: center;
-  gap: var(--space-10);
-}
-
-.discord-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-pill);
-  border: 2px solid var(--border-hover);
-  object-fit: cover;
-  flex-shrink: 0;
+  gap: var(--space-8);
+  width: 100%;   /* fills the section so text-overflow actually has a boundary to hit */
+  min-width: 0;
 }
 
 .discord-status-text {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-4);
   min-width: 0;
+  flex: 1; /* takes remaining space next to the fixed-width avatar */
 }
 
 .discord-status-name {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
-  font-size: 12px;
+  flex-wrap: wrap; /* guild tag drops to its own line instead of overflowing on narrow widths */
+  gap: var(--space-8);
+  font-size: 15px;
   font-weight: 700;
   color: var(--text-primary);
+  min-width: 0;
 }
 
 .discord-status-line {
-  font-size: 11px;
-  font-weight: 300;
+  font-size: 13px;
+  font-weight: 400;
   color: var(--accent);
-  opacity: 0.85;
+  opacity: 0.9;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .discord-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
 }
-.discord-activity-line {
-  font-size: 10px;
-  font-weight: 300;
-  color: var(--text-primary);
-  opacity: 0.7;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+
 .discord-dot-online { background: #23a55a; }
 .discord-dot-idle { background: #f0b232; }
 .discord-dot-dnd { background: #f23f43; }
 .discord-dot-offline { background: #80848e; }
+
+.discord-activity-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.discord-activity-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
+.discord-activity-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.discord-activity-line {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-primary);
+  opacity: 0.8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1; /* consolidated — was duplicated as .discord-activity-details, removed the dupe */
+}
+
+.discord-activity-state {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--text-primary);
+  opacity: 0.6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.discord-guild-tag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  opacity: 0.8;
+  background: var(--border-hover);
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0; /* keeps the badge from getting squeezed when username is long */
+}
+
+.discord-guild-badge {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.discord-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  border: 2px solid var(--border-hover);
+  object-fit: cover;
+  flex-shrink: 0; /* explicit, though width/height already prevent shrink in most cases */
+}

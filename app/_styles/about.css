@@ -393,8 +393,7 @@
   flex-wrap: wrap;
   gap: var(--space-14);
   padding: var(--space-16) var(--space-20);
-  margin-bottom: var(--space-12);
-
+  justify-content: space-between;
   background: var(--bg);
   border: 3px solid var(--accent);
   border-radius: var(--radius-xl);
@@ -418,12 +417,12 @@
 }
 
 .affiliations-badges {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
   gap: var(--space-8);
-  flex: 1;
+  flex: 1 1 220px; /* basis gives it a real starting width to shrink from, rather than "auto" */
+  min-width: 0;    /* the actual fix — lets this flex item shrink below its grid content's natural size */
 }
-
 .affiliation-badge {
   font-size: 12.5px;
   font-weight: 700;
@@ -436,7 +435,6 @@
   box-shadow: 0 5px 2px 0px var(--badge-shadow);
   text-align: center;
   display: flex;
-  align-self: center;
 }
 .fan-title-frame {
   position: relative;
@@ -445,20 +443,20 @@
 
 .fan-title-frame img {
   display: block;
-  width: 180px;
+  width: clamp(60px, 8vw, 100px);
 }
+
 
 .fan-title-confetti {
   position: absolute;
   top: 0;
   left: 0;
-  width: 180px;
   pointer-events: none;
+  width: clamp(60px, 8vw, 100px);
 }
 .favorites-row {
   display: flex;
   gap: var(--space-8);
-  margin: var(--space-6) 0;
   flex-wrap: wrap;
 }
 

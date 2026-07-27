@@ -1,3 +1,5 @@
+import DiscordWidget from "@/components/main/DiscordWidget";
+
 const CONFETTI_BORDER_SRC =
   "https://static.wikia.nocookie.net/projectsekai/images/4/41/Confetti_Title_Border.png/revision/latest/scale-to-width-down/180?cb=20231110092810";
 
@@ -89,11 +91,8 @@ export default function AboutMe() {
   return (
     <div className="main-center">
       <div className="affiliations-banner">
-        <div className="affiliations-badges">
-          <FanTitle src="https://static.wikia.nocookie.net/projectsekai/images/7/7d/Airi_Fan_Title.png/revision/latest/scale-to-width-down/180?cb=20220624221443" />
-          <FanTitle src="https://static.wikia.nocookie.net/projectsekai/images/5/59/Nene_Fan_Title.png/revision/latest/scale-to-width-down/180?cb=20220624221919" />
-          <FanTitle src="https://static.wikia.nocookie.net/projectsekai/images/8/85/Mafuyu_Fan_Title.png/revision/latest/scale-to-width-down/180?cb=20220624222043" />
-          <FanTitle src="https://static.wikia.nocookie.net/projectsekai/images/a/a1/Shizuku_Fan_Title_JP.png/revision/latest/scale-to-width-down/180?cb=20221113050830" />
+        <div className="discord-widget-section"> 
+          <DiscordWidget />
         </div>
       </div>
 
