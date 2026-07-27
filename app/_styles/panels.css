@@ -3,8 +3,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 48px 20px;
+  gap: var(--space-10);
+  padding: var(--space-48) var(--space-20);
   text-align: center;
   background: var(--card);
   border: 3px dashed var(--border-hover);
@@ -65,8 +65,8 @@
 .admin-image-uploader {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 4px;
+  gap: var(--space-6);
+  margin-bottom: var(--space-4);
 }
 
 .admin-image-preview {
@@ -81,7 +81,7 @@
 .admin-upload-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-8);
 }
 
 .admin-upload-status {

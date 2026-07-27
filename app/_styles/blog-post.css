@@ -2,8 +2,8 @@
 .blog-post-back {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin: 18px 0 14px;
+  gap: var(--space-6);
+  margin: var(--space-18) 0 var(--space-14);
   font-family: 'Roboto', sans-serif;
   font-size: 11.5px;
   font-weight: 500;
@@ -30,7 +30,7 @@
   overflow: hidden;
   border-radius: var(--radius-card);
   border: 1px solid var(--border);
-  margin-bottom: 22px;
+  margin-bottom: var(--space-22);
 }
 
 .blog-post-cover img {
@@ -51,7 +51,7 @@
 /* ── ARTICLE SHELL ── */
 .blog-post {
   position: relative;
-  padding: 26px 28px 34px;
+  padding: var(--space-26) var(--space-28) var(--space-34);
   background: var(--card);
   border: 3px solid transparent;
   border-image: linear-gradient(
@@ -63,7 +63,8 @@
     var(--accent-light)
   ) 1;
   border-radius: var(--radius-card);
-  margin-bottom: 40px;
+  margin-bottom: var(--space-40);
+  max-width: 800px;
 }
 
 .blog-post::before,
@@ -83,8 +84,8 @@
 .blog-post-meta {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
+  gap: var(--space-10);
+  margin-bottom: var(--space-10);
 }
 
 .blog-post-date {
@@ -100,7 +101,7 @@
 .blog-post-tag {
   display: inline-flex;
   align-items: center;
-  padding: 3px 10px;
+  padding: var(--space-3) var(--space-10);
   background: var(--accent-dim);
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
@@ -118,7 +119,7 @@
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.25;
-  margin: 0 0 10px;
+  margin: 0 0 var(--space-10);
 }
 
 .blog-post-excerpt {
@@ -129,8 +130,8 @@
   color: var(--text-secondary);
   opacity: 0.9;
   line-height: 1.6;
-  margin: 0 0 20px;
-  padding-bottom: 20px;
+  margin: 0 0 var(--space-20);
+  padding-bottom: var(--space-20);
   border-bottom: 1px solid var(--border);
 }
 
@@ -140,7 +141,7 @@
    markdown-preview.css, so this always matches the admin editor's
    live preview. */
 .blog-post-content {
-  margin-top: 4px;
+  margin-top: var(--space-4);
 }
 
 .blog-post-content .md-preview-content {
@@ -151,7 +152,7 @@
 /* ── MOBILE ── */
 @media (max-width: 620px) {
   .blog-post {
-    padding: 20px 18px 26px;
+    padding: var(--space-20) var(--space-18) var(--space-26);
   }
   .blog-post-title {
     font-size: 1.5rem;

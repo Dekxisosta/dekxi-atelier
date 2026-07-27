@@ -4,17 +4,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: var(--space-40) var(--space-20);
 }
 
 .auth-shell {
   width: 100%;
   max-width: 880px;
   display: flex;
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   overflow: hidden;
   background: var(--card);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 40px var(--scrim-40);
 }
 
 /* ── Visual panel ── */
@@ -39,9 +39,9 @@
   position: absolute;
   bottom: 16px;
   left: 16px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background: rgba(15, 12, 10, 0.7);
+  padding: var(--space-5) var(--space-10);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--bg-dark) 70%, transparent);
   backdrop-filter: blur(4px);
   color: var(--accent-light);
   font-size: 0.68rem;
@@ -57,14 +57,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 24px;
-  padding: 44px 40px;
+  gap: var(--space-24);
+  padding: var(--space-44) var(--space-40);
 }
 
 .auth-form-header {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-4);
 }
 
 .auth-form-title {
@@ -80,13 +80,13 @@
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: var(--space-18);
 }
 
 .auth-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-6);
 }
 
 .auth-field-label {
@@ -99,8 +99,8 @@
 }
 
 .auth-input {
-  padding: 11px 14px;
-  border-radius: 8px;
+  padding: var(--space-11) var(--space-14);
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text-primary);
@@ -121,10 +121,10 @@
 }
 
 .auth-submit {
-  margin-top: 6px;
-  padding: 12px 16px;
+  margin-top: var(--space-6);
+  padding: var(--space-12) var(--space-16);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background: var(--accent);
   color: var(--bg-dark);
   font-size: 0.9rem;
@@ -145,11 +145,11 @@
 }
 
 .auth-error {
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: color-mix(in srgb, #e0605a 12%, transparent);
-  border: 1px solid color-mix(in srgb, #e0605a 35%, transparent);
-  color: #f2a6a2;
+  padding: var(--space-10) var(--space-14);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--status-danger) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--status-danger) 35%, transparent);
+  color: var(--status-danger-light);
   font-size: 0.82rem;
 }
 
@@ -164,6 +164,6 @@
   }
 
   .auth-form-panel {
-    padding: 32px 24px;
+    padding: var(--space-32) var(--space-24);
   }
 }

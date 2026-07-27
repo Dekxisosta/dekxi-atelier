@@ -1,7 +1,7 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-2);
 }
 
 .content::before {
@@ -12,15 +12,15 @@
   font-weight: 400;
   letter-spacing: 0.07em;
   color: var(--text-secondary);
-  padding: 0 4px 8px;
+  padding: 0 var(--space-4) var(--space-8);
   border-bottom: 1px solid var(--border);
-  margin-bottom: 4px;
+  margin-bottom: var(--space-4);
 }
 
 .content-grid {
   display: grid !important;
   grid-template-columns: repeat(5, minmax(0, 1fr)); /* tablet default */
-  gap: 12px !important;
+  gap: var(--space-12) !important;
 }
 
 .content-grid::before {
@@ -31,7 +31,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
+  padding: var(--space-4);
   background: transparent;
   border: none;
   cursor: pointer;

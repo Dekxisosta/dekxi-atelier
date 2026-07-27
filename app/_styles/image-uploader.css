@@ -1,9 +1,9 @@
 .admin-image-uploader {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 12px;
-  margin-bottom: 4px;
+  gap: var(--space-8);
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-4);
 }
 
 .admin-image-preview {
@@ -21,14 +21,14 @@
   aspect-ratio: 1 / 1;
   width: 140px;
   max-width: 140px;
-  border-radius: 50%;
+  border-radius: var(--radius-avatar);
   border: 3px solid var(--border-hover);
 }
 
 .admin-upload-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-10);
   font-size: 11.5px;
 }
 

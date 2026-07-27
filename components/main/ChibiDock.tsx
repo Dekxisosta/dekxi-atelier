@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { CHIBI_IMAGES } from "@/lib/data/chibi";
 
 export default function ChibiDock() {
@@ -23,11 +24,14 @@ export default function ChibiDock() {
         </div>
       ))}
 
-      {hovered && (
-        <div className="chibi-tooltip" style={{ left: hovered.x + 16, top: hovered.y + 16 }}>
-          {hovered.label}
-        </div>
-      )}
+      {hovered &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div className="chibi-tooltip" style={{ left: hovered.x + 16, top: hovered.y + 16 }}>
+            {hovered.label}
+          </div>,
+          document.body
+        )}
     </div>
   );
 }

@@ -14,7 +14,7 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: var(--accent-dim) transparent;
-    padding-bottom: 6px; /* room for scrollbar so it doesn't clip content */
+    padding-bottom: var(--space-6); /* room for scrollbar so it doesn't clip content */
   }
 
   .chibi-dock::-webkit-scrollbar {
@@ -27,7 +27,7 @@
 
   .chibi-dock::-webkit-scrollbar-thumb {
     background: var(--accent-dim);
-    border-radius: 2px;
+    border-radius: var(--radius-xs);
   }
 }
 
@@ -80,7 +80,7 @@
   background: var(--bg-dark);
   border: 1px solid var(--border-hover);
   border-radius: var(--radius-pill);
-  padding: 4px 10px;
+  padding: var(--space-4) var(--space-10);
   font-size: 11px;
   font-weight: 500;
   color: var(--text-primary);

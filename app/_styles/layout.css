@@ -5,7 +5,7 @@
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
-  gap: 24px;
+  gap: var(--space-24);
 }
 
 .container-page::before {
@@ -16,8 +16,8 @@
   z-index: 0;
   background-image: repeating-linear-gradient(
     45deg,
-    rgba(0, 0, 0, 0.04) 0px,
-    rgba(0, 0, 0, 0.04) 1px,
+    var(--scrim-04) 0px,
+    var(--scrim-04) 1px,
     transparent 1px,
     transparent 12px
   );
@@ -81,8 +81,8 @@
   z-index: 0;
   background: repeating-linear-gradient(
     0deg,
-    rgba(0, 0, 0, 0.15) 0px,
-    rgba(0, 0, 0, 0.15) 1px,
+    var(--scrim-15) 0px,
+    var(--scrim-15) 1px,
     transparent 1px,
     transparent 3px
   );
@@ -97,7 +97,7 @@
   z-index: 0;
   background: linear-gradient(
     transparent 0%,
-    rgba(212, 237, 63, 0.03) 50%,
+    color-mix(in srgb, var(--terminal-glow) 3%, transparent) 50%,
     transparent 100%
   );
   background-size: 100% 8px;
@@ -116,9 +116,9 @@
 .main-left-dock {
   flex-shrink: 0;
   width: 100px;
-  padding-top: 20px;
-  padding-left: 20px;
-  margin-right: 20px;
+  padding-top: var(--space-20);
+  padding-left: var(--space-20);
+  margin-right: var(--space-20);
   position: relative;
   z-index: 999;
 }
@@ -127,10 +127,10 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--space-24);
   min-width: 0;
   background-color: var(--bg);
-  padding:20px;
+  padding:var(--space-20);
   border-left: 1px solid var(--accent);
   border-right: 1px solid var(--accent);
 }
@@ -139,8 +139,8 @@
   flex: 6;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 20px 14px;
+  gap: var(--space-24);
+  padding: var(--space-20) var(--space-14);
   border-left: 1px solid var(--border);
   min-width: 0;
 }
@@ -149,8 +149,8 @@
   flex: 5;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 20px 14px;
+  gap: var(--space-14);
+  padding: var(--space-20) var(--space-14);
   border-left: 1px solid var(--border);
   background: var(--bg);
   max-width: 300px;
@@ -180,15 +180,15 @@
 
 /* Layout breakpoints */
 @media (min-width: 728px) {
-  .container-main-decor-fur { padding: 3px; }
-  .container-main-decor     { padding: 3px; }
+  .container-main-decor-fur { padding: var(--space-3); }
+  .container-main-decor     { padding: var(--space-3); }
 
   .bg-decor {
     display: block;
     position: fixed;
     inset: 0;
     z-index: 0;
-    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.25) 100%);
+    background: radial-gradient(ellipse at center, transparent 40%, var(--scrim-25) 100%);
     pointer-events: none;
   }
   
@@ -236,14 +236,14 @@
     flex: 1 1 auto;
     border-left: none;
     border-top: 1px solid var(--border);
-    padding: 16px 20px;
+    padding: var(--space-16) var(--space-20);
   }
   .main-left {
     border-top: none;
     flex-direction: column;
   }
   .main-left-dock {
-    padding-bottom: 30px;
+    padding-bottom: var(--space-30);
     max-height: 100vw;
     overflow-y: hidden;
     overflow-x: auto;

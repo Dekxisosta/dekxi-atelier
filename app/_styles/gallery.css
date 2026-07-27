@@ -1,7 +1,7 @@
 /* ── GALLERY GRID (Pinterest-style masonry) ── */
 .gallery-grid {
   column-count: 5;
-  column-gap: 4px;
+  column-gap: var(--space-4);
   width: 100%;
 }
 
@@ -15,7 +15,7 @@
   cursor: pointer;
   background: var(--bg-dark);
   break-inside: avoid;
-  margin-bottom: 4px;
+  margin-bottom: var(--space-4);
 }
 
 .gallery-grid-item img {
@@ -33,7 +33,7 @@
 .gallery-loading,
 .gallery-empty {
   color: var(--text-secondary);
-  padding: 40px;
+  padding: var(--space-40);
   text-align: center;
   font-size: 14px;
 }
@@ -56,11 +56,11 @@
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(9, 8, 7, 0.92);
+  background: color-mix(in srgb, var(--black) 92%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: var(--space-24);
 }
 
 /* ── MODAL: IG-STYLE LAYOUT ── */
@@ -82,7 +82,7 @@
   position: relative;
   flex: 1.4;
   min-width: 0;
-  background: #000;
+  background: var(--black);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -109,15 +109,15 @@
 .gallery-modal-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
+  gap: var(--space-10);
+  padding: var(--space-12) var(--space-14);
   border-bottom: 1px solid var(--border);
 }
 
 .gallery-modal-avatar {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: var(--radius-avatar);
   background: var(--bg-dark);
   display: flex;
   align-items: center;
@@ -160,7 +160,7 @@
   color: var(--text-primary);
   cursor: pointer;
   font-size: 18px;
-  padding: 4px;
+  padding: var(--space-4);
 }
 
 .gallery-modal-close-inline {
@@ -169,7 +169,7 @@
   color: var(--text-primary);
   cursor: pointer;
   font-size: 18px;
-  padding: 4px;
+  padding: var(--space-4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -188,8 +188,8 @@
 
 .gallery-modal-caption-row {
   display: flex;
-  gap: 10px;
-  padding: 12px 14px;
+  gap: var(--space-10);
+  padding: var(--space-12) var(--space-14);
 }
 
 .gallery-modal-caption-text {
@@ -200,24 +200,24 @@
 
 .gallery-modal-caption-text .username {
   font-weight: 600;
-  margin-right: 4px;
+  margin-right: var(--space-4);
 }
 
 .gallery-modal-tags {
-  margin-top: 6px;
+  margin-top: var(--space-6);
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--space-6);
 }
 
 .gallery-modal-tag {
   font-size: 13px;
-  color: #6bb8ff;
+  color: var(--accent);
 }
 
 .gallery-modal-timestamp {
   display: block;
-  margin-top: 6px;
+  margin-top: var(--space-6);
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -232,8 +232,8 @@
 
 .gallery-modal-comment {
   display: flex;
-  gap: 10px;
-  padding: 8px 14px;
+  gap: var(--space-10);
+  padding: var(--space-8) var(--space-14);
 }
 
 .gallery-modal-comment-body {
@@ -249,13 +249,13 @@
 
 .gallery-modal-comment-text .username {
   font-weight: 600;
-  margin-right: 4px;
+  margin-right: var(--space-4);
 }
 
 .gallery-modal-comment-meta {
   display: flex;
-  gap: 12px;
-  margin-top: 4px;
+  gap: var(--space-12);
+  margin-top: var(--space-4);
   font-size: 12px;
   color: var(--text-secondary);
 }
@@ -276,11 +276,11 @@
   border: none;
   color: var(--text-secondary);
   cursor: pointer;
-  padding: 4px;
+  padding: var(--space-4);
 }
 
 .gallery-modal-comments-empty {
-  padding: 24px 14px;
+  padding: var(--space-24) var(--space-14);
   text-align: center;
   font-size: 13px;
   color: var(--text-secondary);
@@ -289,13 +289,13 @@
 /* ── FOOTER: ACTIONS + LIKES + INPUT ── */
 .gallery-modal-footer {
   border-top: 1px solid var(--border);
-  padding: 10px 14px 12px;
+  padding: var(--space-10) var(--space-14) var(--space-12);
 }
 
 .gallery-modal-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: var(--space-14);
 }
 .gallery-modal-actions ion-icon {
   font-size: 24px;
@@ -306,7 +306,7 @@
   border: none;
   color: var(--text-primary);
   cursor: pointer;
-  padding: 4px;
+  padding: var(--space-4);
   display: flex;
   align-items: center;
 }
@@ -320,7 +320,7 @@
 }
 
 .gallery-modal-likes {
-  margin-top: 8px;
+  margin-top: var(--space-8);
   font-size: 13px;
   color: var(--text-primary);
 }
@@ -330,7 +330,7 @@
 }
 
 .gallery-modal-date {
-  margin-top: 4px;
+  margin-top: var(--space-4);
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -338,12 +338,12 @@
 }
 
 .gallery-modal-comment-form {
-  margin-top: 10px;
+  margin-top: var(--space-10);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-8);
   border-top: 1px solid var(--border);
-  padding-top: 10px;
+  padding-top: var(--space-10);
 }
 
 .gallery-modal-comment-input {
@@ -378,8 +378,8 @@
   width: 32px;
   height: 32px;
   border: none;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.55);
+  border-radius: var(--radius-avatar);
+  background: var(--scrim-55);
   color: var(--text-primary);
   display: flex;
   align-items: center;
@@ -389,7 +389,7 @@
 }
 
 .gallery-modal-close:hover {
-  background: rgba(0, 0, 0, 0.75);
+  background: var(--scrim-75);
 }
 
 .gallery-modal-nav {
@@ -400,8 +400,8 @@
   width: 40px;
   height: 40px;
   border: none;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.45);
+  border-radius: var(--radius-avatar);
+  background: var(--scrim-45);
   color: var(--text-primary);
   display: flex;
   align-items: center;
@@ -411,7 +411,7 @@
 }
 
 .gallery-modal-nav:hover {
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--scrim-70);
 }
 
 .gallery-modal-nav-prev {
@@ -447,12 +447,12 @@
 @media (max-width: 700px) {
   .gallery-grid {
     column-count: 2;
-    gap: 2px;
-    column-gap: 2px;
+    gap: var(--space-2);
+    column-gap: var(--space-2);
   }
 
   .gallery-grid-item {
-    margin-bottom: 2px;
+    margin-bottom: var(--space-2);
   }
 }
 

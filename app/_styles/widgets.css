@@ -1,8 +1,8 @@
 .widget-panel {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 14px;
+  gap: var(--space-8);
+  padding: var(--space-14);
   background-color: var(--bg);
   border: 3px solid transparent;
   border-image: linear-gradient(135deg, var(--accent-light), var(--accent), var(--border-hover), var(--accent), var(--accent-light)) 1;
@@ -46,13 +46,13 @@
 .steam-status {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-10);
 }
 
 .steam-avatar {
   width: 40px;
   height: 40px;
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   border: 2px solid var(--border-hover);
   object-fit: cover;
   flex-shrink: 0;
@@ -61,7 +61,7 @@
 .steam-status-text {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-2);
   min-width: 0;
 }
 
@@ -84,14 +84,14 @@
 .spotify-now-playing {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-10);
   text-decoration: none;
 }
 
 .spotify-art {
   width: 44px;
   height: 44px;
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   border: 2px solid var(--border-hover);
   object-fit: cover;
   flex-shrink: 0;
@@ -100,7 +100,7 @@
 .spotify-track-text {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: var(--space-1);
   min-width: 0;
   flex: 1;
 }
@@ -126,7 +126,7 @@
 .spotify-eq {
   display: flex;
   align-items: flex-end;
-  gap: 2px;
+  gap: var(--space-2);
   height: 14px;
   flex-shrink: 0;
 }
@@ -145,7 +145,7 @@
 .codewars-stats {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-6);
 }
 
 .codewars-stat-row {
@@ -166,7 +166,7 @@
 
 .codewars-link {
   align-self: flex-start;
-  margin-top: 4px;
+  margin-top: var(--space-4);
   font-size: 11px;
   font-weight: 500;
   color: var(--accent-light);
@@ -183,16 +183,16 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-6);
   height: fit-content;
 }
 
 .blog-list-link {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 6px 8px;
-  background: rgba(0, 0, 0, 0.18);
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-8);
+  background: var(--scrim-18);
   border: 1px dashed var(--border);
   border-radius: var(--radius-pill);
   transition: background 0.15s ease, transform 0.15s ease;
@@ -227,14 +227,14 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin: 0 0 4px 0;
+  margin: 0 0 var(--space-4) 0;
   width: fit-content;
 
-  padding: 4px 10px;
+  padding: var(--space-4) var(--space-10);
   background-color: var(--accent);
   color: var(--bg);
   corner-shape: bevel;
-  border-radius: 4px; /* fallback for browsers without corner-shape support */
+  border-radius: var(--radius-pill); /* fallback for browsers without corner-shape support */
 }
 
 /* ── PORTRAIT — gold notch frame with elbow tube corners ── */
@@ -252,7 +252,7 @@
   background-repeat: no-repeat;
 
   border: 3px solid var(--accent);
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   corner-shape: notch;
 
   box-shadow: inset 0 0 0 2px var(--accent-dim);
@@ -269,13 +269,13 @@
   pointer-events: none;
   background-image: linear-gradient(
     135deg,
-    #7a5a1e 0%,
-    #d4af37 25%,
-    #fff6d5 50%,
-    #d4af37 75%,
-    #7a5a1e 100%
+    var(--gold-dark) 0%,
+    var(--gold) 25%,
+    var(--gold-light) 50%,
+    var(--gold) 75%,
+    var(--gold-dark) 100%
   );
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 2px 3px var(--scrim-50));
 }
 
 .sidebar-portrait::before {

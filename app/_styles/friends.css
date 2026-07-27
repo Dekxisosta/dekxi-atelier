@@ -1,20 +1,20 @@
 .friends-main {
   flex-direction: column;
-  padding: 20px;
+  padding: var(--space-20);
   position: relative;
 }
 
 .friends-content {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-12);
 }
 
 .friends-list {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  padding: 10px 6px 4px;
+  gap: var(--space-8);
+  padding: var(--space-10) var(--space-6) var(--space-4);
 }
 
 .friend-row {
@@ -22,7 +22,7 @@
   flex-direction: column;
   align-items: stretch;
   gap: 0;
-  padding: 0 0 12px;
+  padding: 0 0 var(--space-12);
   min-width: 0;
   background: var(--bg);
   border: 3px solid transparent;
@@ -61,8 +61,8 @@
 
 .friend-header {
   display: flex;
-  padding: 0 10px;
-  margin-top: -28px;
+  padding: 0 var(--space-10);
+  margin-top: calc(-1 * var(--space-28));
 }
 
 .friend-avatar-wrap {
@@ -75,7 +75,7 @@
 .friend-avatar {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: var(--radius-avatar);
   object-fit: cover;
   border: 2px ridge var(--accent-light);
   background: var(--accent);
@@ -100,8 +100,8 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 6px 10px 0;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-10) 0;
 }
 
 .friend-name {
@@ -127,15 +127,15 @@
 .friend-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 4px;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
 }
 
 .friend-tag {
   display: inline-flex;
   align-items: center;
-  padding: 4px 7px;
-  background: rgba(0, 0, 0, 0.25);
+  padding: var(--space-4) var(--space-7);
+  background: var(--scrim-25);
   border: 1px solid var(--border-hover);
   border-radius: var(--radius-pill);
   color: var(--text-primary);
@@ -148,13 +148,13 @@
   display:flex;
   flex-direction: column;
   margin-top: auto;
-  padding-top: 20px;
+  padding-top: var(--space-20);
 }
 .friend-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  margin-bottom: 10px;
+  gap: var(--space-4);
+  margin-bottom: var(--space-10);
 }
 
 .friend-link-badge {
@@ -184,9 +184,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--space-6);
   margin-top: auto;
-  padding: 8px 10px;
+  padding: var(--space-8) var(--space-10);
   font-family: 'Roboto', sans-serif;
   font-size: 10.5px;
   font-weight: 500;
@@ -211,7 +211,7 @@
   background: var(--card-hover);
   transform: translateY(-2px);
   letter-spacing: 0.08em;
-  box-shadow: 0 6px 14px -6px rgba(210, 161, 74, 0.4);
+  box-shadow: 0 6px 14px -6px color-mix(in srgb, var(--accent) 40%, transparent);
 }
 
 .friend-view-link:hover ion-icon {
@@ -221,9 +221,9 @@
 .mutuals-header {
   position: relative;
   display: flex;
-  gap: 18px;
-  padding: 16px;
-  margin-bottom: 18px;
+  gap: var(--space-18);
+  padding: var(--space-16);
+  margin-bottom: var(--space-18);
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
@@ -264,13 +264,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
+  gap: var(--space-10);
 }
 
 .mutuals-header-top {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-8);
 }
 
 .mutuals-header-label {
@@ -286,7 +286,7 @@
   flex: 1;
   height: 0;
   border-top: 2px double var(--border-hover);
-  margin-left: 4px;
+  margin-left: var(--space-4);
 }
 
 .mutuals-header-message {

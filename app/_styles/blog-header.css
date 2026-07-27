@@ -1,9 +1,9 @@
 .blog-header {
   position: relative;
   display: flex;
-  gap: 18px;
-  padding: 16px;
-  margin-bottom: 18px;
+  gap: var(--space-18);
+  padding: var(--space-16);
+  margin-bottom: var(--space-18);
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
@@ -44,13 +44,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
+  gap: var(--space-10);
 }
 
 .blog-header-top {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-8);
 }
 
 .blog-header-label {
@@ -66,7 +66,7 @@
   flex: 1;
   height: 0;
   border-top: 2px double var(--border-hover);
-  margin-left: 4px;
+  margin-left: var(--space-4);
 }
 
 .blog-header-message {

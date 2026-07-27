@@ -1,8 +1,8 @@
 .admin-blog-toplevel {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4px 18px;
-  margin-bottom: 8px;
+  gap: var(--space-4) var(--space-18);
+  margin-bottom: var(--space-8);
 }
 
 .admin-blog-toplevel-full {
@@ -18,27 +18,27 @@
 .admin-blog-content {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-top: 14px;
-  padding-top: 14px;
+  gap: var(--space-4);
+  margin-top: var(--space-14);
+  padding-top: var(--space-14);
   border-top: 1px solid var(--border);
 }
 
 .admin-blog-posts {
-  margin-top: 28px;
+  margin-top: var(--space-28);
 }
 
 .admin-blog-posts .admin-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 10px;
+  gap: var(--space-10);
 }
 
 .md-editor {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 6px 0 4px;
+  gap: var(--space-12);
+  margin: var(--space-6) 0 var(--space-4);
 }
 @media (max-width: 900px) {
   .md-editor { grid-template-columns: 1fr; }
@@ -48,14 +48,14 @@
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
   background: var(--bg-dark);
   min-height: 260px;
 }
 
 .md-editor-pane-label {
-  padding: 6px 10px;
+  padding: var(--space-6) var(--space-10);
   font-family: 'Roboto', monospace;
   font-size: 9.5px;
   letter-spacing: 0.08em;
@@ -75,33 +75,33 @@
   font-family: 'Roboto', monospace;
   font-size: 12.5px;
   line-height: 1.6;
-  padding: 12px;
+  padding: var(--space-12);
 }
 .md-editor-textarea:focus { outline: none; }
 
 .md-editor-preview .md-preview-content {
-  padding: 12px 14px;
+  padding: var(--space-12) var(--space-14);
   overflow-y: auto;
 }
 
 .attachments-bucket {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-top: 10px;
+  gap: var(--space-6);
+  margin-top: var(--space-10);
 }
 
 .attachments-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-6);
 }
 
 .attachment-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 8px;
+  gap: var(--space-8);
+  padding: var(--space-6) var(--space-8);
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
@@ -133,7 +133,7 @@
 
 .attachment-row-actions {
   display: flex;
-  gap: 4px;
+  gap: var(--space-4);
   flex-shrink: 0;
 }
 

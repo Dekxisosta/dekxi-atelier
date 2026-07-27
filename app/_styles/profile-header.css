@@ -3,7 +3,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding-top: 120px;
+  padding-top: var(--space-120);
 }
 
 .header-banner {
@@ -18,9 +18,9 @@
   z-index: 20;
 
   box-shadow:
-    inset 0 3px 6px rgba(0, 0, 0, 0.6),
-    inset 0 -4px 8px rgba(0, 0, 0, 0.5),
-    inset 0 0 20px rgba(0, 0, 0, 0.35),
+    inset 0 3px 6px var(--scrim-60),
+    inset 0 -4px 8px var(--scrim-50),
+    inset 0 0 20px var(--scrim-35),
     0 4px 0 color-mix(in srgb, var(--accent) 70%, black);
 }
 .clockwise-tracker {
@@ -42,9 +42,9 @@
 .profile-meta-row {
   display: flex;
   align-items: flex-end;
-  gap: 12px;
-  padding: 0 8px;
-  margin-top: -34px;
+  gap: var(--space-12);
+  padding: 0 var(--space-8);
+  margin-top: calc(-1 * var(--space-34));
   position: relative;
   z-index: 2;
 }
@@ -54,13 +54,13 @@
   width: 88px;
   height: 88px;
   flex-shrink: 0;
-  margin-bottom: 16px;
+  margin-bottom: var(--space-16);
 }
 
 .avatar {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: var(--radius-avatar);
   object-fit: cover;
   border: 3px ridge var(--accent);
   display: block;
@@ -87,16 +87,16 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-2);
   justify-content: flex-end;
-  padding-top: 56px;
-  padding-bottom: 4px;
+  padding-top: var(--space-56);
+  padding-bottom: var(--space-4);
 }
 
 .profile-name-row {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: var(--space-8);
   flex-wrap: wrap;
 }
 
@@ -104,7 +104,7 @@
   margin-top: 0px;
   border: 4px dashed var(--bg);
   background-color: var(--bg-dark);
-  padding: 12px;
+  padding: var(--space-12);
   text-align: left;
 }
 
@@ -126,7 +126,7 @@
   font-weight: 400;
   color: var(--accent-light);
   letter-spacing: 0.02em;
-  margin: 2px 0 0 0;
+  margin: var(--space-2) 0 0 0;
   opacity: 0;
   transform: translateY(10px);
   animation: fadeUp 0.6s ease 0.2s forwards;
@@ -145,7 +145,7 @@
 /* Social pills */
 .profile-links {
   display: flex;
-  gap: 6px;
+  gap: var(--space-6);
   flex-wrap: wrap;
   align-items: center;
 }
@@ -154,8 +154,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: 4px;
+  gap: var(--space-2);
+  padding: var(--space-4);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -207,7 +207,7 @@
   justify-content: center;
   width: 56px;
   height: 56px;
-  margin: 0px 20px;
+  margin: 0px var(--space-20);
 }
 
 .profile-link-plain .profile-link-icon {
@@ -221,9 +221,9 @@
 .techstack-section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 14px 10px 10px 0;
-  margin: 30px 0px 10px 0px;
+  gap: var(--space-8);
+  padding: var(--space-14) var(--space-10) var(--space-10) 0;
+  margin: var(--space-30) 0px var(--space-10) 0px;
   border-top: 3px double var(--border-hover);
   border-bottom: 3px double var(--border-hover);
   position: relative;
@@ -235,7 +235,7 @@
   top: -9px;
   left: 16px;
   background: var(--bg);
-  padding: 0 10px;
+  padding: 0 var(--space-10);
   font-family: var(--font-heading);
   font-size: 10px;
   font-weight: 400;
@@ -249,7 +249,7 @@
   font-weight: 700;
   letter-spacing: 0.07em;
   color: var(--text-secondary);
-  padding: 0 4px 6px;
+  padding: 0 var(--space-4) var(--space-6);
   border-bottom: 1px solid var(--border);
 }
 
@@ -257,7 +257,7 @@
   position: relative;
   overflow: hidden;
   background-color: var(--black);
-  padding: 12px;
+  padding: var(--space-12);
 }
 
 .techstack-track-outer {
@@ -281,7 +281,7 @@
   background: var(--accent-dim);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
-  padding: 6px;
+  padding: var(--space-6);
   transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
   flex-shrink: 0;
   min-width: 40px;
@@ -305,20 +305,20 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 0 4px;
+  gap: var(--space-8);
+  padding: 0 var(--space-4);
 }
 
 .interests-pills-wrap {
   display: flex;
-  gap: 6px;
+  gap: var(--space-6);
   flex-wrap: wrap;
 }
 
 .interest-pill {
   display: inline-flex;
   align-items: center;
-  padding: 6px 12px;
+  padding: var(--space-6) var(--space-12);
   background: var(--bg);
   border: 1px dashed var(--border);
   color: var(--accent);
@@ -338,9 +338,9 @@
 
 /* Profile-header-specific keyframes */
 @keyframes avatarPulse {
-  0%   { box-shadow: 0 0 0px 0px rgba(212, 237, 63, 0), 0 0 0px 0px rgba(212, 237, 63, 0); }
-  50%  { box-shadow: 0 0 8px 3px rgba(212, 237, 63, 0.4), 0 0 20px 6px rgba(212, 237, 63, 0.15); }
-  100% { box-shadow: 0 0 0px 0px rgba(212, 237, 63, 0), 0 0 0px 0px rgba(212, 237, 63, 0); }
+  0%   { box-shadow: 0 0 0px 0px color-mix(in srgb, var(--terminal-glow) 0%, transparent), 0 0 0px 0px color-mix(in srgb, var(--terminal-glow) 0%, transparent); }
+  50%  { box-shadow: 0 0 8px 3px color-mix(in srgb, var(--terminal-glow) 40%, transparent), 0 0 20px 6px color-mix(in srgb, var(--terminal-glow) 15%, transparent); }
+  100% { box-shadow: 0 0 0px 0px color-mix(in srgb, var(--terminal-glow) 0%, transparent), 0 0 0px 0px color-mix(in srgb, var(--terminal-glow) 0%, transparent); }
 }
 
 @keyframes avatarSpin {

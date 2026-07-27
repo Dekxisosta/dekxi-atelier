@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: var(--space-20);
 }
 
 .admin-login-card {
@@ -11,8 +11,8 @@
   max-width: 360px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 24px;
+  gap: var(--space-10);
+  padding: var(--space-24);
   background: var(--bg);
   border: 3px solid transparent;
   border-image: linear-gradient(135deg, var(--accent-light), var(--accent), var(--border-hover), var(--accent), var(--accent-light)) 1;
@@ -24,10 +24,10 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--text-secondary);
-  margin-bottom: 8px;
+  margin-bottom: var(--space-8);
 }
 
 .admin-login-error {
-  color: #e0605a;
+  color: var(--status-danger);
   font-size: 12.5px;
 }

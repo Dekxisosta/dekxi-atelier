@@ -6,8 +6,6 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
   return (
     <div className="friends-main">
       <div className="friends-content">
-        <BlogHeader />
-
         <div className="blog-list blog-list-grid" id="blogList">
           {posts.length === 0 && <p>No entries yet.</p>}
           {posts.map((post) => (

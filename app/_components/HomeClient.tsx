@@ -8,6 +8,11 @@ import Blog from "./Blog";
 import Moots from "./Moots";
 import AdminLogin from "./AdminLogin";
 import Dashboard from "./Dashboard";
+import Testimonials from "./Testimonials";
+import TechStack from "./TechStack";
+import Projects from "./Projects";
+import Certificates from "./Certificates";
+import Affiliations from "./Affiliations";
 import CommissionSheet from "@/components/commissions/CommissionSheet";
 import type { CommissionInfo } from "@/lib/types/commission";
 import type { Friend, BlogPost } from "../page";
@@ -45,6 +50,21 @@ export default function HomeClient({ friends, posts, initialTab, commissionInfo 
           </div>
           <div style={{ display: activeTab === "gallery" ? "block" : "none" }}>
             <Gallery />
+          </div>
+          <div style={{ display: activeTab === "testimonials" ? "block" : "none" }}>
+            <Testimonials />
+          </div>
+          <div style={{ display: activeTab === "techstack" ? "block" : "none" }}>
+            <TechStack />
+          </div>
+          <div style={{ display: activeTab === "projects" ? "block" : "none" }}>
+            <Projects />
+          </div>
+          <div style={{ display: activeTab === "certificates" ? "block" : "none" }}>
+            <Certificates />
+          </div>
+          <div style={{ display: activeTab === "affiliations" ? "block" : "none" }}>
+            <Affiliations />
           </div>
           <div style={{ display: activeTab === "blog" ? "block" : "none" }}>
             <Blog posts={posts} />

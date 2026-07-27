@@ -8,8 +8,8 @@
 .page-header-bar {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 14px 10px;
+  gap: var(--space-6);
+  padding: var(--space-14) var(--space-10);
   position: relative;
   z-index: 2;
   background: var(--black);
@@ -34,7 +34,7 @@
   text-transform: uppercase;
   color: var(--text-secondary);
   background: var(--black);
-  padding: 0 12px;
+  padding: 0 var(--space-12);
 }
 
 .cog-decor {
