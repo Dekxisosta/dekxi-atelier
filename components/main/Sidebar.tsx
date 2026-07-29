@@ -1,6 +1,7 @@
 import SteamWidget from "@/components/main/SteamWidget";
 import SpotifyWidget from "@/components/main/SpotifyWidget";
 import CodewarsWidget from "@/components/main/CodewarsWidget";
+import LeetcodeWidget from "@/components/main/LeetcodeWidget";
 import BlogList from "@/components/main/BlogList";
 
 export default function Sidebar() {
@@ -28,6 +29,10 @@ export default function Sidebar() {
       <div className="widget-panel widget-panel--codewars">
         <h3 className="widget-subheading">codewars</h3>
         <CodewarsWidget />
+      </div>
+      <div className="widget-panel widget-panel--codewars">
+        <h3 className="widget-subheading">leetcode</h3>
+        <LeetcodeWidget />
       </div>
       <div className="widget-panel widget-panel--blog">
         <h3 className="widget-subheading">latest posts</h3>

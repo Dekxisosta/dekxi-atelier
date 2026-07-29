@@ -7,6 +7,8 @@ export const LINK_FRAME =
 export const LINK_FRAME_ALT =
   "https://64.media.tumblr.com/34d1d4b86144179e50234f51db59f8ee/a3281023730255e4-2f/s400x600/224188bde56cea65bf659eeaccb60ca301d67b00.png";
 
+export const LINK_FRAME_ALT2 =
+  "https://static.wikia.nocookie.net/gensin-impact/images/5/5b/HoYoLAB_Avatar_Frame_Albedo.png/revision/latest/scale-to-width-down/250?cb=20240425213449"
 export const PROFILE_LINKS = [
   {
     href: "https://bsky.app/profile/rroquxii.bsky.social",
@@ -90,5 +92,17 @@ export const CONTENT_LINKS = [
     icon: "https://static.vecteezy.com/system/resources/previews/022/613/021/non_2x/google-mail-gmail-icon-logo-symbol-free-png.png",
     alt: "Contact",
     frame: LINK_FRAME_ALT
+  },
+  {
+    href: "https://leetcode.com/u/Dekxi/",
+    icon: "https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
+    alt: "LeetCode",
+    frame: LINK_FRAME_ALT2
+  },
+  {
+    href: "https://www.codewars.com/users/Dekxisosta",
+    icon: "https://avatars.githubusercontent.com/u/5387632?s=280&v=4",
+    alt: "Codewars",
+    frame: LINK_FRAME_ALT2
   }
 ];
