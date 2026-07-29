@@ -41,59 +41,15 @@
   --black:          #090807;
   --shadow:         rgba(0, 0, 0, 0.55);
 
+  --character-title: BLIND OBSESSION ;
+  --character-name: ISHMAEL;
+
+  --banner-pos: 30%;
+  --banner-chibi: url(https://i.imgur.com/XuGSbfN.gif) ;
+  --banner-image: url('https://limbuscompany.wiki.gg/images/thumb/Lobotomy_E.G.O_In_the_Name_of_Love_and_Hate_Don_Quixote_Full_Uptied.png/1024px-Lobotomy_E.G.O_In_the_Name_of_Love_and_Hate_Don_Quixote_Full_Uptied.png?5b6d24');
   --bg-image: url('https://images2.alphacoders.com/132/1329303.jpeg');
-}
 
-[data-theme="moonlight"] {
-  /* ── MOONLIGHT (light mode) ── */
-  --bg:             #eef2fb;
-  --bg-dark:        #dbe3f5;
-  --sidebar:        #e3e9f9;
-
-  --card:           rgba(255, 255, 255, 0.82);
-  --card-hover:     rgba(255, 255, 255, 0.95);
-
-  --border:         #b7c3e6;
-  --border-hover:   #3b6fd6;
-
-  --text-primary:   #1b2340;
-  --text-secondary: #52598a;
-
-  --accent:         #3b6fd6;
-  --accent-light:   #6ea8ff;
-  --accent-dim:     rgba(59, 111, 214, 0.14);
-
-  --white:          #fff;
-  --black:          #10131f;
-  --shadow:         rgba(59, 80, 140, 0.18);
-
-  --bg-image: url('https://static.wikia.nocookie.net/zenless-zone-zero/images/1/1e/January_2026_Calendar_Wallpaper_%28Desktop%29.png/revision/latest/scale-to-width-down/1200?cb=20260101124307');
-}
-
-[data-theme="rosewood"] {
-  /* ── ROSEWOOD (light mode) ── */
-  --bg:             #fdf2f5;
-  --bg-dark:        #f7e1e8;
-  --sidebar:        #faeaf0;
-
-  --card:           rgba(255, 255, 255, 0.82);
-  --card-hover:     rgba(255, 255, 255, 0.95);
-
-  --border:         #e3b8c7;
-  --border-hover:   #c9436a;
-
-  --text-primary:   #3d1220;
-  --text-secondary: #82475b;
-
-  --accent:         #c9436a;
-  --accent-light:   #ef5f83;
-  --accent-dim:     rgba(201, 67, 106, 0.14);
-
-  --white:          #fff;
-  --black:          #1a0810;
-  --shadow:         rgba(140, 50, 80, 0.18);
-
-  --bg-image: url('https://pbs.twimg.com/media/HCOtfpgWAAA4pJM.jpg');
+  --sidebar-image: url(https://preview.redd.it/oh-god-im-asking-for-canto-7-help-v0-czujertx20xd1.png?width=1080&format=png&auto=webp&s=7eeb5afa9a8e70bdd672affeab53f9db1e9e6fbf);
 }
 
 [data-theme="verdant"] {
@@ -118,7 +74,16 @@
   --black:          #020402;
   --shadow:         rgba(0,0,0,.72);
 
+  --character-title: LOVE AND HATE ;
+  --character-name: DON QUIXOTE;
+
+
+  --banner-pos: 25%;
+  --banner-chibi: url(https://media.tenor.com/W85ad914NFcAAAAj/limbus-limbus-company.gif);
+  --banner-image: url(https://i.ytimg.com/vi/I3N9y2il1ig/maxresdefault.jpg);
   --bg-image: url('https://fastcdn.hoyoverse.com/content-v2/nap/159910/97d27722016ef09614fdd12e5d494083_7498705919758116006.png');
+
+  --sidebar-image: url(https://limbuscompany.wiki.gg/images/The_House_of_Spiders_The_Middle_Apprentice_Ishmael_Profile.png?ce3f56);
 }
 
 :root {

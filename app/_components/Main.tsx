@@ -6,6 +6,7 @@ import AboutMe from "@/components/main/AboutMe";
 import Sidebar from "@/components/main/Sidebar";
 import GithubContributionGraph from "@/components/main/GithubContributionGraph";
 import ClockWidget from "@/components/main/ClockWidget";
+import CharacterBanner from "@/components/main/CharacterBanner";
 
 export default function Main() {
   return (
@@ -16,7 +17,7 @@ export default function Main() {
         </div>
 
         <div className="main-left-content">
-          <h1 className="motto" data-text="BLIND OBSESSION">BLIND OBSESSION - ISHMAEL</h1>
+          <CharacterBanner/>
           <ProfileHeader />
           <InterestsSection />
           <ContentGrid />

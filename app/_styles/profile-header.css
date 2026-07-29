@@ -14,7 +14,7 @@
   height: 110px;
   border-radius: 0 0 0 0;
   border: 6px groove var(--accent);
-  background: url("/assets/images/banner.jpg") center 30% / cover no-repeat;
+  background: var(--banner-image) center var(--banner-pos) / cover no-repeat;
   z-index: 20;
 
   box-shadow:
@@ -27,11 +27,12 @@
   position: absolute;
   width: 64px;
   height: 64px;
-  object-fit: cover;
+  background-size: cover;
   pointer-events: auto;
   cursor: pointer;
   z-index: 10000;
   --tracker-speed: 12s;
+  background-image: var(--banner-chibi);
   animation: clockwiseRotatorSnap var(--tracker-speed) linear infinite;
 }
 

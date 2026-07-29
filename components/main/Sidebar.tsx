@@ -33,12 +33,7 @@ export default function Sidebar() {
       <motion.h1 variants={fadeUp}>LIMBUS COMPANY</motion.h1>
 
       <motion.div className="sidebar-portrait-wrap" variants={fadeUp}>
-        <div
-          className="sidebar-portrait"
-          style={{
-            backgroundImage: "url(/assets/images/don-quixote-portrait.webp)"
-          }}
-        />
+        <div className="sidebar-portrait"/>
       </motion.div>
 
       <motion.div className="widget-panel widget-panel--steam" variants={fadeUp}>

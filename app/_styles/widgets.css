@@ -389,6 +389,7 @@
   width: 100%;
   aspect-ratio: 32/9;
   background-color: var(--bg);
+  background-image: var(--sidebar-image);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

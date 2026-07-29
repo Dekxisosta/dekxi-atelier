@@ -34,10 +34,10 @@ export default function ProfileHeader() {
     >
       <motion.div className="header-banner" variants={fadeUp}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <div
           className="clockwise-tracker"
-          src="https://media.tenor.com/W85ad914NFcAAAAj/limbus-limbus-company.gif"
-          alt="Moving Tracker"
+          role="img"
+          aria-label="Moving Tracker"
         />
       </motion.div>
 
