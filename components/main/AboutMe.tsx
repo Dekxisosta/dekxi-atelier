@@ -103,12 +103,12 @@ export default function AboutMe() {
         <div className="about-section about-two-col">
           <div>
             <p className="byf-dni-text">
-              eng twts, tw/cw <b>NSFW artist</b>, self-deprecation (sometimes), <b>doesn't answer dms fast</b>
+              English only. Replies may be delayed due to university and freelance work. Open to collaboration and commissions. Best contacted through email or Discord.
             </p>
           </div>
           <div>
             <p className="byf-dni-text">
-              basic dni criteria · <b>if you hate any of my favs</b>. Below 18. main character syndrome. politics-heavy discussions. <b>stan culture toxicity</b>
+              basic dni criteria · <b>if you hate any of my favs</b>
             </p>
           </div>
         </div>
