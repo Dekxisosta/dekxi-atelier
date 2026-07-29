@@ -39,6 +39,11 @@
   grid-template-columns: 1fr 1fr;
   gap: var(--space-10);
 }
+@media (max-width: 600px) {
+ .about-two-col{
+    grid-template-columns: 1fr;
+  }
+}
 
 .about-subheading {
   display: inline-block;
