@@ -93,6 +93,7 @@ export default function AboutMe() {
       <div className="affiliations-banner">
         <div className="discord-widget-section"> 
           <DiscordWidget />
+          <h1>STATUS</h1>
         </div>
       </div>
 

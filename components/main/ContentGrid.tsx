@@ -1,15 +1,47 @@
+"use client";
+
+import { motion, type Variants } from "framer-motion";
 import { CONTENT_LINKS } from "@/lib/data/profile-links";
+
+const containerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.06,
+    },
+  },
+};
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 18, scale: 0.96 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.4, ease: "easeOut" },
+  },
+};
 
 export default function ContentGrid() {
   return (
-    <div className="content content-grid">
+    <motion.div
+      className="content content-grid"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={containerVariants}
+    >
       {CONTENT_LINKS.map((link) => (
-        <a
+        <motion.a
           key={link.alt}
           className="link-card visible"
           href={link.href}
           target={link.href.startsWith("http") ? "_blank" : undefined}
           rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+          variants={cardVariants}
+          whileHover={{ scale: 1.06, y: -4 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 300, damping: 18 }}
         >
           <div className="link-icon-wrap">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -22,8 +54,8 @@ export default function ContentGrid() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="link-frame" src={link.frame} alt="" />
           </div>
-        </a>
+        </motion.a>
       ))}
-    </div>
+    </motion.div>
   );
 }

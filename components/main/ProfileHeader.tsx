@@ -1,19 +1,47 @@
+"use client";
+
+import { motion, type Variants } from "framer-motion";
 import TechChips from "@/components/main/TechChips";
 import { PROFILE_LINKS } from "@/lib/data/profile-links";
 
+const containerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
+};
+
+const linkVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
+};
+
 export default function ProfileHeader() {
   return (
-    <div className="profile-header-container">
-      <div className="header-banner">
+    <motion.div
+      className="profile-header-container"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <motion.div className="header-banner" variants={fadeUp}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="clockwise-tracker"
           src="https://media.tenor.com/W85ad914NFcAAAAj/limbus-limbus-company.gif"
           alt="Moving Tracker"
         />
-      </div>
+      </motion.div>
 
-      <div className="techstack-section">
+      <motion.div className="techstack-section" variants={fadeUp}>
         <div className="techstack-track-wrap">
           <div className="techstack-fade techstack-fade-left"></div>
           <div className="techstack-track-outer">
@@ -23,24 +51,28 @@ export default function ProfileHeader() {
           </div>
           <div className="techstack-fade techstack-fade-right"></div>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="profile-links">
-        <div className="profile-link-plain">
+      <motion.div className="profile-links" variants={containerVariants}>
+        <motion.div className="profile-link-plain" variants={linkVariants}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             className="profile-link-icon"
             src="https://static.wikia.nocookie.net/limbuscompany/images/c/ca/Ishmael_Icon.png/revision/latest/scale-to-width/360?cb=20230310043907"
             alt="Ishmael"
           />
-        </div>
+        </motion.div>
         {PROFILE_LINKS.map((link) => (
-          <a
+          <motion.a
             key={link.label}
             className="profile-link"
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
+            variants={linkVariants}
+            whileHover={{ y: -3, scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <div className="profile-link-icon-wrap">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -49,12 +81,16 @@ export default function ProfileHeader() {
               <img className="profile-link-frame" src={link.frame} alt="" />
             </div>
             <span className="profile-link-label">{link.label}</span>
-          </a>
+          </motion.a>
         ))}
-      </div>
+      </motion.div>
 
-      <div className="profile-meta-row">
-        <div className="avatar-wrap">
+      <motion.div className="profile-meta-row" variants={fadeUp}>
+        <motion.div
+          className="avatar-wrap"
+          whileHover={{ scale: 1.04 }}
+          transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             className="avatar"
@@ -67,7 +103,7 @@ export default function ProfileHeader() {
             src="https://64.media.tumblr.com/7ea97be03c01198118541c21c6d9a930/9ae2b653243aa457-1a/s400x600/7d1a61c36da80ac0f1e6a40c52d4e121d16d33ed.gif"
             alt=""
           />
-        </div>
+        </motion.div>
         <div className="profile-text-identity">
           <div className="profile-name-row">
             <h1 className="hero-name">dekxi</h1>
@@ -81,7 +117,7 @@ export default function ProfileHeader() {
             </p>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
