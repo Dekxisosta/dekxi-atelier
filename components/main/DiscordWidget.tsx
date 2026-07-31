@@ -41,7 +41,7 @@ export default function DiscordWidget() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         className="discord-avatar"
-        src="https://media1.tenor.com/m/cJ78dgzulvIAAAAd/project-moon-limbus-company.gif"
+        src={data.avatar}
         alt="Limbus Company"
       />
       <div className="discord-status-text">
