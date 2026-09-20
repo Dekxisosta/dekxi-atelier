@@ -16,9 +16,8 @@
   background-repeat: repeat;
   background-blend-mode: overlay;
 
-  border: 3px solid var(--accent);
+  border: 1px solid var(--accent);
   border-radius: var(--radius-xl);
-  corner-shape: notch;
 
   box-shadow: inset 0 0 0 2px var(--accent-dim);
 }
@@ -38,9 +37,15 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-10);
+  align-items: stretch;
 }
+
+.about-two-col > div {
+  height: 100%;
+}
+
 @media (max-width: 600px) {
- .about-two-col{
+  .about-two-col {
     grid-template-columns: 1fr;
   }
 }
@@ -153,99 +158,10 @@
 }
 
 /* ============================================= */
-/* Gold tube / rod — decorative frame behind cards */
+/* Section wrapper — generic padded container */
 /* ============================================= */
 .about-section-wrap {
-  position: relative;
-}
-
-.gold-tube {
-  position: absolute;
-  inset: -4px;
-  z-index: -1;
-  border-radius: var(--radius-2xl);
-  corner-shape: bevel;
-  overflow: hidden;
-
-  background-image: linear-gradient(
-    180deg,
-    var(--gold-dark) 0%,
-    var(--gold) 15%,
-    var(--gold-light) 30%,
-    var(--gold) 45%,
-    var(--gold-mid-dark) 60%,
-    var(--gold-pale) 75%,
-    var(--gold-deep) 90%,
-    var(--gold-dark) 100%
-  );
-  background-size: 100% 200%;
-
-  box-shadow:
-    inset 0 0 12px var(--scrim-60),
-    0 4px 10px var(--scrim-35);
-}
-
-.gold-tube-texture {
-  position: absolute;
-  inset: 0;
-  background-image: url("/textures/gold-texture.png");
-  background-size: cover;
-  mix-blend-mode: overlay;
-  opacity: 0.9;
-}
-
-.gold-tube-shine {
-  position: absolute;
-  top: 15%;
-  left: 0;
-  width: 100%;
-  height: 25%;
-  background: linear-gradient(
-    90deg,
-    var(--highlight-0) 0%,
-    var(--highlight-70) 50%,
-    var(--highlight-0) 100%
-  );
-  filter: blur(2px);
-}
-
-.gold-rod {
-  position: absolute;
-  top: 50%;
-  left: -20px;
-  right: -20px;
-  transform: translateY(-50%);
-  height: 22px;
-  z-index: -5;
-  border-radius: var(--radius-full);
-  overflow: hidden;
-
-  background-image: linear-gradient(
-    90deg,
-    var(--gold-dark) 0%,
-    var(--gold) 12%,
-    var(--gold-light) 25%,
-    var(--gold) 38%,
-    var(--gold-mid-dark) 50%,
-    var(--gold-pale) 62%,
-    var(--gold) 75%,
-    var(--gold-deep) 88%,
-    var(--gold-dark) 100%
-  );
-
-  box-shadow:
-    inset 0 0 6px var(--scrim-70),
-    0 2px 8px var(--scrim-40);
-}
-
-.gold-rod-shine {
-  position: absolute;
-  top: 20%;
-  left: 0;
-  width: 100%;
-  height: 30%;
-  background: var(--highlight-60);
-  filter: blur(1.5px);
+  border-radius: var(--radius-xl);
 }
 
 /* ============================================= */
@@ -400,9 +316,8 @@
   padding: var(--space-16) var(--space-20);
   justify-content: space-between;
   background: var(--bg);
-  border: 3px solid var(--accent);
+  border: 1px solid var(--accent);
   border-radius: var(--radius-xl);
-  corner-shape: scoop;
 
   box-shadow:
     0 6px 14px var(--scrim-45),
@@ -462,6 +377,7 @@
 .favorites-row {
   display: flex;
   gap: var(--space-8);
+  margin-top: var(--space-8);
   flex-wrap: wrap;
 }
 
@@ -469,15 +385,14 @@
   width: 44px;
   height: 44px;
   border-radius: var(--radius-md);
-  border: 2px solid var(--accent);
+  border: none;
   overflow: hidden;
   flex-shrink: 0;
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.15s ease;
 }
 
 .favorite-thumb:hover {
   transform: scale(1.08);
-  border-color: var(--gold);
 }
 
 .favorite-thumb img {
