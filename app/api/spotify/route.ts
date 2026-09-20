@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSpotifyData } from "@/lib/queries/spotify";
+import { getSpotifyData } from "@shared/api/spotify";
 
 export async function GET() {
   try {

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getGithubContributions } from "@/lib/queries/github";
+import { getGithubContributions } from "@shared/api/github";
 
 export async function GET() {
   try {

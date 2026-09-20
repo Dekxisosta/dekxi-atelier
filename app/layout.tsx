@@ -1,15 +1,11 @@
 import "./globals.css";
-import { siteMetadata } from "@/lib/metadata";
-import IoniconsLoader from "@/components/layout/IoniconsLoader";
-import { ThemeProvider } from "@/contexts/ThemeContext";
+import { siteMetadata, siteViewport } from "@shared/config/metadata";
+import { IoniconsLoader, ThemeProvider } from "@shared/ui";
 
 export const metadata = siteMetadata;
+export const viewport = siteViewport;
 
-export default function RootLayout({
-  children
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>

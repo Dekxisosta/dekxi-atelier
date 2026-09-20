@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDiscordStatus } from "@/lib/queries/discord";
+import { getDiscordStatus } from "@shared/api/discord";
 
 export async function GET() {
   try {

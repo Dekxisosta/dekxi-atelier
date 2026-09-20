@@ -18,28 +18,24 @@ export async function middleware(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(
-          cookiesToSet: {
-            name: string;
-            value: string;
-            options: CookieOptions;
-          }[]
+          cookiesToSet: { name: string; value: string; options: CookieOptions }[]
         ) {
           response = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) =>
             response.cookies.set(name, value, options)
           );
-        }
-      }
+        },
+      },
     }
   );
 
   const {
-    data: { user }
+    data: { user },
   } = await supabase.auth.getUser();
 
-  const isAdmin = !!user && ADMIN_USER_IDS.includes(user.id);
-  const isDashboard = request.nextUrl.pathname.startsWith("/admin/dashboard");
-  const isLoginTab =
+  const isAdmin      = !!user && ADMIN_USER_IDS.includes(user.id);
+  const isDashboard  = request.nextUrl.pathname.startsWith("/admin/dashboard");
+  const isLoginTab   =
     request.nextUrl.pathname === "/" &&
     request.nextUrl.searchParams.get("tab") === "admin";
 
@@ -57,5 +53,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/admin/:path*"]
+  matcher: ["/", "/admin/:path*"],
 };
