@@ -6,6 +6,8 @@
   flex-direction: column;
   min-height: 100vh;
   gap: var(--space-24);
+  /* offset for the fixed top navbar (64px bar) */
+  padding-top: 64px;
 }
 
 .container-page::before {
@@ -243,9 +245,57 @@
     flex-direction: column;
   }
   .main-left-dock {
-    padding-bottom: var(--space-30);
-    max-height: 100vw;
-    overflow-y: hidden;
-    overflow-x: auto;
+    display: none;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HOME — hard-edge override
+   Overrides all pill/avatar/round radius tokens to sharp corners, scoped
+   only to the home page container and the site navbar.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.container-page,
+.navbar-wrapper {
+  --radius-pill:   0px;
+  --radius-avatar: 0px;
+  --radius-full:   0px;
+  --radius-xs:     0px;
+  --radius-sm:     0px;
+  --radius-md:     0px;
+  --radius-10:     0px;
+  --radius-lg:     0px;
+  --radius-xl:     0px;
+  --radius-2xl:    0px;
+  --radius-card:   0px;
+  --radius-banner: 0px;
+}
+
+/* Inline 999px / 50% values in header.css that don't use variables */
+.navbar-pill,
+.navbar-tab,
+.navbar-account-chip,
+.navbar-account-avatar,
+.navbar-dropdown,
+.navbar-dropdown-item,
+.navbar-account-menu,
+.navbar-account-menu-item,
+.navbar-theme-menu,
+.navbar-theme-option,
+.navbar-theme-swatch,
+.navbar-mobile-menu,
+.navbar-mobile-tab,
+.navbar-mobile-child,
+.navbar-mobile-theme-btn,
+.navbar-logo-avatar,
+.navbar-search-btn,
+.navbar-signin,
+.navbar-cta,
+/* Hardcoded 50% discord avatar elements */
+.discord-card__avatar,
+.discord-card__avatar--placeholder {
+  border-radius: 0 !important;
+}
+
+.discord-card__status-ring {
+  border-radius: 50% !important;
 }
