@@ -204,6 +204,10 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 a {
   text-decoration: none;
   color: inherit;
