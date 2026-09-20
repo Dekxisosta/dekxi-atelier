@@ -8,6 +8,7 @@ export type {
   PriceRow,
   PricingTable,
   CommissionLink,
+  CommissionSample,
   CommissionInfo,
 } from "./model/index";
 export { PRICE_STAGE_LABELS, COMMISSION_INFO } from "./model/index";

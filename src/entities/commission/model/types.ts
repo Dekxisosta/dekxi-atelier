@@ -33,6 +33,7 @@ export type PricingTable = {
   rows: PriceRow[];
   rushNote?: string;
   turnaroundNote?: string;
+  discountPercent?: number;
 };
 
 export const PRICE_STAGE_LABELS: Record<PriceStage, string> = {
@@ -50,6 +51,15 @@ export type CommissionLink = {
   badgeText?: string;
 };
 
+export type CommissionSample = {
+  id: string;
+  /** Path relative to /public, e.g. "/assets/samples/chibi-bust-01.jpg" */
+  src: string;
+  alt: string;
+  /** Optional label shown on hover, e.g. "Chibi Bust · Rendered" */
+  caption?: string;
+};
+
 export type CommissionInfo = {
   status: CommissionStatus;
   tagline: string;
@@ -65,4 +75,5 @@ export type CommissionInfo = {
   contactNote: string;
   faq?: { id: string; question: string; answer: string }[];
   links: CommissionLink[];
+  samples?: CommissionSample[];
 };

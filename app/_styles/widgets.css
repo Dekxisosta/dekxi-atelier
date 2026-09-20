@@ -140,15 +140,16 @@
 
 .steam-recent-list {
   list-style: none;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-6);
 }
 
 .steam-recent-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-8);
+  min-width: 0;
 }
 .steam-avatar {
   width: 20px;

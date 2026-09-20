@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  border-bottom: 5px solid #5c3a26;
 }
 
 /* ── The bar ─────────────────────────────────────────────────────────────── */
@@ -50,7 +51,7 @@
 
 .navbar-logo-text {
   font-family: var(--font-heading);
-  font-size: 17px;
+  font-size: 20px;
   letter-spacing: 0.03em;
   line-height: 1;
   white-space: nowrap;
@@ -60,13 +61,66 @@
   color: var(--accent-light);
 }
 
+/* ── Navbar title ────────────────────────────────────────────────────────── */
+.navbar-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 0 12px 0 8px;
+  border-right: 1px solid var(--border);
+  margin-right: 4px;
+}
+
 /* ── Desktop tabs row ────────────────────────────────────────────────────── */
+.navbar-tabs-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+/* fade hints — shown via JS classes */
+.navbar-tabs-wrap::before,
+.navbar-tabs-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.navbar-tabs-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-dark), transparent);
+}
+
+.navbar-tabs-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-dark), transparent);
+}
+
+.navbar-tabs-wrap.can-scroll-left::before  { opacity: 1; }
+.navbar-tabs-wrap.can-scroll-right::after  { opacity: 1; }
+
 .navbar-tabs {
   display: flex;
   align-items: center;
   gap: 2px;
-  flex: 1;
-  min-width: 0;
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.navbar-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 /* ── Search button ───────────────────────────────────────────────────────── */
@@ -191,7 +245,7 @@
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
-  margin-left: auto;
+  margin-left: 8px;
 }
 
 /* ── Account chip (email pill) ───────────────────────────────────────────── */
@@ -555,6 +609,7 @@
   }
 
   .navbar-tabs,
+  .navbar-tabs-wrap,
   .navbar-right {
     display: none;
   }

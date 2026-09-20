@@ -28,7 +28,7 @@ export interface SteamPlayerData {
   recentGames: RecentGame[];
 }
 
-const RECENT_GAMES_LIMIT = 5;
+const RECENT_GAMES_LIMIT = 10;
 
 export async function getSteamPlayerSummary(steamid?: string): Promise<SteamPlayerData> {
   const id = steamid ?? process.env.STEAM_ID;
@@ -36,7 +36,7 @@ export async function getSteamPlayerSummary(steamid?: string): Promise<SteamPlay
   if (!id || !apiKey) throw new Error("Missing steamid or API key");
 
   const summaryUrl = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${apiKey}&steamids=${id}`;
-  const recentUrl = `https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/?key=${apiKey}&steamid=${id}&count=${RECENT_GAMES_LIMIT}`;
+  const recentUrl = `https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/?key=${apiKey}&steamid=${id}&count=10`;
   const levelUrl = `https://api.steampowered.com/IPlayerService/GetSteamLevel/v1/?key=${apiKey}&steamid=${id}`;
 
   const [summaryRes, recentRes, levelRes] = await Promise.all([

@@ -6,6 +6,7 @@ export const COMMISSION_INFO: CommissionInfo = {
 
   pricingTable: {
     stages: ["sketch", "lineart", "flats", "rendered"],
+    discountPercent: 25,
     rows: [
       { id: "chibi-bust",      type: "Chibi Bust",      prices: { sketch: "$3-5",   lineart: "$5-8",   flats: "$8-12",  rendered: "$12-18" } },
       { id: "anime-bust",      type: "Anime Bust",      prices: { sketch: "$5-8",   lineart: "$8-12",  flats: "$12-16", rendered: "$16-25" } },
@@ -61,10 +62,28 @@ export const COMMISSION_INFO: CommissionInfo = {
     { id: "f2", question: "Do you do traditional media?", answer: "No, all work is digital, done in Clip Studio Paint." },
   ],
   links: [
-    { id: "vgen",      label: "VGen",      href: "https://vgen.co/dekxisosta" },
+    { id: "vgen",      label: "VGen",      href: "https://vgen.co/dekxisosta",                         badgeText: "V" },
     { id: "kofi",      label: "Ko-fi",     href: "https://ko-fi.com/dekxisosta",                    iconUrl: "https://cdn.simpleicons.org/kofi/D2A14A" },
     { id: "instagram", label: "Instagram", href: "https://instagram.com/dekxisosta",                iconUrl: "https://cdn.simpleicons.org/instagram/D2A14A" },
     { id: "bluesky",   label: "Bluesky",   href: "https://bsky.app/profile/dekxisosta.bsky.social", iconUrl: "https://cdn.simpleicons.org/bluesky/D2A14A" },
     { id: "x",         label: "X",         href: "https://x.com/dekxisosta",                        iconUrl: "https://cdn.simpleicons.org/x/D2A14A" },
+  ],
+
+  /**
+   * Drop image files into /public/assets/samples/ and update the src paths here.
+   * Supported formats: .jpg .jpeg .png .webp .gif
+   */
+  samples: [
+    { id: "s1",  src: "/assets/samples/Illustration9.png",                                         alt: "Illustration",  caption: "Illustration"  },
+    { id: "s2",  src: "/assets/samples/Illustration15.png",                                        alt: "Illustration",  caption: "Illustration"  },
+    { id: "s3",  src: "/assets/samples/Illustration16.png",                                        alt: "Illustration",  caption: "Illustration"  },
+    { id: "s4",  src: "/assets/samples/Illustration30.png",                                        alt: "Illustration",  caption: "Illustration"  },
+    { id: "s5",  src: "/assets/samples/Illustration35.png",                                        alt: "Illustration",  caption: "Illustration"  },
+    { id: "s6",  src: "/assets/samples/Illustration38.png",                                        alt: "Illustration",  caption: "Illustration"  },
+    { id: "s7",  src: "/assets/samples/bafkreid3hfaqgqquldndjpjkc4vur7fdxwb7kismrlij32pindo4o3ju6a.webp", alt: "Illustration", caption: "Illustration" },
+    { id: "s8",  src: "/assets/samples/bafkreidseb3u2evobqybnsv2mfxi6ljhzdx7ose6vk7edu7z5htaldtfxm.webp", alt: "Illustration", caption: "Illustration" },
+    { id: "s9",  src: "/assets/samples/bafkreiguvyqxnef3ccdhnepz6qw2haovtrwdjchs52p4xg7n7aaxvoi5rq.webp", alt: "Illustration", caption: "Illustration" },
+    { id: "s10", src: "/assets/samples/bafkreigwdgfgmfwhgkihhvjblgdfpj7qushb2o4uklrecjafexl2vyvcoa.webp", alt: "Illustration", caption: "Illustration" },
+    { id: "s11", src: "/assets/samples/bafkreihizs5fpvdpittnuapg7p27gvgu2gycl3q2cs6367bfbrufyre3jq.webp", alt: "Illustration", caption: "Illustration" },
   ],
 };

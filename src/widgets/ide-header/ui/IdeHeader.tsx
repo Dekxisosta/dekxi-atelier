@@ -132,7 +132,10 @@ export default function IdeHeader({ activeTab, onTabChange }: IdeHeaderProps) {
   const [accountMenuOpen, setAccountMenuOpen]  = useState(false);
   const [themeMenuOpen,   setThemeMenuOpen]    = useState(false);
   const [user,            setUser]             = useState<SupabaseUser | null>(null);
-  const barRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft,   setCanScrollLeft]    = useState(false);
+  const [canScrollRight,  setCanScrollRight]   = useState(false);
+  const barRef  = useRef<HTMLDivElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
 
   // ── Effects ────────────────────────────────────────────────────────────────
 
@@ -190,6 +193,21 @@ export default function IdeHeader({ activeTab, onTabChange }: IdeHeaderProps) {
     document.addEventListener("click", handler);
     return () => document.removeEventListener("click", handler);
   }, [themeMenuOpen]);
+
+  // Scroll-hint state for tab overflow
+  useEffect(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    const update = () => {
+      setCanScrollLeft(el.scrollLeft > 4);
+      setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => { el.removeEventListener("scroll", update); ro.disconnect(); };
+  }, []);
 
   // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -434,8 +452,16 @@ export default function IdeHeader({ activeTab, onTabChange }: IdeHeaderProps) {
     <nav className="navbar-wrapper" aria-label="Site navigation">
       <div className="navbar-pill" ref={barRef}>
 
+        {/* ── Title ── */}
+        <span className="navbar-title">DEKXI ATELIER</span>
+
         {/* ── Desktop tabs ── */}
-        <div className="navbar-tabs">
+        <div className={
+          "navbar-tabs-wrap" +
+          (canScrollLeft  ? " can-scroll-left"  : "") +
+          (canScrollRight ? " can-scroll-right" : "")
+        }>
+          <div className="navbar-tabs" ref={tabsRef}>
           {user && (
             controlled ? (
               <button
@@ -472,6 +498,7 @@ export default function IdeHeader({ activeTab, onTabChange }: IdeHeaderProps) {
             </Link>
           )}
           {TOP_GROUPS.map(renderGroupDesktop)}
+          </div>
         </div>
 
         {/* ── Search / auth cluster ── */}

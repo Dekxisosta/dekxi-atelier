@@ -1,17 +1,29 @@
-.commission-sheet {
+/* ── Commission tab — uses .container-main / .main-left / .main-center / .main-right
+   from layout.css for the three-panel structure. These rules add commission-specific
+   overrides on top of the shared layout classes. ── */
+
+/* Ensure the commission layout starts at the top edge like the profile tab */
+.commission-container {
+  animation: fadeUp 0.35s ease forwards;
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* Left column: flex column with consistent gap between sections */
+.commission-left-content {
   display: flex;
   flex-direction: column;
-  gap: var(--space-32);
-  width: 100%;
-  max-width: none;
-  margin-top: var(--space-20);
-  padding: var(--space-28) var(--space-32);
-  border-radius: var(--radius-lg);
-  background: var(--bg);
-  animation: fadeUp 0.4s ease forwards;
-  opacity: 0;
-  transform: translateY(8px);
-  border: 2px solid var(--accent);
+  gap: var(--space-24);
+}
+
+/* Center column: override the profile default gap */
+.commission-center {
+  gap: var(--space-24) !important;
+}
+
+/* Right column: keep it scrollable on its own, not sticky */
+.commission-right {
+  gap: var(--space-24) !important;
 }
 
 /* ── Header ── */
@@ -36,96 +48,128 @@
   gap: var(--space-16);
 }
 
-.commission-title-stamp {
-  width: 72px;
-  height: 72px;
-  object-fit: contain;
+/* Stamp ring */
+.commission-stamp-wrap {
+  position: relative;
+  width: 76px;
+  height: 76px;
   flex-shrink: 0;
-  /* stamps like this usually come with baked-in drop shadows already,
-     filter kept subtle so it doesn't fight the source image */
+  border-radius: var(--radius-avatar);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 2px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.commission-title-stamp {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
   filter: drop-shadow(0 2px 6px var(--scrim-35));
 }
 
+/* Eyebrow + title stacked */
+.commission-title-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.commission-title-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-family: 'Roboto', sans-serif;
+}
+
 .commission-title {
-  font-size: 3rem;
+  font-size: 2.6rem;
   font-weight: 400;
+  background: linear-gradient(110deg, var(--accent-light) 0%, var(--accent) 55%, var(--gold-mid-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
 }
 
 .commission-tagline {
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  line-height: 1.5;
+  font-size: 0.88rem;
+  line-height: 1.55;
 }
 
-/* ── Status badge — simple dot + label, no border box ── */
-.commission-status {
-  display: inline-flex;
+/* ── Header link row ── */
+.commission-header-links {
+  display: flex;
   align-items: center;
-  gap: var(--space-9);
-  padding: var(--space-6) var(--space-14);
-  border-radius: var(--radius-full);
-  background: var(--card-hover);
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  color: var(--text-primary);
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.commission-header-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
+  overflow: visible;
+  transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-.commission-status-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: var(--radius-avatar);
+.commission-header-link:hover {
+  transform: translateY(-3px) scale(1.08);
 }
 
-.commission-status-open .commission-status-dot    { background: var(--status-success); box-shadow: 0 0 6px color-mix(in srgb, var(--status-success) 40%, transparent); }
-.commission-status-closed .commission-status-dot  { background: var(--status-danger); box-shadow: 0 0 6px color-mix(in srgb, var(--status-danger) 40%, transparent); }
-.commission-status-waitlist .commission-status-dot{ background: var(--status-warning); box-shadow: 0 0 6px color-mix(in srgb, var(--status-warning) 40%, transparent); }
-
-/* ── Three-column split — 1/2 + 1/4 + 1/4 ── */
-.commission-layout {
+.commission-header-link-inner {
+  position: absolute;
+  inset: 0;
   display: flex;
-  align-items: flex-start;
-  gap: var(--space-24);
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  z-index: 0;
 }
 
-.commission-col-half {
-  flex: 2;
-  min-width: 0;
+.commission-header-link-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.commission-header-link-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 115%;
+  height: 115%;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Panel container — gives center column blocks a solid card background ── */
+.commission-panel {
   display: flex;
   flex-direction: column;
-  gap: var(--space-24);
+  gap: var(--space-14);
+  padding: var(--space-16) var(--space-18);
+  background: var(--card);
+  border: 1px solid var(--border);
 }
 
-.commission-col-quarter {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-20);
-  position: sticky;
-  top: 20px;
+.commission-panel--warning {
+  background: color-mix(in srgb, var(--status-warning) 6%, var(--card));
+  border-color: color-mix(in srgb, var(--status-warning) 28%, transparent);
 }
 
-/* Collapse to full-width stack — matches the breakpoint container-main.css
-   already uses to drop its own side-by-side layout at tablet width. */
-@media (max-width: 1048px) {
-  .commission-layout {
-    flex-direction: column;
-  }
-
-  .commission-col-half,
-  .commission-col-quarter {
-    flex: 1 1 100%;
-    width: 100%;
-  }
-
-  .commission-col-quarter {
-    position: static;
-  }
-}
-
-/* ── Section wrapper — plain, no corner brackets ── */
+/* ── Section wrapper ── */
 .commission-block {
   display: flex;
   flex-direction: column;
@@ -133,19 +177,34 @@
 }
 
 .commission-block-title {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-secondary);
   font-family: 'Roboto', sans-serif;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-7);
+  padding-bottom: var(--space-9);
+  border-bottom: 1px solid var(--border);
+}
+
+/* NSFW block */
+.commission-block-title--nsfw {
+  color: var(--status-warning);
+  border-bottom-color: color-mix(in srgb, var(--status-warning) 30%, transparent);
+}
+
+.commission-block-title--nsfw ion-icon {
+  font-size: 13px;
 }
 
 .commission-block-warning {
   padding: var(--space-16) var(--space-18);
-  border-radius: var(--radius-10);
-  background: color-mix(in srgb, var(--accent) 6%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  background: color-mix(in srgb, var(--status-warning) 5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--status-warning) 22%, transparent);
 }
 
 .commission-note {
@@ -154,14 +213,53 @@
   line-height: 1.6;
 }
 
-/* ── Pricing table — replaces the old flat tier cards.
-   A real matrix: row = art type, column = completion stage. Sits in the
-   1/4-width sidebar, so the table scrolls horizontally on its own rather
-   than squeezing 5 columns into a narrow track. */
+/* ── Discount badge (in Rates block title) ── */
+.commission-discount-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-left: var(--space-8);
+  padding: 4px var(--space-20) 4px var(--space-10);
+  background: var(--status-success);
+  color: var(--bg-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  clip-path: polygon(0 0, 100% 0, 92% 50%, 100% 100%, 0 100%);
+}
+
+.commission-discount-badge ion-icon {
+  font-size: 13px;
+}
+
+/* ── Price cell with strikethrough original + discounted ── */
+.commission-price-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  line-height: 1.3;
+}
+
+.commission-price-original {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  opacity: 0.6;
+}
+
+.commission-price-discounted {
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+/* ── Pricing table ── */
 .commission-price-table-wrap {
   overflow-x: auto;
   border-radius: var(--radius-10);
-  background: var(--card-hover);
+  border: 1px solid var(--border);
   scrollbar-width: thin;
 }
 
@@ -173,7 +271,7 @@
 
 .commission-price-table th,
 .commission-price-table td {
-  padding: var(--space-9) var(--space-10);
+  padding: var(--space-9) var(--space-12);
   text-align: center;
   white-space: nowrap;
   border-bottom: 1px solid var(--border);
@@ -184,10 +282,27 @@
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--accent-light);
+  color: var(--text-secondary);
   font-family: 'Roboto', sans-serif;
-  background: var(--bg);
+  background: color-mix(in srgb, var(--bg-dark) 60%, transparent);
   border-bottom: 1px solid var(--border-hover);
+}
+
+/* Premium (last) column header */
+.commission-price-th-premium {
+  color: var(--accent-light) !important;
+  background: color-mix(in srgb, var(--accent) 10%, transparent) !important;
+}
+
+/* Icon + label in th */
+.commission-price-th-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.commission-price-th-inner ion-icon {
+  font-size: 12px;
 }
 
 .commission-price-th-type,
@@ -195,10 +310,23 @@
   text-align: left;
   color: var(--text-primary);
   font-weight: 500;
+  padding-left: var(--space-14);
 }
 
 .commission-price-table tbody td {
   color: var(--text-secondary);
+}
+
+/* Alternating row stripe */
+.commission-price-row-alt td {
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+}
+
+/* Premium (last) column cells */
+.commission-price-td-premium {
+  color: var(--accent-light) !important;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--accent) 8%, transparent) !important;
 }
 
 .commission-price-table tbody tr:last-child td {
@@ -206,25 +334,36 @@
 }
 
 .commission-price-table tbody tr:hover td {
-  background: color-mix(in srgb, var(--accent) 6%, transparent);
-  color: var(--text-primary);
+  background: color-mix(in srgb, var(--accent) 10%, transparent) !important;
+  color: var(--text-primary) !important;
 }
 
-.commission-price-footnote {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  margin-top: var(--space-10);
-  font-size: 0.72rem;
+/* Footnote badges — now in the title row */
+.commission-price-footnote-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-5);
+  padding: 4px var(--space-20) 4px var(--space-10);
+  background: var(--card-hover);
+  border: 1px solid var(--border);
   color: var(--text-secondary);
-  line-height: 1.5;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  clip-path: polygon(0 0, 100% 0, 92% 50%, 100% 100%, 0 100%);
 }
 
-/* ── Dos & Don'ts — simple two-column list, no card frame ── */
+.commission-price-footnote-badge ion-icon {
+  color: var(--accent);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+/* ── Dos & Don'ts — two-column list ── */
 .commission-dos-donts {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-24);
+  gap: var(--space-16);
 }
 
 .commission-list {
@@ -237,8 +376,8 @@
 .commission-list li {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-8);
-  font-size: 0.85rem;
+  gap: var(--space-7);
+  font-size: 0.83rem;
   color: var(--text-primary);
   line-height: 1.4;
 }
@@ -246,19 +385,24 @@
 .commission-list-do ion-icon {
   color: var(--status-success);
   flex-shrink: 0;
-  margin-top: var(--space-2);
-  font-size: 15px;
+  margin-top: 2px;
+  font-size: 14px;
 }
 
 .commission-list-dont ion-icon {
   color: var(--status-danger);
   flex-shrink: 0;
-  margin-top: var(--space-2);
-  font-size: 15px;
+  margin-top: 2px;
+  font-size: 14px;
 }
 
-/* ── Payment methods — quiet pill row ──
-   Bumped to var(--card-hover) for the same contrast reason as tiers. */
+@media (max-width: 600px) {
+  .commission-dos-donts {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Payment methods ── */
 .commission-payment-methods {
   display: flex;
   flex-wrap: wrap;
@@ -270,10 +414,15 @@
   align-items: center;
   gap: var(--space-7);
   padding: var(--space-7) var(--space-14);
-  border-radius: var(--radius-full);
   background: var(--card-hover);
+  border: 1px solid var(--border);
   font-size: 0.82rem;
   color: var(--text-primary);
+  transition: border-color 0.15s ease;
+}
+
+.commission-payment-chip:hover {
+  border-color: var(--accent);
 }
 
 .commission-payment-chip ion-icon {
@@ -283,10 +432,10 @@
 
 .commission-payment-chip small {
   color: var(--text-secondary);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
 }
 
-/* ── Terms of service — numbered, tight leading ── */
+/* ── Terms of service ── */
 .commission-terms-list {
   display: flex;
   flex-direction: column;
@@ -302,7 +451,7 @@
   font-size: 0.8em;
 }
 
-/* ── FAQ — accordion, collapsed by default ── */
+/* ── FAQ accordion ── */
 .commission-faq {
   display: flex;
   flex-direction: column;
@@ -352,73 +501,65 @@
   line-height: 1.55;
 }
 
-/* ── Contact CTA — flat button-like bar ──
-   Bumped to var(--card-hover) for the same contrast reason as tiers. */
+/* ── Contact note ── */
 .commission-contact {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-10);
   padding: var(--space-14) var(--space-18);
-  border-radius: var(--radius-10);
   background: var(--card-hover);
+  border: 1px solid var(--border);
   color: var(--text-primary);
   font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 .commission-contact ion-icon {
   color: var(--accent);
-  font-size: 17px;
+  font-size: 16px;
   flex-shrink: 0;
+  margin-top: 2px;
 }
 
-/* ── Links section — Find Me chips, real brand icons where a CDN
-   source exists (kofi/instagram/bluesky/x), text badge otherwise (vgen). ── */
-.commission-links {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
-}
-
-.commission-link-chip {
+/* ── Gallery redirect link ── */
+.commission-gallery-link {
   display: flex;
   align-items: center;
   gap: var(--space-10);
-  padding: var(--space-9) var(--space-12);
-  border-radius: var(--radius-md);
-  background: var(--card-hover);
+  padding: var(--space-12) var(--space-18);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
   color: var(--text-primary);
-  font-size: 0.82rem;
-  transition: background 0.15s ease, transform 0.15s ease;
+  font-size: 0.85rem;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-.commission-link-chip:hover {
-  background: var(--bg);
-  transform: translateX(2px);
+.commission-gallery-link:hover {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border-color: var(--accent);
 }
 
-.commission-link-icon {
-  width: 16px;
-  height: 16px;
+.commission-gallery-link ion-icon:first-child {
+  color: var(--accent);
+  font-size: 16px;
   flex-shrink: 0;
-  object-fit: contain;
 }
 
-.commission-link-badge {
+.commission-gallery-link-arrow {
+  margin-left: auto;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-  border-radius: var(--radius-pill);
-  background: var(--accent);
-  color: var(--bg-dark);
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+  font-size: 14px;
+  transition: transform 0.15s ease;
 }
 
-/* ── Agreement note — sits below the contact bar in the sidebar ── */
+.commission-gallery-link:hover .commission-gallery-link-arrow {
+  transform: translateX(3px);
+  color: var(--accent);
+}
+
+/* ── Agreement note ── */
 .commission-agreement {
   display: flex;
   align-items: flex-start;
@@ -438,21 +579,306 @@
   margin-top: var(--space-1);
 }
 
+/* ── Links section ── */
+.commission-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.commission-link-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  padding: var(--space-9) var(--space-12);
+  border-radius: var(--radius-md);
+  background: var(--card-hover);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.commission-link-chip:hover {
+  background: color-mix(in srgb, var(--accent) 8%, var(--card-hover));
+  border-color: var(--accent);
+  transform: translateX(2px);
+}
+
+.commission-link-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.commission-link-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.commission-link-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--bg-dark);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.commission-link-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.commission-link-arrow {
+  color: var(--text-secondary);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.commission-link-chip:hover .commission-link-arrow {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
 /* ── Responsive ── */
-@media (max-width: 728px) {
-  .commission-sheet {
-    padding: var(--space-22) var(--space-18);
+@media (max-width: 600px) {
+  .commission-header-top {
+    flex-wrap: wrap;
+  }
+
+  .commission-title {
+    font-size: 2rem;
   }
 }
 
-@media (max-width: 600px) {
-  .commission-dos-donts {
-    grid-template-columns: 1fr;
-    gap: var(--space-20);
-  }
-  .commission-header-top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-6);
-  }
+
+/* ── Samples — symmetric poker fan ── */
+.commission-samples-empty {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  color: var(--text-secondary);
+  font-size: 0.83rem;
+}
+
+.commission-samples-empty ion-icon {
+  font-size: 18px;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* Outer wrapper — no panel background, just provides height */
+.commission-samples-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-16);
+  padding: 0 0 var(--space-10);
+}
+
+/* Fan stage */
+.commission-card-fan {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* Base card */
+.commission-sample-card {
+  position: absolute;
+  bottom: 0;
+  width: 240px;
+  aspect-ratio: 3 / 4;
+  border: 2px solid var(--border);
+  background: var(--card);
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  transform-origin: bottom center;
+  transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.15s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 16px var(--scrim-40);
+}
+
+.commission-sample-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Active (centre) card */
+.commission-sample-card.is-active {
+  border-color: var(--accent);
+  box-shadow: 0 10px 32px var(--scrim-55);
+  cursor: zoom-in;
+  z-index: 10;
+}
+
+/* Left cards — rotate CCW, shift left */
+.commission-sample-card--l1 {
+  transform: translateX(-70px) rotate(-10deg) scale(0.88);
+  z-index: 8;
+  opacity: 0.85;
+}
+.commission-sample-card--l2 {
+  transform: translateX(-125px) rotate(-20deg) scale(0.78);
+  z-index: 6;
+  opacity: 0.6;
+}
+
+/* Right cards — rotate CW, shift right */
+.commission-sample-card--r1 {
+  transform: translateX(70px) rotate(10deg) scale(0.88);
+  z-index: 8;
+  opacity: 0.85;
+}
+.commission-sample-card--r2 {
+  transform: translateX(125px) rotate(20deg) scale(0.78);
+  z-index: 6;
+  opacity: 0.6;
+}
+
+/* Centre slot — no transform (active card sets its own) */
+.commission-sample-card--c0 {
+  transform: translateX(0) rotate(0deg) scale(1);
+  z-index: 10;
+}
+
+.commission-sample-card--l1:hover,
+.commission-sample-card--l2:hover,
+.commission-sample-card--r1:hover,
+.commission-sample-card--r2:hover {
+  border-color: var(--border-hover);
+  opacity: 1;
+}
+
+/* Caption bar */
+.commission-sample-card-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-22) var(--space-8) var(--space-7);
+  background: linear-gradient(transparent, var(--scrim-70));
+  color: var(--white);
+  font-size: 0.7rem;
+  line-height: 1.3;
+  pointer-events: none;
+}
+
+/* Expand icon */
+.commission-sample-card-zoom {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: var(--scrim-50);
+  color: var(--white);
+  font-size: 13px;
+  backdrop-filter: blur(3px);
+  pointer-events: none;
+}
+
+/* Dot nav */
+.commission-sample-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+}
+
+.commission-sample-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-avatar);
+  background: var(--border-hover);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.commission-sample-dot.is-active {
+  background: var(--accent);
+  transform: scale(1.5);
+}
+
+/* ── Lightbox ── */
+.commission-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--scrim-80);
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-16);
+  padding: var(--space-24);
+  animation: fadeUp 0.2s ease forwards;
+  opacity: 0;
+  cursor: zoom-out;
+}
+
+.commission-lightbox-close {
+  position: absolute;
+  top: var(--space-20);
+  right: var(--space-20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--scrim-50);
+  border: 1px solid var(--border);
+  color: var(--white);
+  font-size: 22px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.15s ease;
+}
+
+.commission-lightbox-close:hover {
+  background: color-mix(in srgb, var(--accent) 30%, var(--scrim-50));
+}
+
+.commission-lightbox-img {
+  max-width: min(90vw, 900px);
+  max-height: 80vh;
+  object-fit: contain;
+  box-shadow: 0 24px 64px var(--scrim-70);
+  cursor: default;
+  border: 1px solid var(--border);
+}
+
+.commission-lightbox-caption {
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  text-align: center;
+  opacity: 0.85;
+  cursor: default;
 }

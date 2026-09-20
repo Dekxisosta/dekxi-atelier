@@ -7,6 +7,7 @@ export type {
   PriceRow,
   PricingTable,
   CommissionLink,
+  CommissionSample,
   CommissionInfo,
 } from "./types";
 export { PRICE_STAGE_LABELS } from "./types";

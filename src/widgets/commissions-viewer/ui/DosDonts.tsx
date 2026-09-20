@@ -2,7 +2,7 @@ import type { PolicyItem } from "@entities/commission";
 
 export default function DosDonts({ dos, donts }: { dos: PolicyItem[]; donts: PolicyItem[] }) {
   return (
-    <div className="commission-block">
+    <div className="commission-panel">
       <h3 className="commission-block-title">Dos &amp; Don'ts</h3>
       <div className="commission-dos-donts">
         <ul className="commission-list commission-list-do">

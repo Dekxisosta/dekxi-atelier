@@ -31,7 +31,7 @@ export default function ContentGrid() {
           variants={cardVariants}
           whileHover={{ scale: 1.06, y: -4 }}
           whileTap={{ scale: 0.95 }}
-          transition={{ type: "spring", stiffness: 300, damping: 18 }}
+          transition={{ type: "spring", stiffness: 100, damping: 18 }}
         >
           <div className="link-icon-wrap">
             {/* eslint-disable-next-line @next/next/no-img-element */}
