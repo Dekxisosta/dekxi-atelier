@@ -285,6 +285,73 @@
   #profile-view > .main-center { flex: 1 1 100%; width: 100%; }
 }
 
+/* ── Tablet (729–1048px): character on the left, roster as a vertical strip on the right.
+   Tab content drops underneath, full width. Below 729px the single stacked column above takes over. ── */
+@media (min-width: 729px) and (max-width: 1048px) {
+  #profile-view {
+    display: grid;
+    grid-template-columns: minmax(0, 560px) 104px;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+
+  #profile-view > .main-left {
+    max-width: none;
+    width: auto;
+    margin: 0;
+  }
+
+  /* let the roster / tab panel / footer become grid items of #profile-view */
+  #profile-view > .main-center {
+    display: contents;
+  }
+
+  #profile-view > .main-center > .roster {
+    margin: 0;
+    background: var(--bg);
+    border-right: 1px solid var(--accent);
+  }
+
+  #profile-view > .main-center > .tab-panel,
+  #profile-view > .main-center > .footer {
+    grid-column: 1 / -1;
+  }
+
+  #profile-view > .main-center > .tab-panel {
+    width: auto;
+    padding: var(--space-20);
+    background: var(--bg);
+    border: 1px solid var(--accent);
+    border-width: 1px 1px 0;
+  }
+
+  /* roster, stacked vertically: portrait + links on top, icon grid below – no name */
+  #profile-view .roster-body { flex: 1 1 auto; flex-direction: column; border-bottom-width: 0; }
+  #profile-view .roster-screen { flex: 0 0 auto; }
+  #profile-view .roster-stage {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--space-10);
+    padding: var(--space-14) var(--space-6) var(--space-6);
+  }
+  #profile-view .roster-portrait { width: 56px; height: 56px; }
+  #profile-view .roster-info { flex: 0 0 auto; flex-direction: column; justify-content: center; }
+  #profile-view .roster-name { display: none; }
+  #profile-view .roster-links { display: flex; justify-content: center; }
+  #profile-view .roster-links .friend-links { justify-content: center; flex-wrap: wrap; }
+
+  #profile-view .roster-grid {
+    flex: 1 1 auto;
+    grid-template-columns: repeat(2, 38px);
+    align-content: end;
+    justify-content: center;
+    overflow: visible;
+    padding: var(--space-10);
+    background: linear-gradient(to top, var(--scrim-35) 0%, var(--scrim-15) 55%, transparent 100%);
+  }
+}
+
 /* ── Tab content shown under the roster (projects, commissions, gallery, blog, admin…) ── */
 .tab-panel {
   container-type: inline-size;

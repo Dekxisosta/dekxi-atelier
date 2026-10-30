@@ -6,6 +6,7 @@
   min-width: 0;
   /* bleed up, left and right past the parent's --space-20 padding */
   margin: calc(-1 * var(--space-20)) calc(-1 * var(--space-20)) 0;
+  container: roster / inline-size;
 }
 
 /* one container: details screen on the left, icon grid on the right */
@@ -254,8 +255,16 @@
   to   { opacity: 1; transform: translateX(0); }
 }
 
-/* narrow: icons drop under the details */
-@media (max-width: 560px) {
+/* desktop, side-by-side layout: the icon grid takes most of the row, so only show the
+   companion's name + links when the roster is wide enough to leave real room for them */
+@media (min-width: 1049px) {
+  @container roster (max-width: 899px) {
+    .roster-info { display: none; }
+  }
+}
+
+/* tablet and below (single-column layout): icons drop under the details */
+@media (max-width: 728px) {
   .roster-body { flex-direction: column; }
   .roster-grid {
     grid-template-columns: repeat(auto-fill, 38px);
