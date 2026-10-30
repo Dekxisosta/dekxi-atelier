@@ -1,0 +1,636 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   NAV MENU — site navigation under the character (replaces the top navbar)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+/* Azur Lane: the panel is edge-to-edge, so the menu brings its own padding */
+.main-left-content:has(.javelin) .nav-menu {
+  padding: 0 var(--space-20) var(--space-20);
+}
+
+.nav-menu-secondary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.javelin-btn--minor {
+  padding: var(--space-6) var(--space-8);
+  color: var(--text-primary);
+  background: var(--card);
+  border-color: var(--border);
+}
+
+.javelin-btn--minor .javelin-btn-label {
+  font-size: 11px;
+}
+
+.javelin-btn--minor .javelin-btn-sub {
+  font-size: 8px;
+}
+
+/* ── Theme swatches + account actions ── */
+.nav-menu-utility {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border);
+}
+
+.nav-theme,
+.nav-account {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.nav-theme-btn {
+  display: inline-flex;
+  padding: var(--space-4);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+
+.nav-theme-btn:hover,
+.nav-theme-btn.is-active {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.nav-theme-swatch {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.nav-theme-swatch-azurlane  { background: linear-gradient(135deg, #d1a4c8 50%, #323053 50%); }
+.nav-theme-swatch-moonlight { background: #6b9bd8; }
+.nav-theme-swatch-rosewood  { background: #c9526e; }
+.nav-theme-swatch-ishmael   { background: linear-gradient(135deg, #d2a14a 50%, #181412 50%); }
+
+.nav-util-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-10);
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+
+.nav-util-btn:hover {
+  color: var(--accent-light);
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.nav-util-btn svg {
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+/* ── "Back to profile" shown on every tab except the profile ── */
+.tab-back {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--space-6);
+  margin: var(--space-14) 0 0 var(--space-20);
+  padding: var(--space-6) var(--space-12) var(--space-6) var(--space-8);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+
+.tab-back ion-icon {
+  font-size: 14px;
+  transition: transform 0.18s ease;
+}
+
+.tab-back:hover {
+  color: var(--accent-light);
+  border-color: var(--border);
+  background: var(--card);
+  transform: translateX(-2px);
+}
+
+.tab-back:hover ion-icon {
+  transform: translateX(-3px);
+}
+
+/* ── Reach out: single-row contact strip at the bottom of the menu ── */
+.reach-out {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: var(--space-8);
+  min-width: 0;
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border);
+}
+
+.reach-out-label {
+  flex-shrink: 0;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.reach-out-link {
+  display: flex;
+  align-items: center;
+  flex: 1 1 0;
+  gap: var(--space-6);
+  min-width: 0;
+  padding: var(--space-6) var(--space-8);
+  background: var(--accent-dim);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 11.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.reach-out-link:hover {
+  background: var(--card-hover);
+  border-color: var(--border-hover);
+}
+
+.reach-out-link svg {
+  flex-shrink: 0;
+}
+
+.reach-out-link-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── World clock on top of the character ── */
+.character-panel .clock-section {
+  margin-top: 0;
+}
+
+.character-panel .clock-section {
+  gap: var(--space-4);
+}
+
+.character-panel .clock-widget-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+/* one line per tile: label left, time right (offset lives in the tooltip) */
+.character-panel .clock-tile {
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-6);
+  min-width: 0;
+  padding: var(--space-2) var(--space-6);
+}
+
+.character-panel .clock-tile-time {
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+.character-panel .clock-tile-offset {
+  display: none;
+}
+
+/* Azur Lane: panel is edge-to-edge, so the clock brings its own padding */
+.main-left-content:has(.javelin) .clock-section {
+  padding: var(--space-14) var(--space-20) 0;
+}
+
+/* ── Steam / Spotify: small navbar buttons + portaled popovers ── */
+.nav-utility-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.nav-utility-sep {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+}
+
+.nav-widgets {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.nav-widget-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+
+.nav-widget-btn:hover,
+.nav-widget-btn.is-active {
+  color: var(--accent-light);
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+/* Portaled to <body>, absolutely positioned in document coordinates */
+.nav-popover {
+  position: absolute;
+  z-index: 1100;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-12);
+  overflow-y: auto;
+  background-color: var(--bg);
+  border: 2px solid transparent;
+  border-image: linear-gradient(135deg, var(--accent-light), var(--accent), var(--border-hover), var(--accent), var(--accent-light)) 1;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  animation: navPopoverIn 0.14s ease-out;
+}
+
+.nav-popover > * {
+  flex-shrink: 0;
+}
+
+.nav-popover-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.nav-popover-head .widget-subheading {
+  margin: 0;
+}
+
+.nav-popover-close {
+  display: inline-flex;
+  padding: var(--space-4);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+
+.nav-popover-close:hover {
+  color: var(--accent-light);
+  border-color: var(--border);
+}
+
+@keyframes navPopoverIn {
+  from { opacity: 0; margin-top: -4px; }
+  to   { opacity: 1; margin-top: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-popover { animation: none; }
+}
+
+/* ── World clock (left) + Discord status (right) ── */
+.character-panel .clock-row {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-10);
+}
+
+.character-panel .clock-col,
+.character-panel .discord-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.character-panel .clock-col   { flex: 1.15 1 0; }
+.character-panel .discord-col { flex: 1 1 0; }
+
+.character-panel .discord-col .discord-card {
+  flex: 1;
+}
+
+/* groups of four: fade in on every swap */
+.clock-widget {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.clock-widget-grid--page {
+  animation: clockPageIn 0.35s ease-out;
+}
+
+.clock-widget-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.clock-widget-dot {
+  width: 4px;
+  height: 4px;
+  background: var(--border-hover);
+  opacity: 0.5;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.clock-widget-dot.is-active {
+  background: var(--accent);
+  opacity: 1;
+}
+
+@keyframes clockPageIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clock-widget-grid--page { animation: none; }
+}
+
+@media (max-width: 420px) {
+  .character-panel .clock-row { flex-direction: column; }
+}
+
+/* ── Profile (short introduction) inside the navbar popover ── */
+.character-panel .nav-profile-btn {
+  padding: var(--space-6) var(--space-8);
+}
+
+.nav-profile .profile-header-container {
+  /* room for the avatar-gif that overflows above the avatar */
+  padding-top: var(--space-20);
+}
+
+.nav-profile .profile-meta-row {
+  margin-top: 0;
+  padding: 0;
+}
+
+.nav-profile .hero-name {
+  font-size: 24px;
+}
+
+.nav-profile .hero-handle,
+.nav-profile .hero-bio {
+  font-size: 12.5px;
+}
+
+/* ── Home Port banner above the arsenal / discord / clock row ── */
+.character-panel .home-port {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-8);
+  min-width: 0;
+  padding: var(--space-8) var(--space-10);
+  background: var(--scrim-40);
+  border-bottom: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+}
+
+/* other themes: the left column has 20px padding, so bleed the banner out to the column edges */
+.character-panel .home-port {
+  margin: calc(var(--space-20) * -1) calc(var(--space-20) * -1) 0;
+  padding: var(--space-10) var(--space-20);
+  border-radius: 0;
+}
+
+/* Azur Lane: the panel is edge-to-edge, so the darker banner bleeds out to the panel edges */
+.main-left-content:has(.javelin) .character-panel .home-port {
+  margin: calc(var(--space-14) * -1) calc(var(--space-20) * -1) 0;
+  padding: var(--space-10) var(--space-20);
+  border-radius: 0;
+  background: linear-gradient(to bottom, var(--scrim-60), var(--scrim-35));
+}
+
+.character-panel .home-port-title {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.character-panel .home-port-title::after {
+  content: " \2013";
+  opacity: 0.6;
+}
+
+.character-panel .home-port-sub {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+/* ── Arsenal button (opens the stack ledger) ── */
+.character-panel .arsenal-col {
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.arsenal-btn {
+  align-self: stretch;
+  padding: var(--space-8) var(--space-14);
+}
+
+.arsenal-btn.is-active {
+  color: var(--accent-light);
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+@media (max-width: 420px) {
+  .character-panel .arsenal-col,
+  .character-panel .arsenal-col .arsenal-btn {
+    width: 100%;
+  }
+}
+
+/* ── Stack ledger (inside the popover) ── */
+.stack-ledger {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stack-ledger-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  min-width: 0;
+  padding: var(--space-4) var(--space-6);
+  background: var(--accent-dim);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  font-size: 11px;
+  color: var(--text-primary);
+}
+
+.stack-ledger-item img {
+  display: block;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.stack-ledger-item span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Favorites buttons on top of "reach out" ── */
+.nav-reach {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border);
+}
+
+.nav-reach .reach-out {
+  padding-top: 0;
+  border-top: none;
+}
+
+.nav-favorites {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(68px, 1fr));
+  gap: var(--space-4);
+}
+
+.nav-fav-btn {
+  justify-content: center;
+  padding: var(--space-6) var(--space-4);
+}
+
+.nav-fav-btn.is-active {
+  color: var(--accent-light);
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+/* ── Quick links (inside the popover) ── */
+.quick-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.quick-links-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.quick-links-heading {
+  margin: 0;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.quick-links-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quick-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  min-width: 0;
+  padding: var(--space-4) var(--space-6);
+  background: var(--accent-dim);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  font-size: 11px;
+  color: var(--text-primary);
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.quick-link:hover,
+.quick-link:focus-visible {
+  background: var(--card-hover);
+  border-color: var(--border-hover);
+}
+
+.quick-link img {
+  display: block;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  object-fit: contain;
+}
+
+.quick-link span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
