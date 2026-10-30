@@ -7,7 +7,7 @@ export const viewport = siteViewport;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="azurlane" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -15,7 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               (function() {
                 try {
                   var t = localStorage.getItem('theme');
-                  if (t) document.documentElement.setAttribute('data-theme', t);
+                  if (t === 'verdant' || t === 'amber') t = 'ishmael';
+                  var ok = ['azurlane', 'moonlight', 'rosewood', 'ishmael'];
+                  document.documentElement.setAttribute('data-theme', ok.indexOf(t) > -1 ? t : 'azurlane');
                 } catch (e) {}
               })();
             `,

@@ -26,5 +26,5 @@ export const siteMetadata: Metadata = {
 };
 
 export const siteViewport: Viewport = {
-  themeColor: "#1c191d",
+  themeColor: "#323053",
 };
