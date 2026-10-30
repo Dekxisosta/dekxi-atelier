@@ -60,3 +60,146 @@ export async function getGithubContributions(): Promise<GithubContributionData> 
     ),
   };
 }
+
+export const GITHUB_USERNAME = "Dekxisosta";
+
+export interface GithubCollaborator {
+  login: string;
+  avatarUrl: string;
+  url: string;
+}
+
+export interface GithubRepo {
+  id: number;
+  name: string;
+  description: string | null;
+  url: string;
+  homepage: string | null;
+  language: string | null;
+  stars: number;
+  forks: number;
+  topics: string[];
+  pushedAt: string;
+  /** Images found inside docs/, docus/, documents/, screenshots/ (max 6). */
+  images: string[];
+  /** Other contributors to the repo (owner and bots excluded, max MAX_COLLABORATORS). */
+  collaborators: GithubCollaborator[];
+}
+
+const IMAGE_EXT = /\.(png|jpe?g|gif|webp|avif)$/i;
+const DOC_DIRS = new Set(["docs", "docus", "documents", "screenshots"]);
+const MAX_IMAGES = 6;
+const MAX_COLLABORATORS = 10;
+const MIN_BYTES = 2 * 1024;
+const MAX_BYTES = 8 * 1024 * 1024;
+
+/** Scan a repo's git tree for images inside docs/docus/documents/screenshots folders. */
+async function getRepoImages(
+  repoName: string,
+  branch: string,
+  headers: Record<string, string>
+): Promise<string[]> {
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_USERNAME}/${repoName}/git/trees/${encodeURIComponent(branch)}?recursive=1`,
+      { headers, next: { revalidate: 900 } }
+    );
+    if (!res.ok) return [];
+    const json = await res.json();
+    const tree: { path: string; type: string; size?: number }[] = json?.tree ?? [];
+
+    const found = tree
+      .filter((n) => {
+        if (n.type !== "blob" || !IMAGE_EXT.test(n.path)) return false;
+        if (/favicon/i.test(n.path)) return false;
+        if (n.size !== undefined && (n.size < MIN_BYTES || n.size > MAX_BYTES)) return false;
+        const parts = n.path.split("/");
+        if (parts.slice(0, -1).some((d) => d.toLowerCase() === "assets")) return false; // skip any assets/ folder
+        if (parts.length === 1) return false; // skip repo root images
+        return DOC_DIRS.has(parts[0].toLowerCase()); // docs/docus/documents/screenshots (any depth)
+      })
+      .map((n) => n.path)
+      // shallower paths first, then alphabetical
+      .sort((a, b) => {
+        const da = a.split("/").length, db = b.split("/").length;
+        return da - db || a.localeCompare(b);
+      })
+      .slice(0, MAX_IMAGES);
+
+    return found.map(
+      (path) =>
+        `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${repoName}/${encodeURIComponent(branch)}/${path
+          .split("/")
+          .map(encodeURIComponent)
+          .join("/")}`
+    );
+  } catch {
+    return [];
+  }
+}
+
+/** Contributors of a repo (public endpoint), excluding the owner and bots, capped at MAX_COLLABORATORS. */
+async function getRepoCollaborators(
+  repoName: string,
+  headers: Record<string, string>
+): Promise<GithubCollaborator[]> {
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_USERNAME}/${repoName}/contributors?per_page=${MAX_COLLABORATORS + 5}`,
+      { headers, next: { revalidate: 900 } }
+    );
+    if (!res.ok) return []; // 204 (empty repo) and errors both land here
+    const json: any[] = await res.json();
+    if (!Array.isArray(json)) return [];
+    return json
+      .filter((c) => c.type !== "Bot" && c.login?.toLowerCase() !== GITHUB_USERNAME.toLowerCase())
+      .slice(0, MAX_COLLABORATORS)
+      .map((c) => ({ login: c.login, avatarUrl: c.avatar_url, url: c.html_url }));
+  } catch {
+    return [];
+  }
+}
+
+/** Public repositories of GITHUB_USERNAME: repos with images first, then the rest, each group most recently pushed first. */
+export async function getGithubRepos(limit = 100): Promise<GithubRepo[]> {
+  const headers: Record<string, string> = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+  // optional: a token only raises the rate limit (60/h unauthenticated)
+  if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+
+  const res = await fetch(
+    `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=pushed&direction=desc&type=owner&per_page=100`,
+    { headers, next: { revalidate: 900 } }
+  );
+  if (!res.ok) throw new Error(`GitHub API error (${res.status})`);
+
+  const json: any[] = await res.json();
+  const picked = json
+    .filter((r) => !r.fork && !r.archived && r.name.toLowerCase() !== GITHUB_USERNAME.toLowerCase())
+    .slice(0, limit);
+
+  const [imageLists, collaboratorLists] = await Promise.all([
+    Promise.all(picked.map((r) => getRepoImages(r.name, r.default_branch ?? "main", headers))),
+    Promise.all(picked.map((r) => getRepoCollaborators(r.name, headers))),
+  ]);
+
+  const mapped = picked.map((r, i) => ({
+      id: r.id,
+      name: r.name,
+      description: r.description ?? null,
+      url: r.html_url,
+      homepage: r.homepage || null,
+      language: r.language ?? null,
+      stars: r.stargazers_count ?? 0,
+      forks: r.forks_count ?? 0,
+      topics: r.topics ?? [],
+      pushedAt: r.pushed_at,
+      images: imageLists[i],
+      collaborators: collaboratorLists[i],
+    }));
+
+  // repos with images first; Array.sort is stable so pushed-date order is kept within each group
+  return mapped.sort((a, b) => Number(b.images.length > 0) - Number(a.images.length > 0));
+}
