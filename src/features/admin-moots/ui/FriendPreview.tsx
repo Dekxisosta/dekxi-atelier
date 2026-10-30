@@ -29,7 +29,7 @@ export default function FriendPreview({
   return (
     <div className="admin-preview-frame">
       <span className="admin-preview-label">
-        live preview — renders exactly like /moots
+        live preview — list card
       </span>
 
       {!hasContent ? (

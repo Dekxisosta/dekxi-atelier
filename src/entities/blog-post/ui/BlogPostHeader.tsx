@@ -10,8 +10,6 @@ export default function BlogPostHeader({
     <>
       <h1 className="blog-post-title">{post.title}</h1>
       <span className="blog-post-date">{formatDate(post.published_at)}</span>
-      <br />
-      <br />
       <p className="blog-post-excerpt">{post.excerpt}</p>
     </>
   );

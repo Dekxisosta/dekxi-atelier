@@ -1,10 +1,28 @@
+"use client";
+
 import Link from "next/link";
 import { formatDate } from "@shared/utils/format-date";
 import type { BlogPost } from "../model/types";
 
-export default function BlogEntryCard({ post }: { post: BlogPost }) {
+type Props = {
+  post: BlogPost;
+  /** When provided, clicking opens the post in place instead of navigating. */
+  onSelect?: (post: BlogPost) => void;
+};
+
+export default function BlogEntryCard({ post, onSelect }: Props) {
   return (
-    <Link href={`/blog/${post.slug}`} className="blog-entry blog-entry-grid">
+    <Link
+      href={`/blog/${post.slug}`}
+      className="blog-entry blog-entry-grid"
+      onClick={(e) => {
+        if (!onSelect) return;
+        // Let ctrl/cmd/shift/middle-click still open the standalone page.
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        onSelect(post);
+      }}
+    >
       <article className="blog-entry-window">
         {post.cover_image_url ? (
           // eslint-disable-next-line @next/next/no-img-element

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { IdeHeader } from "@widgets/ide-header";
 import { BlogPostCover, BlogPostArticle } from "@entities/blog-post";
 import type { BlogPost } from "@entities/blog-post";
 
@@ -9,7 +8,6 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
       <div className="bg-decor" />
       <div className="container-main-decor-fur">
         <div className="container-main-decor">
-          <IdeHeader />
           <Link href="/?tab=blog" className="blog-post-back">
             <ion-icon name="arrow-back-outline"></ion-icon>
             <span>back to blog log</span>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@shared/supabase/client";
 import { extractStoragePath } from "@shared/supabase/storage-utils";
 import {
@@ -8,7 +8,6 @@ import {
   emptyFriendForm,
   parseLinks,
 } from "@entities/friend";
-import FriendPreview from "./FriendPreview";
 import FriendForm from "./FriendForm";
 import FriendList from "./FriendList";
 
@@ -19,16 +18,6 @@ export default function FriendsTab() {
   const supabase = createClient();
   const [friends, setFriends] = useState<Friend[]>([]);
   const [form, setForm] = useState(emptyFriendForm);
-
-  const previewTags = useMemo(
-    () =>
-      form.friend_tags
-        .split(",")
-        .map((t) => t.trim())
-        .filter(Boolean),
-    [form.friend_tags]
-  );
-  const previewLinks = useMemo(() => parseLinks(form.friend_links), [form.friend_links]);
 
   async function loadFriends() {
     const { data, error } = await supabase
@@ -135,16 +124,6 @@ export default function FriendsTab() {
         </div>
 
         <div className="admin-column">
-          <FriendPreview
-            name={form.friend_name}
-            description={form.friend_description}
-            profilePicture={form.friend_profile_picture_link}
-            coverLink={form.friend_cover_link}
-            frameLink={form.friend_frame_link}
-            tags={previewTags}
-            links={previewLinks}
-          />
-
           <h2 className="admin-section-title">Existing Friends</h2>
           <FriendList
             friends={friends}
