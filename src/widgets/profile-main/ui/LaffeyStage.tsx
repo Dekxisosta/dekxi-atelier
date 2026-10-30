@@ -20,7 +20,6 @@ export default function LaffeyStage() {
     <JavelinStage
       character={LAFFEY}
       hotspots={HOTSPOTS}
-      soundKey="laffey-sound"
       frame={{ aspect: 762 / 1024, x: 0.5 }}
     />
   );

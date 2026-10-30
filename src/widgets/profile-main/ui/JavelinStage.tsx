@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { MouseEvent } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import { JAVELIN } from "@entities/profile";
-import { cacheAudio, peekCachedAudio, preloadAudio } from "@shared/utils/audio-cache";
+import { cacheAudio, peekCachedAudio, preloadAudio, VOICE_SOUND_KEY } from "@shared/utils/audio-cache";
 import SocialLinks from "./SocialLinks";
 
 type Kind = "touch" | "special" | "headpat";
@@ -106,7 +106,7 @@ const pick = (lines: readonly Line[]) => lines[Math.floor(Math.random() * lines.
 export default function JavelinStage({
   character = JAVELIN,
   hotspots = HOTSPOTS,
-  soundKey = "javelin-sound",
+  soundKey = VOICE_SOUND_KEY,
   frame,
 }: JavelinStageProps = {}) {
   const lines = character.lines;

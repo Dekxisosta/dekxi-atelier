@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import { ISHMAEL, type CharacterLine } from "@entities/profile";
-import { cacheAudio, peekCachedAudio, preloadAudio } from "@shared/utils/audio-cache";
+import { cacheAudio, peekCachedAudio, preloadAudio, VOICE_SOUND_KEY } from "@shared/utils/audio-cache";
 import SocialLinks from "./SocialLinks";
 
 const VOICE_VOLUME = 0.8;
@@ -33,7 +33,7 @@ const prefersReducedMotion = () =>
 /** Idle-only home-screen panel for the Limbus theme (no touch / hotspots). Defaults to Ishmael. */
 export default function IshmaelStage({
   character = ISHMAEL,
-  soundKey = "ishmael-sound",
+  soundKey = VOICE_SOUND_KEY,
 }: IshmaelStageProps = {}) {
   const lines = character.lines;
   const ALL_VOICE_URLS = useMemo<readonly string[]>(

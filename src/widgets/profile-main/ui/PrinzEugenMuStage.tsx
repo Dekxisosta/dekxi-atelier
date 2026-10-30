@@ -20,7 +20,6 @@ export default function PrinzEugenMuStage() {
     <JavelinStage
       character={PRINZ_EUGEN_MU}
       hotspots={HOTSPOTS}
-      soundKey="prinz-eugen-mu-sound"
       frame={{ aspect: 1817 / 2048, x: 0.5 }}
     />
   );

@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import { DON_QUIXOTE, FRIEDRICH, ISHMAEL, JAVELIN, LAFFEY, PRINZ_EUGEN_MU } from "@entities/profile";
+import { DON_QUIXOTE, FRIEDRICH, ISHMAEL, JAVELIN, LAFFEY, PRINZ_EUGEN_MU, RYOSHU } from "@entities/profile";
 import type { ThemeKey } from "@shared/ui/ThemeContext";
 import IshmaelStage from "./IshmaelStage";
 import DonQuixoteStage from "./DonQuixoteStage";
@@ -7,6 +7,7 @@ import FriedrichStage from "./FriedrichStage";
 import JavelinStage from "./JavelinStage";
 import LaffeyStage from "./LaffeyStage";
 import PrinzEugenMuStage from "./PrinzEugenMuStage";
+import RyoshuStage from "./RyoshuStage";
 
 export type CharacterEntry = {
   /** Stable id – persisted per theme, so never rename one once shipped. */
@@ -44,6 +45,7 @@ export const THEME_ROSTERS: Partial<Record<ThemeKey, ThemeRoster>> = {
     characters: [
       { id: "ishmael", name: ISHMAEL.name, icon: ISHMAEL.icon, Stage: IshmaelStage },
       { id: "don-quixote", name: DON_QUIXOTE.name, icon: DON_QUIXOTE.icon, Stage: DonQuixoteStage },
+      { id: "ryoshu", name: RYOSHU.name, icon: RYOSHU.icon, Stage: RyoshuStage },
     ],
   },
 };

@@ -20,7 +20,6 @@ export default function FriedrichStage() {
     <JavelinStage
       character={FRIEDRICH}
       hotspots={HOTSPOTS}
-      soundKey="friedrich-sound"
       frame={{ aspect: 2048 / 1468, x: 0.5 }}
     />
   );
