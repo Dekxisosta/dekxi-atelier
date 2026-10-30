@@ -56,7 +56,7 @@ export const COMMISSION_INFO: CommissionInfo = {
     "2 minor revisions included at the sketch stage. Changes requested after lineart is approved may incur an added fee.",
   usageRights: "For personal, non-commercial use only unless a commercial license is purchased separately.",
   contactNote:
-    "Send requests via DM with references attached — form links and Discord are on the Companions tab.",
+    "Send requests via DM with references attached — form links and Discord are on the main profile page.",
   faq: [
     { id: "f1", question: "Can I ask for WIP updates?",   answer: "Yes — sketch and lineart stages are shared before final rendering." },
     { id: "f2", question: "Do you do traditional media?", answer: "No, all work is digital, done in Clip Studio Paint." },
