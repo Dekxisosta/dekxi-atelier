@@ -62,3 +62,6 @@ export function cacheAudio(url: string): Promise<string | null> {
 export async function preloadAudio(urls: readonly string[]): Promise<void> {
   for (const url of new Set(urls)) await cacheAudio(url);
 }
+
+/** localStorage key for the voice on/off preference – one global switch shared by every character. */
+export const VOICE_SOUND_KEY = "voice-sound";

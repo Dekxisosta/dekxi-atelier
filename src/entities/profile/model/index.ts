@@ -6,4 +6,5 @@ export { FRIEDRICH } from "./friedrich";
 export { PRINZ_EUGEN_MU } from "./prinz-eugen-mu";
 export { ISHMAEL } from "./ishmael";
 export { DON_QUIXOTE } from "./don-quixote";
+export { RYOSHU } from "./ryoshu";
 export type { CharacterLine } from "./ishmael";

@@ -7,4 +7,5 @@ export { FRIEDRICH } from "./model/friedrich";
 export { PRINZ_EUGEN_MU } from "./model/prinz-eugen-mu";
 export { ISHMAEL } from "./model/ishmael";
 export { DON_QUIXOTE } from "./model/don-quixote";
+export { RYOSHU } from "./model/ryoshu";
 export type { CharacterLine } from "./model/ishmael";
