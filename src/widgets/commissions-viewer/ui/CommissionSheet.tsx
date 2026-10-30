@@ -1,5 +1,4 @@
 import type { CommissionInfo } from "@entities/commission";
-import { PROFILE_LINKS, PROFILE_FRAME } from "@entities/profile";
 import PricingTable from "./PricingTable";
 import DosDonts from "./DosDonts";
 import NsfwPolicy from "./NsfwPolicy";
@@ -8,11 +7,7 @@ import PaymentMethods from "./PaymentMethods";
 import TermsOfService from "./TermsOfService";
 import CommissionFaq from "./CommissionFaq";
 
-const HEADER_LINK_LABELS = new Set(["Bluesky", "Twitter", "FB", "IG", "VGen", "Discord"]);
-
 export default function CommissionSheet({ info }: { info: CommissionInfo }) {
-  const headerLinks = PROFILE_LINKS.filter((l) => HEADER_LINK_LABELS.has(l.label));
-
   return (
     <div className="container-main commission-container">
 
@@ -32,34 +27,6 @@ export default function CommissionSheet({ info }: { info: CommissionInfo }) {
                   />
                 </div>
                 <h1 className="commission-title">Commission Sheet</h1>
-              </div>
-              <div className="commission-header-links">
-                {headerLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="commission-header-link"
-                    title={link.label}
-                  >
-                    <span className="commission-header-link-inner">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={link.icon}
-                        alt={link.label}
-                        className="commission-header-link-icon"
-                        style={link.invert ? { filter: "invert(1) opacity(0.85)" } : undefined}
-                      />
-                    </span>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={PROFILE_FRAME}
-                      alt=""
-                      className="commission-header-link-frame"
-                    />
-                  </a>
-                ))}
               </div>
             </div>
             <p className="commission-tagline">{info.tagline}</p>
