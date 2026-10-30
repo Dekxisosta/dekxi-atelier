@@ -1,42 +1,34 @@
-import ChibiDock from "./ChibiDock";
-import ProfileHeader from "./ProfileHeader";
-import InterestsSection from "./InterestsSection";
-import ContentGrid from "./ContentGrid";
-import AboutMe from "./AboutMe";
-import Sidebar from "./Sidebar";
-import GithubContributionGraph from "./GithubContributionGraph";
-import ClockWidget from "./ClockWidget";
-import CharacterBanner from "./CharacterBanner";
+import CompanionRoster from "./CompanionRoster";
+import CharacterPanel from "./CharacterPanel";
+import SocialLinks from "./SocialLinks";
+import type { ReactNode } from "react";
+import type { Tab } from "@shared/config/tabs";
+import type { Friend } from "@entities/friend";
 
-export default function ProfileMainView() {
+type ProfileMainViewProps = {
+  onTabChange?: (tab: Tab) => void;
+  friends?: Friend[];
+  /** Tab content, rendered in the space under the companion roster. */
+  children?: ReactNode;
+};
+
+export default function ProfileMainView({ onTabChange, friends = [], children }: ProfileMainViewProps) {
   return (
     <div className="container-main" id="profile-view">
       <div className="main-left">
-        <div className="main-left-dock">
-          <ChibiDock />
-        </div>
-
         <div className="main-left-content">
-          <CharacterBanner />
-          <ProfileHeader />
-          <InterestsSection />
-          <ContentGrid />
-
-          <div className="github-graph-section">
-            <p className="widget-subheading">Contribution Activity</p>
-            <GithubContributionGraph />
-          </div>
-
-          <div className="clock-section">
-            <p className="widget-subheading">World Clock</p>
-            <ClockWidget />
-          </div>
-          <div className="footer" />
+          <SocialLinks />
+          <CharacterPanel onTabChange={onTabChange} />
         </div>
       </div>
 
-      <AboutMe />
-      <Sidebar />
+      <div className="main-center">
+        <CompanionRoster friends={friends} />
+
+        {children && <div className="tab-panel">{children}</div>}
+
+        <div className="footer" />
+      </div>
     </div>
   );
 }

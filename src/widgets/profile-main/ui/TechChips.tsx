@@ -1,6 +1,6 @@
 import { TECH_STACK, DEVICON, INVERTED } from "@entities/profile";
 
-const EXTRA_CHIPS: { src: string; alt: string; invert?: boolean }[] = [
+export const EXTRA_CHIPS: { src: string; alt: string; invert?: boolean }[] = [
   { src: "https://railway.app/brand/logo-light.png", alt: "Railway" },
   {
     src: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Roblox_Studio_logo.svg/512px-Roblox_Studio_logo.svg.png",

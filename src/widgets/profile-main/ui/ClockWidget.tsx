@@ -15,6 +15,10 @@ const TIMEZONES: TimezoneConfig[] = [
   { label: "TH", timeZone: "Asia/Bangkok"        },
 ];
 
+const PAGE_SIZE = 4;
+const ROTATE_MS = 3000;
+const PAGE_COUNT = Math.ceil(TIMEZONES.length / PAGE_SIZE);
+
 function formatTime(timeZone: string) {
   return new Intl.DateTimeFormat("en-US", {
     hour: "2-digit", minute: "2-digit", hour12: true, timeZone,
@@ -30,6 +34,13 @@ function getOffsetLabel(timeZone: string) {
 
 export default function ClockWidget() {
   const [times, setTimes] = useState<Record<string, string>>({});
+  const [page, setPage] = useState(0);
+
+  // Swap to the next group of four every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => setPage((p) => (p + 1) % PAGE_COUNT), ROTATE_MS);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const update = () => {
@@ -42,15 +53,25 @@ export default function ClockWidget() {
     return () => clearInterval(interval);
   }, []);
 
+  const visible = TIMEZONES.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+
   return (
-    <div className="clock-widget-grid">
-      {TIMEZONES.map((tz) => (
-        <div key={tz.label} className="clock-tile">
-          <span className="clock-tile-label">{tz.label}</span>
-          <span className="clock-tile-time">{times[tz.label] ?? "--:--"}</span>
-          <span className="clock-tile-offset">{getOffsetLabel(tz.timeZone)}</span>
-        </div>
-      ))}
+    <div className="clock-widget">
+      {/* key={page} remounts the grid so the fade-in replays on every swap */}
+      <div key={page} className="clock-widget-grid clock-widget-grid--page">
+        {visible.map((tz) => (
+          <div key={tz.label} className="clock-tile" title={`${tz.timeZone} (${getOffsetLabel(tz.timeZone)})`}>
+            <span className="clock-tile-label">{tz.label}</span>
+            <span className="clock-tile-time">{times[tz.label] ?? "--:--"}</span>
+            <span className="clock-tile-offset">{getOffsetLabel(tz.timeZone)}</span>
+          </div>
+        ))}
+      </div>
+      <div className="clock-widget-dots" aria-hidden="true">
+        {Array.from({ length: PAGE_COUNT }, (_, i) => (
+          <span key={i} className={"clock-widget-dot" + (i === page ? " is-active" : "")} />
+        ))}
+      </div>
     </div>
   );
 }

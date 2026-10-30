@@ -57,6 +57,10 @@ export default function DiscordWidget() {
   }
 
   const primaryActivity = data.activities[0] ?? null;
+  const statusLabel = STATUS_LABEL[data.status] ?? data.status;
+  const activityTitle = primaryActivity
+    ? [primaryActivity.name, primaryActivity.details, primaryActivity.state].filter(Boolean).join(" · ")
+    : undefined;
 
   return (
     <div className="discord-card">
@@ -65,14 +69,14 @@ export default function DiscordWidget() {
         <img className="discord-card__avatar" src={data.avatar} alt={data.username} />
         <span
           className={`discord-card__status-ring discord-card__status-ring--${data.status}`}
-          title={STATUS_LABEL[data.status] ?? data.status}
-          aria-label={STATUS_LABEL[data.status] ?? data.status}
+          title={statusLabel}
+          aria-label={statusLabel}
         />
       </div>
 
       <div className="discord-card__body">
         <p className="discord-card__name">
-          {data.username}
+          <span className="discord-card__username">{data.username}</span>
           {data.guildTag && data.guildBadgeUrl ? (
             <span className="discord-card__guild">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -82,31 +86,18 @@ export default function DiscordWidget() {
           ) : null}
         </p>
         {data.customStatus && (
-          <p className="discord-card__custom-status">{data.customStatus}</p>
+          <p className="discord-card__custom-status" title={data.customStatus}>{data.customStatus}</p>
         )}
         {primaryActivity && (
-          <div className="discord-card__activity">
-            {primaryActivity.largeImageUrl && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                className="discord-card__activity-art"
-                src={primaryActivity.largeImageUrl}
-                alt={primaryActivity.largeText ?? primaryActivity.name}
-              />
-            )}
-            <div className="discord-card__activity-info">
-              <span className="discord-card__activity-verb">
-                {primaryActivity.type === 0 ? "Playing" : "Doing"}
-              </span>
-              <span className="discord-card__activity-name">{primaryActivity.name}</span>
-              {primaryActivity.details && (
-                <span className="discord-card__activity-detail">{primaryActivity.details}</span>
-              )}
-              {primaryActivity.state && (
-                <span className="discord-card__activity-state">{primaryActivity.state}</span>
-              )}
-            </div>
-          </div>
+          <p className="discord-card__activity" title={activityTitle}>
+            <span className="discord-card__activity-verb">
+              {primaryActivity.type === 0 ? "Playing" : "Doing"}
+            </span>
+            <span className="discord-card__activity-name">{primaryActivity.name}</span>
+          </p>
+        )}
+        {!data.customStatus && !primaryActivity && (
+          <p className="discord-card__custom-status">{statusLabel}</p>
         )}
       </div>
     </div>

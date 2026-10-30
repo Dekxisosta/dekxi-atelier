@@ -3,41 +3,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding-top: var(--space-120);
-}
-
-.header-banner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 110px;
-  border-radius: 0 0 0 0;
-  border: 6px groove var(--accent);
-  background: var(--banner-image) center var(--banner-pos) / cover no-repeat;
-  z-index: 20;
-
-  box-shadow:
-    inset 0 3px 6px var(--scrim-60),
-    inset 0 -4px 8px var(--scrim-50),
-    inset 0 0 20px var(--scrim-35),
-    0 4px 0 color-mix(in srgb, var(--accent) 70%, black);
-}
-.clockwise-tracker {
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  background-size: cover;
-  pointer-events: auto;
-  cursor: pointer;
-  z-index: 10000;
-  --tracker-speed: 12s;
-  background-image: var(--banner-chibi);
-  animation: clockwiseRotatorSnap var(--tracker-speed) linear infinite;
-}
-
-.clockwise-tracker:hover {
-  animation-play-state: paused;
+  padding-top: 0;
 }
 
 .profile-meta-row {
@@ -45,7 +11,7 @@
   align-items: flex-end;
   gap: var(--space-12);
   padding: 0 var(--space-8);
-  margin-top: calc(-1 * var(--space-34));
+  margin-top: var(--space-14);
   position: relative;
   z-index: 2;
 }
@@ -90,7 +56,7 @@
   flex-direction: column;
   gap: var(--space-2);
   justify-content: flex-end;
-  padding-top: var(--space-56);
+  padding-top: var(--space-4);
   padding-bottom: var(--space-4);
 }
 
@@ -200,22 +166,6 @@
   font-weight: 500;
   color: var(--text-primary);
   text-align: center;
-}
-
-.profile-link-plain {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  margin: 0px var(--space-20);
-}
-
-.profile-link-plain .profile-link-icon {
-  width: 72px;
-  height: 72px;
-  object-fit: contain;
-  border-radius: 0;
 }
 
 /* Tech stack carousel */
@@ -446,14 +396,73 @@
   100% { transform: translateX(-50%); }
 }
 
-@keyframes clockwiseRotatorSnap {
-  0%   { top: -25%; left: -2.5%;   transform: translate(-21px, -21px) rotate(0deg);   }
-  24%  { top: -25%; left: 100%;  transform: translate(-21px, -21px) rotate(0deg);   }
-  25%  { top: -25%; left: 100%;  transform: translate(-21px, -21px) rotate(90deg);  }
-  49%  { top: 100%; left: 100%;  transform: translate(-21px, -21px) rotate(90deg);  }
-  50%  { top: 100%; left: 100%;  transform: translate(-21px, -21px) rotate(180deg); }
-  74%  { top: 100%; left: -2.5%;   transform: translate(-21px, -21px) rotate(180deg); }
-  75%  { top: 100%; left: -2.5%;   transform: translate(-21px, -21px) rotate(270deg); }
-  99%  { top: -25%; left: -2.5%;   transform: translate(-21px, -21px) rotate(270deg); }
-  100% { top: -25%; left: -2.5%;   transform: translate(-21px, -21px) rotate(360deg); }
+/* Social links in the left column */
+.social-links {
+  justify-content: center;
+}
+
+/* Social links as an overlay on top of the Javelin stage (Azur Lane theme) */
+.social-links--overlay {
+  position: absolute;
+  top: var(--space-14);
+  left: var(--space-14);
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: var(--space-6);
+  justify-content: start;
+  align-items: start;
+  flex-wrap: nowrap;
+  pointer-events: none; /* let clicks fall through to the character */
+}
+
+.social-links--overlay .profile-link {
+  position: relative;
+  padding: var(--space-2);
+  pointer-events: auto;
+}
+
+.social-links--overlay .profile-link-icon-wrap {
+  width: 54px;
+  height: 54px;
+  filter: drop-shadow(0 2px 4px var(--scrim-45));
+}
+
+.social-links--overlay .profile-link-icon {
+  width: 25px;
+  height: 25px;
+}
+
+/* labels become hover tooltips so the character stays visible */
+.social-links--overlay .profile-link-label {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + var(--space-4));
+  transform: translateY(-50%);
+  z-index: 4;
+  padding: var(--space-2) var(--space-6);
+  font-size: 11px;
+  white-space: nowrap;
+  background: color-mix(in srgb, var(--bg-dark) 90%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.social-links--overlay .profile-link:hover .profile-link-label,
+.social-links--overlay .profile-link:focus-visible .profile-link-label {
+  opacity: 1;
+}
+
+/* BYF / DNI popover content */
+.about-notes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.about-notes .byf-dni-text {
+  margin: 0;
 }
