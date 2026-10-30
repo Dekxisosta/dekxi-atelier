@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700;800&display=swap');
 
 @font-face {
   font-family: 'Mikodacs';
@@ -17,9 +17,72 @@
   padding: 0;
 }
 
+/* ── AZUR LANE (default) ── */
 :root,
-[data-theme="amber"] {
-  /* ── AMBER (current default) ── */
+[data-theme="azurlane"] {
+  --bg:             #323053;
+  --bg-dark:        #1f1d38;
+  --sidebar:        #2a2847;
+
+  --card:           rgba(50, 48, 83, 0.92);
+  --card-hover:     rgba(83, 71, 123, 0.95);
+
+  --border:         #676994;
+  --border-hover:   #d1a4c8;
+
+  --text-primary:   #f0dde2;
+  --text-secondary: #9d9dc1;
+
+  --accent:         #d1a4c8;
+  --accent-light:   #f0dde2;
+  --accent-dim:     rgba(209, 164, 200, 0.22);
+
+  --white:          #f0dde2;
+  --black:          #14122a;
+  --shadow:         rgba(10, 8, 30, 0.6);
+
+  /* Azur Lane gold + glow overrides */
+  --gold-dark:      #5e4b32;
+  --gold:           #876d49;
+  --gold-light:     #f0dde2;
+  --gold-mid-dark:  #9979a1;
+  --gold-pale:      #d1a4c8;
+  --gold-deep:      #876d49;
+  --terminal-glow:  #9d9dc1;
+  --glitch-red:     #53477b;
+  --glitch-green:   #676994;
+
+  --github-level-0: #2a2848;
+  --github-level-1: #53477b;
+  --github-level-2: #676994;
+  --github-level-3: #9979a1;
+  --github-level-4: #d1a4c8;
+
+  --character-title: DESTROYER ;
+  --character-name: JAVELIN;
+
+  --banner-pos: 30%;
+  --banner-chibi: url(/assets/characters/javelin-icon.webp) ;
+  --banner-image: linear-gradient(120deg, #323053 0%, #53477b 45%, #9979a1 100%);
+  --bg-image: linear-gradient(160deg, #323053 0%, #1f1d38 100%);
+  --sidebar-image: none;
+}
+
+[data-theme="ishmael"] {
+  --gold-dark:      #7a5a1e;
+  --gold:           #d4af37;
+  --gold-light:     #fff6d5;
+  --gold-mid-dark:  #a9791f;
+  --gold-pale:      #f6e2a0;
+  --gold-deep:      #b8860b;
+  --terminal-glow:  #d4ed3f;
+  --glitch-red:     #642911;
+  --glitch-green:   #0c4d29;
+  --github-level-0: #2d2419;
+  --github-level-1: #4a3a1f;
+  --github-level-2: #7a5a25;
+  --github-level-3: #a97e2f;
+  --github-level-4: #d4af37;
   --bg:             #181412;
   --bg-dark:        #0f0c0a;
   --sidebar:        #221b18;
@@ -41,49 +104,14 @@
   --black:          #090807;
   --shadow:         rgba(0, 0, 0, 0.55);
 
-  --character-title: BLIND OBSESSION ;
+  --character-title: SINNER NO. 8 ;
   --character-name: ISHMAEL;
 
   --banner-pos: 30%;
-  --banner-chibi: url(https://i.imgur.com/XuGSbfN.gif) ;
-  --banner-image: url('https://limbuscompany.wiki.gg/images/thumb/Lobotomy_E.G.O_In_the_Name_of_Love_and_Hate_Don_Quixote_Full_Uptied.png/1024px-Lobotomy_E.G.O_In_the_Name_of_Love_and_Hate_Don_Quixote_Full_Uptied.png?5b6d24');
-  --bg-image: url('https://images2.alphacoders.com/132/1329303.jpeg');
-
-  --sidebar-image: url(https://preview.redd.it/oh-god-im-asking-for-canto-7-help-v0-czujertx20xd1.png?width=1080&format=png&auto=webp&s=7eeb5afa9a8e70bdd672affeab53f9db1e9e6fbf);
-}
-
-[data-theme="verdant"] {
-  --bg:             #0c1512;
-  --bg-dark:        #040806;
-  --sidebar:        #12221d;
-
-  --card:           rgba(27, 45, 38, 0.95);
-  --card-hover:     rgba(42, 67, 56, 0.97);
-
-  --border:         #4f8575;
-  --border-hover:   #d0d977;
-
-  --text-primary:   #f0fbf5;
-  --text-secondary: #b8ddca;
-
-  --accent:         #78c97a;
-  --accent-light:   #d4f6c2;
-  --accent-dim:     rgba(120,201,122,.25);
-
-  --white:          #fff;
-  --black:          #020402;
-  --shadow:         rgba(0,0,0,.72);
-
-  --character-title: LOVE AND HATE ;
-  --character-name: DON QUIXOTE;
-
-
-  --banner-pos: 25%;
-  --banner-chibi: url(https://media.tenor.com/W85ad914NFcAAAAj/limbus-limbus-company.gif);
-  --banner-image: url(https://i.ytimg.com/vi/I3N9y2il1ig/maxresdefault.jpg);
-  --bg-image: url('https://fastcdn.hoyoverse.com/content-v2/nap/159910/97d27722016ef09614fdd12e5d494083_7498705919758116006.png');
-
-  --sidebar-image: url(https://limbuscompany.wiki.gg/images/The_House_of_Spiders_The_Middle_Apprentice_Ishmael_Profile.png?ce3f56);
+  --banner-chibi: url(/assets/characters/ishmael-icon.webp) ;
+  --banner-image: linear-gradient(120deg, #181412 0%, #4a3a1f 50%, #a97e2f 100%);
+  --bg-image: linear-gradient(160deg, #221b18 0%, #0f0c0a 100%);
+  --sidebar-image: none;
 }
 
 :root {
@@ -109,22 +137,13 @@
   --status-warning: #e0b95a;
 
   /* ── Gold decorative gradient (constant across themes) ── */
-  --gold-dark:      #7a5a1e;
-  --gold:           #d4af37;
-  --gold-light:     #fff6d5;
-  --gold-mid-dark:  #a9791f;
-  --gold-pale:      #f6e2a0;
-  --gold-deep:      #b8860b;
 
   /* ── Lighter tint of --status-danger, for readable text on dark bg ── */
   --status-danger-light: #f2a6a2;
 
   /* ── CRT scanline / avatar-pulse terminal glow (constant across themes) ── */
-  --terminal-glow:  #d4ed3f;
 
   /* ── One-off glitch-text tones (about.css motto effect) ── */
-  --glitch-red:     #642911;
-  --glitch-green:   #0c4d29;
 
   /* ── One-off decorative tone (affiliation badge shadow) ── */
   --badge-shadow:   rgba(110, 110, 110, 0.25);
@@ -185,11 +204,6 @@
   --space-120: 120px;
 }
 :root {
-  --github-level-0: #2d2419; 
-  --github-level-1: #4a3a1f;
-  --github-level-2: #7a5a25;
-  --github-level-3: #a97e2f;
-  --github-level-4: var(--gold); 
 }
 body {
   margin: 0;

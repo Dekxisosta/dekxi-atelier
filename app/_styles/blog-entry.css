@@ -6,21 +6,14 @@
 }
 
 .blog-list-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-16);
-  padding: var(--space-10) var(--space-6) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  padding: var(--space-6) 0 var(--space-4);
 }
 
-/* Blog grid breakpoints */
-@media (max-width: 1400px) {
-  .blog-list-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 1200px) {
-  .blog-list-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 700px) {
-  .blog-list-grid { grid-template-columns: 1fr; }
+.blog-list-grid > * {
+  min-width: 0;
 }
 
 .blog-entry {
@@ -94,40 +87,63 @@
   border-color: transparent;
 }
 
-/* ── STACKED CARD (vertical: window on top, body below) ── */
+/* ── FULL-WIDTH CARD (preview on the left ≈ 1/5, body on the right) ── */
 .blog-entry-grid {
-  flex-direction: column;
-  padding: 0 0 var(--space-14);
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  width: 100%;
 }
 
 .blog-entry-grid .blog-entry-window {
-  width: 100%;
+  position: relative;
+  flex: 0 0 20%;
+  width: 20%;
+  min-height: 110px;
   border: none;
   border-radius: 0;
-  border-bottom: 2px double var(--border);
+  border-right: 2px double var(--border);
 }
 
 .blog-entry-grid .blog-entry-window-thumb {
-  aspect-ratio: 16 / 11;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
 }
 
 .blog-entry-grid .blog-entry-body {
-  padding: var(--space-12) var(--space-14) 0;
+  padding: var(--space-12) var(--space-16);
 }
 
 .blog-entry-grid .blog-entry-meta {
-  justify-content: space-between;
+  justify-content: flex-start;
+  margin-bottom: var(--space-4);
 }
 
 .blog-entry-grid .blog-entry-title {
-  font-size: 1rem;
+  font-size: 1.05rem;
+  margin-bottom: var(--space-4);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
 }
 
 .blog-entry-grid .blog-entry-excerpt {
-  font-size: 11.5px;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: var(--space-8);
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   overflow: hidden;
+  overflow-wrap: anywhere;
 }
 
 /* ── IMAGE WINDOW (signature element, reused list + hero) ── */
@@ -298,5 +314,17 @@
   }
   .blog-entry-window {
     width: 100%;
+  }
+  .blog-entry-grid .blog-entry-window {
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 0;
+    border-right: none;
+    border-bottom: 2px double var(--border);
+  }
+  .blog-entry-grid .blog-entry-window-thumb {
+    position: static;
+    height: auto;
+    aspect-ratio: 16 / 9;
   }
 }

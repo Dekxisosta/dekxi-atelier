@@ -6,8 +6,6 @@
   flex-direction: column;
   min-height: 100vh;
   gap: var(--space-24);
-  /* offset for the fixed top navbar (64px bar) */
-  padding-top: 64px;
 }
 
 .container-page::before {
@@ -115,16 +113,6 @@
   animation: scanlines 0.1s steps(1) infinite, glitch 2s steps(1) infinite;
 }
 
-.main-left-dock {
-  flex-shrink: 0;
-  width: 100px;
-  padding-top: var(--space-20);
-  padding-left: var(--space-20);
-  margin-right: var(--space-20);
-  position: relative;
-  z-index: 999;
-}
-
 .main-left-content {
   flex: 1;
   display: flex;
@@ -182,9 +170,6 @@
 
 /* Layout breakpoints */
 @media (min-width: 728px) {
-  .container-main-decor-fur { padding: var(--space-3); }
-  .container-main-decor     { padding: var(--space-3); }
-
   .bg-decor {
     display: block;
     position: fixed;
@@ -243,19 +228,16 @@
   .main-left {
     border-top: none;
     flex-direction: column;
-  }
-  .main-left-dock {
-    display: none;
+    padding: 0;
   }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    HOME — hard-edge override
    Overrides all pill/avatar/round radius tokens to sharp corners, scoped
-   only to the home page container and the site navbar.
+   only to the home page container.
    ═══════════════════════════════════════════════════════════════════════════ */
-.container-page,
-.navbar-wrapper {
+.container-page {
   --radius-pill:   0px;
   --radius-avatar: 0px;
   --radius-full:   0px;
@@ -270,26 +252,6 @@
   --radius-banner: 0px;
 }
 
-/* Inline 999px / 50% values in header.css that don't use variables */
-.navbar-pill,
-.navbar-tab,
-.navbar-account-chip,
-.navbar-account-avatar,
-.navbar-dropdown,
-.navbar-dropdown-item,
-.navbar-account-menu,
-.navbar-account-menu-item,
-.navbar-theme-menu,
-.navbar-theme-option,
-.navbar-theme-swatch,
-.navbar-mobile-menu,
-.navbar-mobile-tab,
-.navbar-mobile-child,
-.navbar-mobile-theme-btn,
-.navbar-logo-avatar,
-.navbar-search-btn,
-.navbar-signin,
-.navbar-cta,
 /* Hardcoded 50% discord avatar elements */
 .discord-card__avatar,
 .discord-card__avatar--placeholder {
@@ -299,3 +261,169 @@
 .discord-card__status-ring {
   border-radius: 50% !important;
 }
+
+/* ── Profile home: character left, stack + favorites center, widgets right ── */
+#profile-view { min-height: 100vh; }
+#profile-view > .main-left   { flex: 8; max-width: 560px; }
+#profile-view > .main-center {
+  flex: 8;
+  background-color: var(--bg);
+  padding: var(--space-20);
+  border-left: 1px solid var(--accent);
+  border-right: 1px solid var(--accent);
+}
+
+.about-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  min-width: 0;
+}
+
+@media (max-width: 1048px) {
+  #profile-view > .main-left   { flex: 1 1 100%; margin-inline: auto; }
+  #profile-view > .main-center { flex: 1 1 100%; width: 100%; }
+}
+
+/* ── Tab content shown under the roster (projects, commissions, gallery, blog, admin…) ── */
+.tab-panel {
+  container-type: inline-size;
+  width: 100%;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+/* commission sheet is a 3-column layout; collapse it when the panel is narrow */
+@container (max-width: 900px) {
+  .tab-panel .container-main { flex-direction: column; flex-wrap: nowrap; }
+  .tab-panel .container-main > .main-left,
+  .tab-panel .container-main > .main-center,
+  .tab-panel .container-main > .main-right {
+    flex: 1 1 auto; width: 100%; max-width: none; border-left: none;
+  }
+}
+
+/* ── Placeholder tab sections (projects, testimonials, certificates…) ── */
+.tab-panel .section-title {
+  margin: 0 0 var(--space-14);
+  padding-bottom: var(--space-8);
+  border-bottom: 1px solid var(--border);
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+.tab-panel .section-empty-state {
+  padding: var(--space-24);
+  border: 1px dashed var(--border);
+  background: var(--card);
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-align: center;
+}
+.tab-panel .projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-14);
+}
+.tab-panel .project-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-12);
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+.tab-panel .project-cover { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.tab-panel .project-title { font-size: 14px; color: var(--text-primary); }
+.tab-panel .project-description { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+.tab-panel .project-tags { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.tab-panel .project-tag { padding: 2px var(--space-6); border: 1px solid var(--border); font-size: 10px; color: var(--text-secondary); }
+.tab-panel .project-link { font-size: 11px; color: var(--accent-light); }
+
+/* ── Desktop: roster stays pinned; only the tab panel scrolls ── */
+@media (min-width: 1049px) {
+  #profile-view > .main-center {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+  #profile-view > .main-center > .roster { flex: 0 0 auto; }
+  #profile-view > .main-center > .footer { display: none; }
+
+  #profile-view > .main-center > .tab-panel {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
+  }
+}
+
+/* ── Projects: GitHub repos ── */
+.tab-panel .projects-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-bottom: var(--space-14);
+  border-bottom: 1px solid var(--border);
+}
+.tab-panel .projects-head .section-title { margin: 0; border-bottom: none; }
+.tab-panel .projects-profile-link { padding-bottom: var(--space-8); font-size: 11px; color: var(--accent-light); text-decoration: none; }
+.tab-panel .projects-profile-link:hover { text-decoration: underline; }
+.tab-panel .project-title a { color: inherit; text-decoration: none; word-break: break-word; }
+.tab-panel .project-title a:hover { color: var(--accent-light); }
+.tab-panel .project-description { flex: 1 1 auto; }
+.tab-panel .project-meta { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-10); font-size: 10.5px; color: var(--text-secondary); }
+.tab-panel .project-meta-date { margin-left: auto; }
+.tab-panel .project-links { display: flex; gap: var(--space-12); }
+.tab-panel .project-link { text-decoration: none; }
+.tab-panel .project-link:hover { text-decoration: underline; }
+
+/* ── Projects: readable heading font (JetBrains Mono) ── */
+.tab-panel .projects-head .section-title,
+.tab-panel .project-title {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0;
+}
+.tab-panel .projects-head .section-title { font-size: 17px; font-weight: 800; }
+.tab-panel .project-title { font-size: 14px; font-weight: 700; }
+.tab-panel .project-description,
+.tab-panel .project-tag,
+.tab-panel .project-meta,
+.tab-panel .project-link,
+.tab-panel .projects-profile-link {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* ── Projects: images scanned from repo root / docs / docus / documents ── */
+.tab-panel .project-gallery { display: flex; flex-direction: column; gap: var(--space-6); }
+.tab-panel .project-cover-link { display: block; overflow: hidden; border: 1px solid var(--border); background: var(--bg); }
+.tab-panel .project-cover { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; transition: transform 0.25s ease; }
+.tab-panel .project-cover-link:hover .project-cover { transform: scale(1.03); }
+.tab-panel .project-thumbs { display: flex; gap: var(--space-4); overflow-x: auto; scrollbar-width: thin; }
+.tab-panel .project-thumb {
+  flex: 0 0 44px; width: 44px; height: 30px; padding: 0; cursor: pointer;
+  border: 1px solid var(--border); background: var(--bg); opacity: 0.6;
+}
+.tab-panel .project-thumb:hover { opacity: 0.9; }
+.tab-panel .project-thumb.is-active { opacity: 1; border-color: var(--accent-light); }
+.tab-panel .project-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ── Projects: collaborators (max 10) ── */
+.tab-panel .project-collabs { display: flex; align-items: center; gap: var(--space-6); }
+.tab-panel .project-collabs-label { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10.5px; color: var(--text-secondary); }
+.tab-panel .project-collab-list { display: flex; flex-wrap: wrap; margin: 0; padding: 0; list-style: none; }
+.tab-panel .project-collab-list li + li { margin-left: -6px; }
+.tab-panel .project-collab { display: block; width: 22px; height: 22px; border: 1px solid var(--border); border-radius: 50%; overflow: hidden; background: var(--bg); transition: transform 0.15s; }
+.tab-panel .project-collab:hover { position: relative; z-index: 1; transform: translateY(-2px); }
+.tab-panel .project-collab img { display: block; width: 100%; height: 100%; object-fit: cover; }
