@@ -401,61 +401,6 @@
   justify-content: center;
 }
 
-/* Social links as an overlay on top of the Javelin stage (Azur Lane theme) */
-.social-links--overlay {
-  position: absolute;
-  top: var(--space-14);
-  left: var(--space-14);
-  z-index: 3;
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  gap: var(--space-6);
-  justify-content: start;
-  align-items: start;
-  flex-wrap: nowrap;
-  pointer-events: none; /* let clicks fall through to the character */
-}
-
-.social-links--overlay .profile-link {
-  position: relative;
-  padding: var(--space-2);
-  pointer-events: auto;
-}
-
-.social-links--overlay .profile-link-icon-wrap {
-  width: 54px;
-  height: 54px;
-  filter: drop-shadow(0 2px 4px var(--scrim-45));
-}
-
-.social-links--overlay .profile-link-icon {
-  width: 25px;
-  height: 25px;
-}
-
-/* labels become hover tooltips so the character stays visible */
-.social-links--overlay .profile-link-label {
-  position: absolute;
-  top: 50%;
-  left: calc(100% + var(--space-4));
-  transform: translateY(-50%);
-  z-index: 4;
-  padding: var(--space-2) var(--space-6);
-  font-size: 11px;
-  white-space: nowrap;
-  background: color-mix(in srgb, var(--bg-dark) 90%, transparent);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
-}
-
-.social-links--overlay .profile-link:hover .profile-link-label,
-.social-links--overlay .profile-link:focus-visible .profile-link-label {
-  opacity: 1;
-}
-
 /* BYF / DNI popover content */
 .about-notes {
   display: flex;
@@ -465,4 +410,50 @@
 
 .about-notes .byf-dni-text {
   margin: 0;
+}
+
+/* ── Overlay links: one button on the character stage that opens a popover ── */
+.social-links-collapsed {
+  position: absolute;
+  top: var(--space-14);
+  left: var(--space-14);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  filter: drop-shadow(0 2px 4px var(--scrim-45));
+}
+
+.social-links-toggle {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  background: color-mix(in srgb, var(--bg-dark) 78%, transparent);
+  backdrop-filter: blur(3px);
+}
+
+/* frame sits above the button, same look as the link icon frames */
+.social-links-toggle-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.social-links-popover-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  justify-items: center;
+}
+
+.social-links-popover-grid .profile-link {
+  text-decoration: none;
 }

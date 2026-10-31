@@ -12,6 +12,7 @@
   position: relative;
   width: 100%;
   height: max(380px, calc(100vh - 400px));
+  height: max(380px, calc(100svh - 400px)); /* small viewport: no resize when mobile toolbars collapse */
   overflow: hidden;
 }
 
@@ -316,6 +317,34 @@
 
 .javelin--ishmael .javelin-dialogue {
   min-height: 88px;
+}
+
+/* Half-body crop (Ryōshū): fill the art box and anchor to the top so the legs fall off the bottom */
+.javelin--half .javelin-art {
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Nudge the art to the right (Don Quixote). Tweak --art-shift-x to taste. */
+.javelin--shift-right {
+  --art-shift-x: 28px;
+}
+
+/* Ishmael: 50px left. */
+.javelin--shift-left-lg {
+  --art-shift-x: -50px;
+}
+
+/* Nudge the art to the left (Ryōshū). Same variable, negative direction. */
+.javelin--shift-left {
+  --art-shift-x: -40px;
+}
+
+.javelin--shift-right .javelin-art,
+.javelin--shift-left .javelin-art,
+.javelin--shift-left-lg .javelin-art {
+  left: var(--art-shift-x);
+  right: calc(var(--art-shift-x) * -1);
 }
 
 .javelin-dialogue--tap {

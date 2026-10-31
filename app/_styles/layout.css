@@ -5,6 +5,7 @@
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh;
   gap: var(--space-24);
 }
 
@@ -263,7 +264,7 @@
 }
 
 /* ── Profile home: character left, stack + favorites center, widgets right ── */
-#profile-view { min-height: 100vh; }
+#profile-view { min-height: 100vh; min-height: 100dvh; }
 #profile-view > .main-left   { flex: 8; max-width: 560px; }
 #profile-view > .main-center {
   flex: 8;
