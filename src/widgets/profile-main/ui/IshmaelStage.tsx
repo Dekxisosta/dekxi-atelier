@@ -24,6 +24,8 @@ export type LimbusCharacter = {
 export type IshmaelStageProps = {
   character?: LimbusCharacter;
   soundKey?: string;
+  /** Extra modifier classes on the root, e.g. "javelin--half" or "javelin--shift-right". */
+  className?: string;
 };
 
 const prefersReducedMotion = () =>
@@ -34,8 +36,11 @@ const prefersReducedMotion = () =>
 export default function IshmaelStage({
   character = ISHMAEL,
   soundKey = VOICE_SOUND_KEY,
+  className,
 }: IshmaelStageProps = {}) {
   const lines = character.lines;
+  // Ishmael is rendered with no props, so give him his own nudge by default.
+  const stageClass = className ?? (character === ISHMAEL ? "javelin--shift-left-lg" : undefined);
   const ALL_VOICE_URLS = useMemo<readonly string[]>(
     () => [lines.intro, ...lines.idle].flatMap((l) => (l.audio ? [l.audio] : [])),
     [lines]
@@ -153,7 +158,7 @@ export default function IshmaelStage({
   }, [done, speech.id, nextLine]);
 
   return (
-    <div className="javelin javelin--ishmael">
+    <div className={"javelin javelin--ishmael" + (stageClass ? ` ${stageClass}` : "")}>
       <div className="javelin-stage">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="javelin-bg" src={character.background} alt="" aria-hidden="true" draggable={false} />

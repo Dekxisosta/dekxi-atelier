@@ -5,5 +5,5 @@ import IshmaelStage from "./IshmaelStage";
 
 /** Idle-only Limbus panel (no touch / hotspots), reusing the Ishmael stage layout. */
 export default function DonQuixoteStage() {
-  return <IshmaelStage character={DON_QUIXOTE} />;
+  return <IshmaelStage character={DON_QUIXOTE} className="javelin--shift-right" />;
 }
