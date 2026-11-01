@@ -203,3 +203,73 @@ export async function getGithubRepos(limit = 100): Promise<GithubRepo[]> {
   // repos with images first; Array.sort is stable so pushed-date order is kept within each group
   return mapped.sort((a, b) => Number(b.images.length > 0) - Number(a.images.length > 0));
 }
+
+export interface GithubStats {
+  /** Repositories owned by the user (drives the level). */
+  repos: number;
+  /** Commits across every year of the account (drives the XP). */
+  commits: number;
+  pullRequests: number;
+  issues: number;
+  followers: number;
+}
+
+async function githubGraphql<T>(query: string, variables: Record<string, string>, token: string): Promise<T> {
+  const res = await fetch("https://api.github.com/graphql", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ query, variables }),
+    next: { revalidate: 3600 },
+  });
+  if (!res.ok) throw new Error("GitHub API error");
+  const json = await res.json();
+  if (json.errors?.length || !json.data) throw new Error(json.errors?.[0]?.message ?? "No data returned");
+  return json.data as T;
+}
+
+/** Repo count, all-time commit count and a few profile totals. */
+export async function getGithubStats(): Promise<GithubStats> {
+  const token = process.env.GITHUB_TOKEN;
+  const username = process.env.GITHUB_USERNAME || GITHUB_USERNAME;
+  if (!token) throw new Error("Missing GitHub token");
+
+  const base = await githubGraphql<any>(
+    `query($u: String!) {
+      user(login: $u) {
+        followers { totalCount }
+        pullRequests { totalCount }
+        issues { totalCount }
+        repositories(ownerAffiliation: OWNER) { totalCount }
+        contributionsCollection { contributionYears }
+      }
+    }`,
+    { u: username },
+    token
+  );
+  const user = base.user;
+  if (!user) throw new Error("GitHub user not found");
+
+  // contributionsCollection only spans one year at a time, so sum every year of the account
+  const years: number[] = user.contributionsCollection.contributionYears;
+  const perYear = years
+    .map(
+      (y) =>
+        `y${y}: contributionsCollection(from: "${y}-01-01T00:00:00Z", to: "${y}-12-31T23:59:59Z") { totalCommitContributions }`
+    )
+    .join("\n");
+  const yearly = await githubGraphql<any>(
+    `query($u: String!) { user(login: $u) { ${perYear} } }`,
+    { u: username },
+    token
+  );
+  const commits = years.reduce((sum, y) => sum + (yearly.user[`y${y}`]?.totalCommitContributions ?? 0), 0);
+
+  return {
+    repos: user.repositories.totalCount,
+    commits,
+    pullRequests: user.pullRequests.totalCount,
+    issues: user.issues.totalCount,
+    followers: user.followers.totalCount,
+  };
+}
+
