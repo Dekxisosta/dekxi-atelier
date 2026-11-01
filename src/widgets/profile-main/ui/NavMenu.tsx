@@ -2,23 +2,25 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { LogOut, LayoutGrid, Lock } from "lucide-react";
+import { LogOut, LayoutGrid, Lock, Code, Brush, Users } from "lucide-react";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import type { Tab } from "@shared/config/tabs";
 import { createClient } from "@shared/supabase/client";
 import { useTheme, type ThemeKey } from "@shared/ui/ThemeContext";
-import ReachOut from "./ReachOut";
 import FavoritesModals from "./FavoritesModals";
 import QuickLinks from "./QuickLinks";
 import InterestsSection from "./InterestsSection";
 import AboutMe from "./AboutMe";
 import ProfileHeader from "./ProfileHeader";
 import NavWidgetButton from "./NavWidgetButton";
+import CompanionRoster from "./CompanionRoster";
+import type { Friend } from "@entities/friend";
 import SteamWidget from "./SteamWidget";
 import SpotifyWidget from "./SpotifyWidget";
 
 type NavMenuProps = {
   onTabChange?: (tab: Tab) => void;
+  friends?: Friend[];
 };
 
 const MINOR_LINKS: { tab: Tab; label: string; sub: string }[] = [
@@ -80,7 +82,7 @@ function ShieldIcon() {
  * Site navigation. Replaces the old top navbar: lives under the character
  * on the profile page and works in every theme.
  */
-export default function NavMenu({ onTabChange }: NavMenuProps) {
+export default function NavMenu({ onTabChange, friends = [] }: NavMenuProps) {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [user, setUser] = useState<SupabaseUser | null>(null);
@@ -117,19 +119,29 @@ export default function NavMenu({ onTabChange }: NavMenuProps) {
       <div className="javelin-actions">
         <button
           type="button"
-          className="javelin-btn javelin-btn--formation"
+          className="javelin-btn javelin-btn--formation javelin-btn--primary"
           onClick={() => go("projects")}
         >
-          <span className="javelin-btn-label">Projects</span>
-          <span className="javelin-btn-sub">formation</span>
+          <span className="javelin-btn-logo" aria-hidden="true">
+            <Code size={22} strokeWidth={2.2} />
+          </span>
+          <span className="javelin-btn-text">
+            <span className="javelin-btn-label">Projects</span>
+            <span className="javelin-btn-sub">formation</span>
+          </span>
         </button>
         <button
           type="button"
-          className="javelin-btn javelin-btn--anchor"
+          className="javelin-btn javelin-btn--anchor javelin-btn--primary"
           onClick={() => go("commissions")}
         >
-          <span className="javelin-btn-label">Commissions</span>
-          <span className="javelin-btn-sub">weigh anchor</span>
+          <span className="javelin-btn-logo" aria-hidden="true">
+            <Brush size={22} strokeWidth={2.2} />
+          </span>
+          <span className="javelin-btn-text">
+            <span className="javelin-btn-label">Commissions</span>
+            <span className="javelin-btn-sub">weigh anchor</span>
+          </span>
         </button>
       </div>
 
@@ -149,7 +161,7 @@ export default function NavMenu({ onTabChange }: NavMenuProps) {
           <button
             key={l.tab}
             type="button"
-            className="javelin-btn javelin-btn--minor"
+            className="javelin-btn javelin-btn--minor javelin-btn--plate"
             onClick={() => go(l.tab)}
           >
             <span className="javelin-btn-label">{l.label}</span>
@@ -185,15 +197,27 @@ export default function NavMenu({ onTabChange }: NavMenuProps) {
             <NavWidgetButton label="Spotify" icon={<SpotifyIcon />}>
               <SpotifyWidget />
             </NavWidgetButton>
-            <NavWidgetButton label="Quick links" icon={<LinkIcon />} width={340}>
+            <NavWidgetButton label="Quick links" shortLabel="Links" icon={<LinkIcon />} width={340}>
               <QuickLinks />
             </NavWidgetButton>
             <NavWidgetButton label="Titles" icon={<TitlesIcon />} width={340}>
               <InterestsSection />
             </NavWidgetButton>
-            <NavWidgetButton label="BYF / DNI" icon={<ShieldIcon />} width={300}>
+            <NavWidgetButton label="BYF / DNI" shortLabel="BYF/DNI" icon={<ShieldIcon />} width={300}>
               <AboutMe />
             </NavWidgetButton>
+            {friends.length > 0 && (
+              <NavWidgetButton
+                label="Companions"
+                shortLabel="Roster"
+                icon={<Users />}
+                width={380}
+              >
+                <div className="nav-roster">
+                  <CompanionRoster friends={friends} />
+                </div>
+              </NavWidgetButton>
+            )}
           </div>
         </div>
 
@@ -220,7 +244,6 @@ export default function NavMenu({ onTabChange }: NavMenuProps) {
 
       <div className="nav-reach">
         <FavoritesModals />
-        <ReachOut />
       </div>
     </nav>
   );

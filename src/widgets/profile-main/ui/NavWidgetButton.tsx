@@ -10,6 +10,8 @@ type NavWidgetButtonProps = {
   /** Icon-only small button (default), a labelled block button with a sub line, or a small text button. */
   variant?: "icon" | "block" | "text";
   icon?: ReactNode;
+  /** Short caption shown under the icon on the tile (defaults to `label`). */
+  shortLabel?: string;
   sub?: string;
   /** Popover title; defaults to `label`. */
   heading?: string;
@@ -38,6 +40,7 @@ const MIN_COMFORTABLE_HEIGHT = 240;
  */
 export default function NavWidgetButton({
   label,
+  shortLabel,
   children,
   variant = "icon",
   icon,
@@ -134,7 +137,10 @@ export default function NavWidgetButton({
         ) : variant === "text" ? (
           label
         ) : (
-          icon
+          <>
+            {icon}
+            <span className="nav-widget-btn-label">{shortLabel ?? label}</span>
+          </>
         )}
       </button>
 

@@ -2,26 +2,24 @@
 
 import { useEffect, useState } from "react";
 
-interface TimezoneConfig { label: string; timeZone: string }
+interface TimezoneConfig { code: string; country: string; timeZone: string }
 
 const TIMEZONES: TimezoneConfig[] = [
-  { label: "PH", timeZone: "Asia/Manila"         },
-  { label: "US", timeZone: "America/New_York"    },
-  { label: "MX", timeZone: "America/Mexico_City" },
-  { label: "CN", timeZone: "Asia/Shanghai"       },
-  { label: "VN", timeZone: "Asia/Ho_Chi_Minh"    },
-  { label: "PL", timeZone: "Europe/Warsaw"       },
-  { label: "ID", timeZone: "Asia/Jakarta"        },
-  { label: "TH", timeZone: "Asia/Bangkok"        },
+  { code: "PH", country: "Philippines",   timeZone: "Asia/Manila"         },
+  { code: "US", country: "United States", timeZone: "America/New_York"    },
+  { code: "MX", country: "Mexico",        timeZone: "America/Mexico_City" },
+  { code: "CN", country: "China",         timeZone: "Asia/Shanghai"       },
+  { code: "VN", country: "Vietnam",       timeZone: "Asia/Ho_Chi_Minh"    },
+  { code: "PL", country: "Poland",        timeZone: "Europe/Warsaw"       },
+  { code: "ID", country: "Indonesia",     timeZone: "Asia/Jakarta"        },
+  { code: "TH", country: "Thailand",      timeZone: "Asia/Bangkok"        },
 ];
 
-const PAGE_SIZE = 4;
-const ROTATE_MS = 3000;
-const PAGE_COUNT = Math.ceil(TIMEZONES.length / PAGE_SIZE);
+const STORAGE_KEY = "clock-country";
 
 function formatTime(timeZone: string) {
   return new Intl.DateTimeFormat("en-US", {
-    hour: "2-digit", minute: "2-digit", hour12: true, timeZone,
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23", timeZone,
   }).format(new Date());
 }
 
@@ -33,44 +31,56 @@ function getOffsetLabel(timeZone: string) {
 }
 
 export default function ClockWidget() {
-  const [times, setTimes] = useState<Record<string, string>>({});
-  const [page, setPage] = useState(0);
+  const [code, setCode] = useState(TIMEZONES[0].code);
+  const [time, setTime] = useState("--:--:--");
 
-  // Swap to the next group of four every 3 seconds
+  // restore the last chosen country
   useEffect(() => {
-    const interval = setInterval(() => setPage((p) => (p + 1) % PAGE_COUNT), ROTATE_MS);
-    return () => clearInterval(interval);
+    try {
+      const saved = window.localStorage.getItem(STORAGE_KEY);
+      if (saved && TIMEZONES.some((t) => t.code === saved)) setCode(saved);
+    } catch {
+      /* storage unavailable: keep the default */
+    }
   }, []);
 
+  const tz = TIMEZONES.find((t) => t.code === code) ?? TIMEZONES[0];
+
   useEffect(() => {
-    const update = () => {
-      const next: Record<string, string> = {};
-      for (const tz of TIMEZONES) next[tz.label] = formatTime(tz.timeZone);
-      setTimes(next);
-    };
+    const update = () => setTime(formatTime(tz.timeZone));
     update();
     const interval = setInterval(update, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [tz.timeZone]);
 
-  const visible = TIMEZONES.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+  const choose = (next: string) => {
+    setCode(next);
+    try {
+      window.localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      /* ignore */
+    }
+  };
 
   return (
     <div className="clock-widget">
-      {/* key={page} remounts the grid so the fade-in replays on every swap */}
-      <div key={page} className="clock-widget-grid clock-widget-grid--page">
-        {visible.map((tz) => (
-          <div key={tz.label} className="clock-tile" title={`${tz.timeZone} (${getOffsetLabel(tz.timeZone)})`}>
-            <span className="clock-tile-label">{tz.label}</span>
-            <span className="clock-tile-time">{times[tz.label] ?? "--:--"}</span>
-            <span className="clock-tile-offset">{getOffsetLabel(tz.timeZone)}</span>
-          </div>
-        ))}
-      </div>
-      <div className="clock-widget-dots" aria-hidden="true">
-        {Array.from({ length: PAGE_COUNT }, (_, i) => (
-          <span key={i} className={"clock-widget-dot" + (i === page ? " is-active" : "")} />
-        ))}
+      <div className="clock-tile clock-tile--single" title={tz.timeZone}>
+        <select
+          className="clock-country-select"
+          value={code}
+          onChange={(e) => choose(e.target.value)}
+          aria-label="Country for the clock"
+        >
+          {TIMEZONES.map((t) => (
+            <option key={t.code} value={t.code}>
+              {t.country}
+            </option>
+          ))}
+        </select>
+        <div className="clock-tile-row">
+          <span className="clock-tile-time">{time}</span>
+          <span className="clock-tile-offset">{getOffsetLabel(tz.timeZone)}</span>
+        </div>
       </div>
     </div>
   );

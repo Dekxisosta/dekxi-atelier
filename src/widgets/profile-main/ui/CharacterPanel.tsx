@@ -4,10 +4,11 @@ import { useCallback, useState } from "react";
 import { useTheme, type ThemeKey } from "@shared/ui/ThemeContext";
 import type { Tab } from "@shared/config/tabs";
 import ClockWidget from "./ClockWidget";
-import DiscordWidget from "./DiscordWidget";
+import ContactSwap from "./ContactSwap";
 import CharacterToggle from "./CharacterToggle";
 import { THEME_ROSTERS } from "./characters";
 import NavMenu from "./NavMenu";
+import type { Friend } from "@entities/friend";
 import NavWidgetButton from "./NavWidgetButton";
 import StackLedger from "./StackLedger";
 
@@ -21,7 +22,13 @@ function readStoredCharacter(theme: ThemeKey): string | null {
   }
 }
 
-export default function CharacterPanel({ onTabChange }: { onTabChange?: (tab: Tab) => void }) {
+export default function CharacterPanel({
+  onTabChange,
+  friends = [],
+}: {
+  onTabChange?: (tab: Tab) => void;
+  friends?: Friend[];
+}) {
   const { theme } = useTheme();
   // chosen character id per theme (the provider only renders on the client, so storage is readable here)
   const [choices, setChoices] = useState<Partial<Record<ThemeKey, string>>>({});
@@ -63,7 +70,7 @@ export default function CharacterPanel({ onTabChange }: { onTabChange?: (tab: Ta
             </NavWidgetButton>
           </div>
           <div className="discord-col">
-            <DiscordWidget />
+            <ContactSwap />
           </div>
           <div className="clock-col">
             <ClockWidget />
@@ -89,7 +96,7 @@ export default function CharacterPanel({ onTabChange }: { onTabChange?: (tab: Ta
           </div>
         </>
       )}
-      <NavMenu onTabChange={onTabChange} />
+      <NavMenu onTabChange={onTabChange} friends={friends} />
     </div>
   );
 }
