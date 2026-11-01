@@ -111,9 +111,12 @@ export default function Projects() {
           {repos.map((r) => (
             <article key={r.id} className="project-card">
               {r.images?.length > 0 && <ProjectGallery images={r.images} name={r.name} />}
-              <h3 className="project-title">
-                <a href={r.url} target="_blank" rel="noopener noreferrer">{r.name}</a>
-              </h3>
+              <div className="project-head">
+                <h3 className="project-title">
+                  <a href={r.url} target="_blank" rel="noopener noreferrer">{r.name}</a>
+                </h3>
+                {r.language && <span className="project-lang">{r.language}</span>}
+              </div>
               <p className="project-description">{r.description ?? "No description."}</p>
 
               {r.topics.length > 0 && (
@@ -125,16 +128,15 @@ export default function Projects() {
               <Collaborators people={r.collaborators ?? []} />
 
               <div className="project-meta">
-                {r.language && <span>{r.language}</span>}
-                <span>★ {r.stars}</span>
-                <span>⑂ {r.forks}</span>
+                <span className="project-stat project-stat--star" title="Stars">★ {r.stars}</span>
+                <span className="project-stat" title="Forks">⑂ {r.forks}</span>
                 <span className="project-meta-date">pushed {timeAgo(r.pushedAt)}</span>
               </div>
 
               <div className="project-links">
                 <a className="project-link" href={r.url} target="_blank" rel="noopener noreferrer">repo →</a>
                 {r.homepage && (
-                  <a className="project-link" href={r.homepage} target="_blank" rel="noopener noreferrer">live →</a>
+                  <a className="project-link project-link--live" href={r.homepage} target="_blank" rel="noopener noreferrer">live →</a>
                 )}
               </div>
             </article>
