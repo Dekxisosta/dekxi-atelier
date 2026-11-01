@@ -70,8 +70,8 @@
   min-height: 76px;
   padding: var(--space-16) var(--space-12) var(--space-10);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--bg-dark) 86%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, color-mix(in srgb, var(--bg-dark) 72%, #000) 88%, transparent);
   backdrop-filter: blur(3px);
   box-shadow: 0 2px 8px var(--scrim-40);
 }

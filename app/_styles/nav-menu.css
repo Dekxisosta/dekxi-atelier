@@ -351,47 +351,189 @@
   flex: 1;
 }
 
-/* groups of four: fade in on every swap */
+/* single clock with a country dropdown */
 .clock-widget {
   display: flex;
   flex-direction: column;
+}
+
+.character-panel .clock-tile.clock-tile--single {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
   gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
 }
 
-.clock-widget-grid--page {
-  animation: clockPageIn 0.35s ease-out;
-}
-
-.clock-widget-dots {
+.clock-tile-row {
   display: flex;
-  justify-content: center;
-  gap: var(--space-4);
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-6);
 }
 
-.clock-widget-dot {
-  width: 4px;
-  height: 4px;
-  background: var(--border-hover);
-  opacity: 0.5;
-  transition: background 0.2s ease, opacity 0.2s ease;
+.character-panel .clock-tile--single .clock-tile-time {
+  font-size: 15px;
 }
 
-.clock-widget-dot.is-active {
-  background: var(--accent);
-  opacity: 1;
+.character-panel .clock-tile--single .clock-tile-offset {
+  display: inline;
+  white-space: nowrap;
 }
 
-@keyframes clockPageIn {
-  from { opacity: 0; transform: translateY(3px); }
-  to   { opacity: 1; transform: translateY(0); }
+.clock-country-select {
+  width: 100%;
+  min-width: 0;
+  padding: 2px 18px 2px 6px;
+  border: 1px solid #8f949f;
+  border-radius: 0;
+  background-color: #2a3339;
+  background-image:
+    linear-gradient(180deg, #3b454d 0%, #1e262b 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23d0cfd1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0 0, right 6px center;
+  background-size: 100% 100%, 8px 5px;
+  color: #d0cfd1;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .clock-widget-grid--page { animation: none; }
+.clock-country-select:hover,
+.clock-country-select:focus-visible {
+  border-color: #e5b230;
+  outline: none;
 }
 
-@media (max-width: 420px) {
-  .character-panel .clock-row { flex-direction: column; }
+.clock-country-select option {
+  background: #2a3339;
+  color: #d0cfd1;
+  text-transform: none;
+}
+
+/* mobile: arsenal / discord / clock stay on one line */
+.player-card-row__glass {
+  display: none;
+}
+
+/* ── Desktop: the header row is a frosted-glass overlay. The tab content scrolls underneath it
+   (blurred, fading out at the bottom edge) instead of being cut off by a solid block. ── */
+@media (min-width: 1049px) {
+  .player-card-row {
+    position: relative;
+    z-index: 5;
+    /* let wheel / drag events pass through to the scrolling content below */
+    pointer-events: none;
+  }
+
+  /* progressive glass: the blur is strongest at the top and eases off to nothing at the bottom edge */
+  .player-card-row__glass {
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    /* run past the bar so the blur fades out over the content */
+    bottom: -32px;
+    display: block;
+    pointer-events: none;
+  }
+
+  .player-card-row__glass > span {
+    position: absolute;
+    inset: 0;
+  }
+
+  .player-card-row__glass > span:nth-child(1) {
+    -webkit-backdrop-filter: blur(16px) saturate(1.25);
+    backdrop-filter: blur(16px) saturate(1.25);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 30%, transparent 50%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 30%, transparent 50%);
+  }
+  .player-card-row__glass > span:nth-child(2) {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    -webkit-mask-image: linear-gradient(180deg, transparent 10%, #000 30%, #000 45%, transparent 65%);
+    mask-image: linear-gradient(180deg, transparent 10%, #000 30%, #000 45%, transparent 65%);
+  }
+  .player-card-row__glass > span:nth-child(3) {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    -webkit-mask-image: linear-gradient(180deg, transparent 30%, #000 45%, #000 60%, transparent 78%);
+    mask-image: linear-gradient(180deg, transparent 30%, #000 45%, #000 60%, transparent 78%);
+  }
+  .player-card-row__glass > span:nth-child(4) {
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    -webkit-mask-image: linear-gradient(180deg, transparent 45%, #000 60%, #000 72%, transparent 88%);
+    mask-image: linear-gradient(180deg, transparent 45%, #000 60%, #000 72%, transparent 88%);
+  }
+  .player-card-row__glass > span:nth-child(5) {
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
+    -webkit-mask-image: linear-gradient(180deg, transparent 60%, #000 75%, #000 85%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 60%, #000 75%, #000 85%, transparent 100%);
+  }
+
+  /* tint that fades out with the blur */
+  .player-card-row__glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--bg) 62%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 34%, transparent) 55%,
+      transparent 100%
+    );
+  }
+
+  .player-card,
+  .announce-strip {
+    z-index: 1;
+  }
+
+  .player-card__lv,
+  a.announce-strip__banner {
+    pointer-events: auto;
+  }
+
+  /* the scrolling panel starts at the very top and runs under the header; padding keeps the first content below it */
+  #profile-view > .main-center > .tab-panel {
+    margin-top: calc(-1 * (72px + var(--space-24)));
+    padding-top: calc(72px + var(--space-24));
+  }
+}
+
+/* not enough room for the card and the banner side by side */
+@media (max-width: 1100px) {
+  .announce-strip,
+  .player-card-row__gear-slot {
+    display: none;
+  }
+}
+
+/* tablet and below: the header is not rendered (PlayerCard.tsx); this only covers the moment before it unmounts */
+@media (max-width: 1048px) {
+  .player-card-row {
+    display: none;
+  }
+}
+
+/* the header row itself is narrow (set from PlayerCard): only the status card stays */
+.player-card-row.is-compact .announce-strip,
+.player-card-row.is-compact .player-card-row__gear-slot {
+  display: none;
+}
+
+@media (max-width: 728px) {
+  .character-panel .clock-row { flex-direction: row; flex-wrap: nowrap; }
 }
 
 /* ── Profile (short introduction) inside the navbar popover ── */
@@ -490,12 +632,6 @@
   background: var(--accent-dim);
 }
 
-@media (max-width: 420px) {
-  .character-panel .arsenal-col,
-  .character-panel .arsenal-col .arsenal-btn {
-    width: 100%;
-  }
-}
 
 /* ── Stack ledger (inside the popover) ── */
 .stack-ledger {
@@ -633,4 +769,881 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* ── Primary buttons (Projects / Commissions): Formation / Weigh Anchor look ──
+   palette: #3a3845 frame · #d0cfd1 rim · blue #31aae4 / #41688e / #1c64af · gold #e5b230 / #9b7649 */
+.javelin-btn.javelin-btn--primary {
+  --c1: 18px; /* top-left chamfer */
+  --c2: 12px; /* bottom-right chamfer */
+  --frame: #3a3845;
+  --rim: #d0cfd1;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  min-height: 74px;
+  padding: var(--space-8) var(--space-20) 26px;
+  border: 0;
+  background: var(--frame);
+  color: #fff;
+  font-style: italic;
+  clip-path: polygon(
+    var(--c1) 0, 100% 0,
+    100% calc(100% - var(--c2)), calc(100% - var(--c2)) 100%,
+    0 100%, 0 var(--c1)
+  );
+  box-shadow: none;
+}
+
+.javelin-btn.javelin-btn--primary.javelin-btn--formation {
+  --fill: #31aae4;
+  --strip: #41688e;
+  --shade: #1c64af;
+  --grid: rgba(28, 100, 175, 0.2);
+}
+
+.javelin-btn.javelin-btn--primary.javelin-btn--anchor {
+  --fill: #e5b230;
+  --strip: #9b7649;
+  --shade: #9b7649;
+  --grid: rgba(155, 118, 73, 0.22);
+}
+
+/* light rim just inside the dark frame */
+.javelin-btn.javelin-btn--primary::before,
+.javelin-btn.javelin-btn--primary::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.javelin-btn.javelin-btn--primary::before {
+  inset: 2px;
+  background: var(--rim);
+  clip-path: polygon(
+    calc(var(--c1) - 1.2px) 0, 100% 0,
+    100% calc(100% - var(--c2) + 1.2px), calc(100% - var(--c2) + 1.2px) 100%,
+    0 100%, 0 calc(var(--c1) - 1.2px)
+  );
+}
+
+/* the coloured face: gloss, pixel grid, corner notch */
+.javelin-btn.javelin-btn--primary::after {
+  inset: 4px;
+  background:
+    linear-gradient(to top left, var(--shade) 50%, transparent 50%) right bottom / 30px 20px no-repeat,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0) 48%),
+    repeating-linear-gradient(0deg, var(--grid) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 8px),
+    var(--fill);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  clip-path: polygon(
+    calc(var(--c1) - 2.3px) 0, 100% 0,
+    100% calc(100% - var(--c2) + 2.3px), calc(100% - var(--c2) + 2.3px) 100%,
+    0 100%, 0 calc(var(--c1) - 2.3px)
+  );
+}
+
+.javelin-btn.javelin-btn--primary:hover {
+  filter: brightness(1.1) saturate(1.05);
+}
+
+/* content sits above the frame layers */
+.javelin-btn.javelin-btn--primary .javelin-btn-logo,
+.javelin-btn.javelin-btn--primary .javelin-btn-text {
+  z-index: 1;
+}
+
+.javelin-btn.javelin-btn--primary .javelin-btn-logo {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-style: normal;
+}
+
+.javelin-btn.javelin-btn--primary .javelin-btn-logo svg {
+  display: block;
+  width: 30px;
+  height: 30px;
+  stroke-width: 2.6;
+  filter:
+    drop-shadow(1px 0 0 var(--frame)) drop-shadow(-1px 0 0 var(--frame))
+    drop-shadow(0 1px 0 var(--frame)) drop-shadow(0 -1px 0 var(--frame))
+    drop-shadow(0 2px 0 var(--frame));
+}
+
+.javelin-btn.javelin-btn--primary .javelin-btn-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.javelin-btn.javelin-btn--primary .javelin-btn-label {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: #fff;
+  -webkit-text-stroke: 4px var(--frame);
+  paint-order: stroke fill;
+  text-shadow: 0 2px 0 var(--frame);
+}
+
+/* sub-label: dark strip along the bottom, right end cut at an angle */
+.javelin-btn.javelin-btn--primary .javelin-btn-sub {
+  position: absolute;
+  z-index: 1;
+  left: 4px;
+  bottom: 4px;
+  width: 66%;
+  padding: 2px 18px 2px 14px;
+  background: var(--strip);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: left;
+  opacity: 1;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+
+/* mobile: drop the logo and tighten up */
+@media (max-width: 728px) {
+  .javelin-btn.javelin-btn--primary .javelin-btn-logo {
+    display: none;
+  }
+
+  .javelin-btn.javelin-btn--primary {
+    min-height: 64px;
+    padding: var(--space-8) var(--space-12) 24px;
+  }
+
+  .javelin-btn.javelin-btn--primary .javelin-btn-label {
+    font-size: 17px;
+    -webkit-text-stroke-width: 3px;
+  }
+
+  .javelin-btn.javelin-btn--primary .javelin-btn-sub {
+    width: 72%;
+    font-size: 9px;
+  }
+}
+
+/* ── Arsenal / Gallery / Blog buttons: square, metallic border on the sides and bottom (none on top) ── */
+.javelin-btn.javelin-btn--minor:is(.arsenal-btn, .javelin-btn--plate) {
+  --metal: linear-gradient(
+    135deg,
+    #f4f6fa 0%, #9ea4b0 14%, #e9ecf2 28%, #6a707c 44%,
+    #d6dae2 58%, #8a909c 74%, #f4f6fa 88%, #a9afbb 100%
+  );
+  clip-path: none;
+  border-radius: 0;
+  border: 3px solid transparent;
+  border-top: 0;
+  background:
+    linear-gradient(180deg, var(--card), var(--card)) padding-box,
+    var(--metal) border-box;
+}
+
+.javelin-btn.javelin-btn--minor:is(.arsenal-btn, .javelin-btn--plate).is-active {
+  background:
+    linear-gradient(180deg, var(--accent-dim), var(--accent-dim)) padding-box,
+    var(--metal) border-box;
+}
+
+/* Arsenal: beveled (cut) corners via CSS corner-shape. Browsers without support keep square corners. */
+@supports (corner-shape: bevel) {
+  .javelin-btn.javelin-btn--minor:is(.arsenal-btn, .javelin-btn--plate) {
+    border-radius: 10px;
+    corner-shape: bevel;
+  }
+}
+
+/* Arsenal: thick bottom bar with baked-in creases where it meets the sides */
+.javelin-btn.javelin-btn--minor:is(.arsenal-btn, .javelin-btn--plate) {
+  --bar: 8px;
+  --crease-inset: 0px;
+  position: relative;
+  border-bottom-width: var(--bar);
+}
+
+.javelin-btn.javelin-btn--minor:is(.arsenal-btn, .javelin-btn--plate)::after {
+  content: "";
+  position: absolute;
+  left: var(--crease-inset);
+  right: var(--crease-inset);
+  bottom: calc(var(--bar) * -1);
+  height: var(--bar);
+  pointer-events: none;
+  background:
+    /* mitre lines at both joints */
+    linear-gradient(to top right, transparent calc(50% - 0.75px), rgba(0, 0, 0, 0.75) 50%, transparent calc(50% + 0.75px)) left bottom / 5px 100% no-repeat,
+    linear-gradient(to top left, transparent calc(50% - 0.75px), rgba(0, 0, 0, 0.75) 50%, transparent calc(50% + 0.75px)) right bottom / 5px 100% no-repeat,
+    /* shadow pooling into the crease from each end */
+    linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 18px),
+    linear-gradient(to left, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 18px),
+    /* bar bevel: lit top edge, shaded lower edge */
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.45) 0, rgba(255, 255, 255, 0) 2px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0.35) 100%);
+}
+
+@supports (corner-shape: bevel) {
+  .javelin-btn.javelin-btn--minor:is(.arsenal-btn, .javelin-btn--plate) {
+    --crease-inset: 7px;
+  }
+}
+
+/* ── Utility row: folder-style tiles (icon on top, dark caption plaque below) ──
+   silver by default, gold when open / for the account actions */
+.nav-menu-utility .nav-utility-left {
+  flex-wrap: wrap;
+}
+
+.nav-widgets .nav-widget-btn,
+.nav-account .nav-util-btn {
+  --tile-frame: #3a3845;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  width: 48px;
+  height: 52px;
+  padding: 0 0 14px;
+  overflow: hidden;
+  border: 2px solid var(--tile-frame);
+  border-radius: 3px;
+  background: linear-gradient(180deg, #eceef1 0%, #bcc0c8 52%, #8f949f 100%);
+  color: var(--tile-frame);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.18),
+    0 1px 0 rgba(0, 0, 0, 0.45);
+}
+
+.nav-widgets .nav-widget-btn svg,
+.nav-account .nav-util-btn svg {
+  width: 20px;
+  height: 20px;
+  opacity: 1;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.6));
+}
+
+.nav-widget-btn-label,
+.nav-account .nav-util-btn span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1px 2px;
+  background: var(--tile-frame);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* gold: open widget + account actions */
+.nav-widgets .nav-widget-btn.is-active,
+.nav-account .nav-util-btn {
+  background: linear-gradient(180deg, #f6dc7c 0%, #e5b230 52%, #9b7649 100%);
+}
+
+.nav-widgets .nav-widget-btn:hover,
+.nav-account .nav-util-btn:hover {
+  color: var(--tile-frame);
+  border-color: var(--tile-frame);
+  filter: brightness(1.1);
+}
+
+.nav-widgets .nav-widget-btn.is-active {
+  color: var(--tile-frame);
+  border-color: var(--tile-frame);
+}
+
+.nav-widgets .nav-widget-btn:hover {
+  background: linear-gradient(180deg, #f6f7f9 0%, #c8ccd3 52%, #9a9fa9 100%);
+}
+
+.nav-widgets .nav-widget-btn.is-active:hover,
+.nav-account .nav-util-btn:hover {
+  background: linear-gradient(180deg, #f6dc7c 0%, #e5b230 52%, #9b7649 100%);
+}
+
+
+/* chipped (dog-eared) top-right corner, like a folder tab */
+.nav-widgets .nav-widget-btn,
+.nav-account .nav-util-btn {
+  --chip: 12px;
+  border-radius: 0;
+  clip-path: polygon(
+    0 0, calc(100% - var(--chip)) 0,
+    100% var(--chip), 100% 100%, 0 100%
+  );
+}
+
+/* folded-over flap inside the chip */
+.nav-widgets .nav-widget-btn::before,
+.nav-account .nav-util-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--chip);
+  height: var(--chip);
+  pointer-events: none;
+  background: linear-gradient(to bottom left, transparent 50%, var(--tile-frame) 50%);
+}
+
+/* ── Category tabs (Anime / VTubers / Games …): gunmetal, chipped like the folder tiles ── */
+.nav-favorites .nav-fav-btn {
+  --chip: 9px;
+  border: 1px solid #8f949f;
+  border-radius: 0;
+  background: linear-gradient(180deg, #3b454d 0%, #2a3339 55%, #1e262b 100%);
+  color: #d0cfd1;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+  clip-path: polygon(
+    0 0, calc(100% - var(--chip)) 0,
+    100% var(--chip), 100% 100%, 0 100%
+  );
+}
+
+.nav-favorites .nav-fav-btn:hover {
+  color: #fff;
+  border-color: #d0cfd1;
+  background: linear-gradient(180deg, #46525b 0%, #323d44 55%, #242d33 100%);
+}
+
+.nav-favorites .nav-fav-btn.is-active {
+  color: #e5b230;
+  border-color: #e5b230;
+  background: linear-gradient(180deg, #3b454d 0%, #2a3339 55%, #1e262b 100%);
+}
+
+/* ── Discord status / email: share one slot, cross-fade every 5s ── */
+.contact-swap {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+
+.contact-swap__item {
+  grid-area: 1 / 1;
+  display: flex;
+  min-width: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s;
+}
+
+.contact-swap__item.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.contact-swap__item > * {
+  flex: 1;
+}
+
+.contact-swap__email {
+  color: inherit;
+  text-decoration: none;
+}
+
+.contact-swap__email:hover {
+  background: var(--card-hover);
+}
+
+.contact-swap__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-dim);
+  color: var(--accent-light);
+}
+
+.contact-swap__email .discord-card__custom-status {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-swap__item { transition: none; }
+}
+
+
+/* ── Companion roster inside the navbar popover: stacked layout, name + links always shown ── */
+.nav-roster .roster {
+  margin: 0;
+}
+
+.nav-roster .roster-body {
+  flex-direction: column;
+}
+
+.nav-roster .roster-info {
+  display: flex;
+}
+
+.nav-roster .roster-grid {
+  grid-template-columns: repeat(auto-fill, 38px);
+  justify-content: flex-start;
+  overflow-x: hidden;
+  background: linear-gradient(to bottom, var(--scrim-35), transparent);
+}
+
+/* ── Player card (top of the center column): light header bar with a dark title panel ── */
+.player-card-row {
+  --frame: #3a3845;
+  --silver: #8f949f;
+  --gold: #e5b230;
+  /* image = full height; the light bar = half of it, top aligned; a steel bar (a quarter of the light bar) sits right under it */
+  --card-h: 72px;
+  --bar-h: calc(var(--card-h) / 2);
+  /* horizontal run of the 28deg slant over each height (h * tan 28deg) */
+  --slant: 38px;
+  --bar-slant: 19px;
+  --bar2-h: calc(var(--bar-h) / 4);
+  --bar2-slant: 5px;
+  --bar2-inset: 44px;
+  /* shared light-bar texture + steel texture */
+  --bar-bg:
+    /* stepped grey / white streaks running the full width of the bar */
+    linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)) 100% 14% / 46% 3px no-repeat,
+    linear-gradient(rgba(0, 0, 0, 0.09), rgba(0, 0, 0, 0.09)) 94% 38% / 58% 4px no-repeat,
+    linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)) 100% 62% / 38% 2px no-repeat,
+    linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)) 88% 84% / 70% 4px no-repeat,
+    /* fine scanlines over everything */
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.035) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, #ffffff 0%, #eceef1 52%, #c9cdd4 100%);
+  --steel-bg: linear-gradient(180deg, #ffffff 0%, #d5d9df 22%, #8c939d 48%, #4a5058 74%, #23272d 100%);
+  /* brushed metal strip used as the bottom border of the picture and of the banner */
+  --metal-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0 1px, transparent 1px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0 1px, rgba(0, 0, 0, 0.08) 1px 3px),
+    linear-gradient(180deg, #f2f4f7 0%, #b4bac3 38%, #7d838d 70%, #c6cbd3 100%);
+  /* the status card and the banner share this width */
+  --panel-w: 400px;
+  display: flex;
+  align-items: flex-start;
+  min-width: 0;
+  /* bleed up, left and right past the column's padding */
+  margin: calc(-1 * var(--space-20)) calc(-1 * var(--space-20)) 0;
+  width: calc(100% + var(--space-20) * 2);
+}
+
+.player-card {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-12);
+  flex: 0 1 auto;
+  /* not full width: the right end is cut diagonally */
+  width: var(--panel-w);
+  max-width: 100%;
+  box-sizing: border-box;
+  height: var(--card-h);
+  padding: 0 calc(var(--bar-slant) + var(--space-12)) 0 0;
+}
+
+/* light bar: half the image height, top aligned, right end cut diagonally */
+.player-card::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--bar-h);
+  box-sizing: border-box;
+  border-bottom: 2px solid var(--silver);
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--bar-slant)) 100%, 0 100%);
+  background: var(--bar-bg);
+}
+
+/* metal bar: a quarter of the height of the light bar, top aligned right below it, ends a bit shorter */
+.player-card::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: var(--bar2-inset);
+  top: var(--bar-h);
+  height: var(--bar2-h);
+  box-sizing: border-box;
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--bar2-slant)) 100%, 0 100%);
+  /* polished steel: bright top edge, grey body, dark lower edge */
+  background: var(--steel-bg);
+}
+
+/* gear: a round metallic plate centered between the status card and the banner */
+.player-card-row__gear-slot {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  min-width: 0;
+  height: var(--card-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-gear {
+  display: block;
+  width: 46px;
+  height: 46px;
+  box-sizing: border-box;
+  padding: 7px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #2a3339 0 62%, transparent 63%),
+    linear-gradient(145deg, #f2f4f7 0%, #8f949f 50%, #c6cbd3 100%);
+  box-shadow: 0 0 0 1px var(--frame), 0 2px 8px rgba(0, 0, 0, 0.45);
+  pointer-events: auto;
+}
+
+.header-gear__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: headerGearSpin 2.4s linear infinite;
+  animation-play-state: paused;
+}
+
+/* only spins while hovered; pausing (not resetting) keeps it where it stopped */
+.header-gear:hover .header-gear__svg {
+  animation-play-state: running;
+}
+
+@keyframes headerGearSpin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-gear__svg {
+    animation: none;
+  }
+}
+
+/* event banner: far right of the row, same height as the picture, rounded left edge and a straight right edge, metal strip along the bottom */
+.announce-strip {
+  position: relative;
+  flex: 0 1 var(--panel-w);
+  width: var(--panel-w);
+  min-width: 0;
+  height: var(--card-h);
+  margin-left: auto;
+}
+
+.announce-strip__banner {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  background: var(--frame);
+  /* rounded bottom-left corner (quarter ellipse, square at the top, straight edge on the right) */
+  -webkit-mask:
+    linear-gradient(#000, #000) var(--slant) 0 / calc(100% - var(--slant)) 100% no-repeat,
+    radial-gradient(ellipse 100% 100% at 100% 0, #000 99%, transparent 100%) 0 0 / var(--slant) 100% no-repeat;
+  mask:
+    linear-gradient(#000, #000) var(--slant) 0 / calc(100% - var(--slant)) 100% no-repeat,
+    radial-gradient(ellipse 100% 100% at 100% 0, #000 99%, transparent 100%) 0 0 / var(--slant) 100% no-repeat;
+}
+
+.announce-strip__img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  user-select: none;
+}
+
+.announce-strip__img.is-active {
+  opacity: 1;
+}
+
+/* glossy top half + fine scanlines over the picture, like the dark title panel */
+.announce-strip__shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0 46%, rgba(255, 255, 255, 0) 46%),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0 1px, transparent 1px 3px);
+}
+
+/* brushed-metal strip along the bottom edge, same as under the picture */
+.announce-strip__banner::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 7px;
+  background: var(--metal-bg);
+  border-top: 1px solid #5b616b;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+/* slide indicators */
+.announce-strip__dots {
+  position: absolute;
+  right: var(--space-16);
+  bottom: 12px;
+  display: flex;
+  gap: var(--space-4);
+  pointer-events: none;
+}
+
+.announce-strip__dot {
+  width: 10px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  transform: skewX(-28deg);
+}
+
+.announce-strip__dot.is-active {
+  background: var(--gold);
+}
+
+a.announce-strip__banner {
+  cursor: pointer;
+}
+
+a.announce-strip__banner:hover .announce-strip__img.is-active {
+  filter: brightness(1.12);
+}
+
+/* character image fills the whole light area (full height, flush left) with a metal strip as its bottom border */
+.player-card__frame {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  align-self: stretch;
+  width: calc(var(--card-h) + var(--slant));
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--frame);
+  /* same diagonal edge as the dark title panel */
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
+}
+
+.player-card__avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: var(--frame);
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+/* brushed-metal strip along the bottom edge of the image */
+.player-card__frame::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 7px;
+  background: var(--metal-bg);
+  border-top: 1px solid #5b616b;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+.player-card__main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  height: var(--bar-h);
+  /* the bottom border of the bar is 2px */
+  padding-bottom: 2px;
+  box-sizing: border-box;
+  gap: var(--space-10);
+  flex: 1;
+  min-width: 0;
+}
+
+.player-card__main > .player-card__tag,
+.player-card__main > .player-card__lv {
+  align-self: center;
+}
+
+/* dark slanted panel behind the title (skewed, not clipped) */
+.player-card__title-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: center;
+  flex: 0 1 auto;
+  min-width: 0;
+  /* panel = title area + a little padding */
+  padding: var(--space-4) var(--space-24) var(--space-4) var(--space-20);
+}
+
+.player-card__title-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    /* glossy top half */
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0 46%, rgba(255, 255, 255, 0) 46%),
+    /* fine diagonal hatch */
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, #4a4f57 0%, #22262b 45%, #0e1013 100%);
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+  transform: skewX(-28deg);
+}
+
+/* thick gold italic title with a dark outline and a looping shine.
+   Three layers share the same text: ::before = dark outline, the h2 = gold body, ::after = shine. */
+.player-card__title {
+  position: relative;
+  isolation: isolate;
+  margin: 0;
+  color: var(--gold);
+  font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1.15;
+  white-space: nowrap;
+  /* gold stroke on the fill makes the glyphs heavier */
+  -webkit-text-stroke: 1.5px var(--gold);
+}
+
+.player-card__title::before,
+.player-card__title::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.player-card__title::before {
+  z-index: -1;
+  color: #000;
+  -webkit-text-stroke: 5px #000;
+  text-shadow: 0 2px 0 #000;
+}
+
+.player-card__title::after {
+  z-index: 1;
+  color: transparent;
+  -webkit-text-stroke: 0;
+  background:
+    /* moving highlight band */
+    linear-gradient(105deg, transparent 0 38%, rgba(255, 255, 255, 0.95) 47%, rgba(255, 255, 255, 0) 56%, transparent 100%) 100% 0 / 250% 100% no-repeat,
+    /* static gloss: lighter top half, deeper gold bottom */
+    linear-gradient(180deg, rgba(255, 246, 200, 0.75) 0 48%, rgba(150, 100, 20, 0.35) 52% 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: playerTitleShine 3.2s ease-in-out infinite;
+}
+
+@keyframes playerTitleShine {
+  0%   { background-position: 100% 0, 0 0; }
+  55%  { background-position: 0 0, 0 0; }
+  100% { background-position: 0 0, 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .player-card__title::after {
+    animation: none;
+  }
+}
+
+/* black "DATA"-style tag in the light area */
+.player-card__tag {
+  flex: 0 0 auto;
+  padding: 0 var(--space-10) 0 var(--space-8);
+  height: 14px;
+  background: #000;
+  color: #fff;
+  line-height: 14px;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transform: skewX(-28deg);
+}
+
+.player-card__lv {
+  display: flex;
+  align-items: baseline;
+  flex: 0 0 auto;
+  gap: var(--space-2);
+  margin-left: auto;
+  padding: 0 var(--space-10);
+  border: 1px solid #fff;
+  background: linear-gradient(180deg, #3b454d 0%, #2a3339 55%, #1e262b 100%);
+  box-shadow: 0 0 0 1px var(--silver);
+  color: #fff;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.player-card__lv-label {
+  font-size: 10px;
+  color: var(--gold);
+}
+
+.player-card__lv-value {
+  font-size: 18px;
+  line-height: 1.25;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 728px) {
+  .player-card-row {
+    --card-h: 62px;
+    --slant: 33px;
+    --bar-slant: 16px;
+    --bar2-slant: 4px;
+    --bar2-inset: 36px;
+    margin: 0;
+    width: auto;
+  }
+
+  .player-card {
+    width: fit-content;
+    min-width: min(320px, 100%);
+  }
+
+  .player-card__title {
+    font-size: 18px;
+  }
+
+  .player-card__tag {
+    display: none;
+  }
 }
